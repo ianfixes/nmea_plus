@@ -5,7 +5,7 @@ module NMEAPlus
   module Message
     module NMEA
 
-      class GPAAM < NMEAPlus::Message::NMEA::NMEAMessage
+      class AAM < NMEAPlus::Message::NMEA::NMEAMessage
         def arrival_circle_entered?
           _av_boolean(@fields[1])
         end

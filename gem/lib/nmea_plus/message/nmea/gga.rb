@@ -5,7 +5,7 @@ module NMEAPlus
   module Message
     module NMEA
 
-      class GPGGA < NMEAPlus::Message::NMEA::NMEAMessage
+      class GGA < NMEAPlus::Message::NMEA::NMEAMessage
         def fix_time
           _utctime_hms(@fields[1])
         end
