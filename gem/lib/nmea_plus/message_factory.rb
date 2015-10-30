@@ -9,6 +9,13 @@ module NMEAPlus
       "FIXME_parent_module"
     end
 
+    # a way to override the data_type (e.g. __AAM) with GPAAM to get a match
+    # whatever factory extends this class should override this method
+    def self.alternate_data_type(data_type)
+      data_type # in basic implementation, there is no alternative.
+    end
+
+    # check whether a given object exists.  this will work for all consts but shhhhhhhhh
     def self.message_class_exists?(class_identifier)
       begin
         Object::const_get(class_identifier)
@@ -18,19 +25,18 @@ module NMEAPlus
       end
     end
 
+    # shortcut for the full name to a message class
     def self.message_class_name(data_type)
       "NMEAPlus::Message::#{self.parent_module}::#{data_type}"
     end
 
+    # use the actual type if we have it, else try an alternate (and let it fail there)
     def self.best_match_for_data_type(data_type)
       return data_type if self.message_class_exists?(self.message_class_name(data_type))
       return self.alternate_data_type(data_type)
     end
 
-    def self.alternate_data_type(data_type)
-      data_type # in basic implementation, there is no alternative.
-    end
-
+    # get a message class through reflection
     def self.dynamically_get_message_object(class_identifier)
       begin
         Object::const_get(class_identifier).new
