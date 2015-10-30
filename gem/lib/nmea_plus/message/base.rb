@@ -56,7 +56,7 @@ module NMEAPlus
        field
      end
 
-     def _utctime(field)
+     def _utctime_hms(field)
        return nil if field.empty?
        now = Time.now
        hms = field.scan(/../).map { |t| t.to_i }
