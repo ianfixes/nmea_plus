@@ -13,8 +13,16 @@ module NMEAPlus
         def message_type
           return data_type[2..-1]
         end
-      end
 
+        def _av_boolean data
+          case data
+          when 'A'; return true
+          when 'V'; return false
+          end
+          nil
+        end
+
+      end
     end
   end
 end
