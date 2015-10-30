@@ -1,8 +1,8 @@
 
 require_relative "message_factory"
-require_relative "message/nmea/gpgga"
-require_relative "message/nmea/gpaam"
-require_relative "message/nmea/gpalm"
+require_relative "message/nmea/gga"
+require_relative "message/nmea/aam"
+require_relative "message/nmea/alm"
 
 module NMEAPlus
 
@@ -14,10 +14,7 @@ module NMEAPlus
 
     def self.alternate_data_type(data_type)
       # match last 3 digits (get rid of talker)
-      case data_type[2..4]
-      when "AAM"; return "GPAAM"
-      end
-      data_type
+      data_type[2..4]
     end
   end
 

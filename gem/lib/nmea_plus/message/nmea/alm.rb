@@ -3,7 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
-      class GPALM < NMEAPlus::Message::NMEA::NMEAMessage
+      class ALM < NMEAPlus::Message::NMEA::NMEAMessage
         def total_messages
           _integer(@fields[1])
         end

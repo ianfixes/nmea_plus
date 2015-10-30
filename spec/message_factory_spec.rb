@@ -19,7 +19,7 @@ RSpec.describe NMEAPlus::NMEAMessageFactory, "#create" do
 
     context "by itself" do
       it "has basic functions" do
-        expect(NMEAPlus::NMEAMessageFactory.alternate_data_type("__AAM")).to eq("GPAAM")
+        expect(NMEAPlus::NMEAMessageFactory.alternate_data_type("GPAAM")).to eq("AAM")
       end
     end
 
