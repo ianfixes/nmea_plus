@@ -80,6 +80,28 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
     end
 
 
+    context "when reading a GPALM message" do
+      it "properly reports various fields" do
+        input = "$GPALM,1,1,15,1159,00,441d,4e,16be,fd5e,a10c9f,4a2da4,686e81,58cbe1,0a4,001*5B"
+        parsed = @parser.parse(input)
+        expect(parsed.total_messages).to eq(1)
+        expect(parsed.message_number).to eq(1)
+        expect(parsed.satellite_prn).to eq(15)
+        expect(parsed.gps_week).to eq(1159)
+        expect(parsed.sv_health).to eq(0)
+        expect(parsed.eccentricity).to eq(17437)
+        expect(parsed.reference_time).to eq(78)
+        expect(parsed.inclination_angle).to eq(5822)
+        expect(parsed.ascension_rate).to eq(64862)
+        expect(parsed.semimajor_axis_root).to eq(10554527)
+        expect(parsed.perigee_argument).to eq(4861348)
+        expect(parsed.ascension_node_longitude).to eq(6844033)
+        expect(parsed.mean_anomaly).to eq(5819361)
+        expect(parsed.f0_clock).to eq(164)
+        expect(parsed.f1_clock).to eq(1)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
