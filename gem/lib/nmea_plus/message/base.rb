@@ -7,6 +7,7 @@ module NMEAPlus
      attr_reader :fields
      attr_accessor :checksum
      attr_accessor :interpreted_data_type
+     attr_accessor :next_part
 
      def original
        "#{prefix}#{payload}*#{checksum}"
@@ -27,6 +28,37 @@ module NMEAPlus
 
      def calculated_checksum
        "%02x" % payload.each_byte.map{|b| b.ord}.reduce(:^)
+     end
+
+     # many messages override these fields
+     def total_messages
+       1
+     end
+
+     # sequence number
+     def message_number
+       1
+     end
+
+     # create a linked list (O(n) implementation; message parts assumed to be < 10) of message parts
+     def add_message_part(msg)
+       if @next_part.nil?
+         @next_part = msg
+       else
+         @next_part.add_message_part(msg)
+       end
+     end
+
+     def all_messages_received?
+       message_number == 1 && _all_message_parts_chained?(0)
+     end
+
+     def _all_message_parts_chained?(highest_contiguous_index)
+       mn = message_number # just in case this is expensive to compute
+       return false if mn - highest_contiguous_index != 1 # indicating a skip or restart
+       return true  if mn == total_messages               # indicating we made it to the end
+       return false if @next_part.nil?                    # indicating we're incomplete
+       @next_part._all_message_parts_chained?(mn)         # recurse down
      end
 
      # conversion functions

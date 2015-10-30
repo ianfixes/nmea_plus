@@ -25,6 +25,9 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.checksum).to eq("47")
         expect(parsed.checksum).to eq(parsed.calculated_checksum)
         expect(parsed.checksum_ok?).to eq(true)
+        expect(parsed.total_messages).to eq(1)
+        expect(parsed.message_number).to eq(1)
+        expect(parsed.all_messages_received?).to eq(true)
       end
     end
 
@@ -34,6 +37,33 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         parsed = @parser.parse(input)
         expect(parsed.calculated_checksum).to eq("47")
         expect(parsed.checksum_ok?).to eq(false)
+      end
+    end
+
+    context "when reading a message" do
+      it "recognizes multipart" do
+        input = "$GPALM,3,1*00"
+        parsed1 = @parser.parse(input)
+        expect(parsed1.total_messages).to eq(3)
+        expect(parsed1.message_number).to eq(1)
+        expect(parsed1.all_messages_received?).to eq(false)
+
+        input = "$GPALM,3,2*00"
+        parsed2 = @parser.parse(input)
+        expect(parsed2.total_messages).to eq(3)
+        expect(parsed2.message_number).to eq(2)
+        expect(parsed2.all_messages_received?).to eq(false)
+
+        input = "$GPALM,3,3*00"
+        parsed3 = @parser.parse(input)
+        expect(parsed3.total_messages).to eq(3)
+        expect(parsed3.message_number).to eq(3)
+        expect(parsed3.all_messages_received?).to eq(false)
+
+        parsed1.add_message_part(parsed2)
+        expect(parsed1.all_messages_received?).to eq(false)
+        parsed1.add_message_part(parsed3)
+        expect(parsed1.all_messages_received?).to eq(true)
       end
     end
 
