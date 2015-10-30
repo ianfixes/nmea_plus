@@ -21,7 +21,7 @@ module NMEAPlus
        @fields[0]
      end
 
-     def checksum_ok
+     def checksum_ok?
        calculated_checksum == checksum
      end
 

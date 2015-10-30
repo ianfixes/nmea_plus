@@ -24,7 +24,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.interpreted_data_type).to eq("GGA")
         expect(parsed.checksum).to eq("47")
         expect(parsed.checksum).to eq(parsed.calculated_checksum)
-        expect(parsed.checksum_ok).to eq(true)
+        expect(parsed.checksum_ok?).to eq(true)
       end
     end
 
@@ -33,7 +33,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M,,*48"
         parsed = @parser.parse(input)
         expect(parsed.calculated_checksum).to eq("47")
-        expect(parsed.checksum_ok).to eq(false)
+        expect(parsed.checksum_ok?).to eq(false)
       end
     end
 
@@ -63,7 +63,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.geoid_height_units).to eq("M")
         expect(parsed.seconds_since_last_update).to eq(2.2)
         expect(parsed.dgps_station_id).to eq("123")
-        expect(parsed.checksum_ok).to eq(true)
+        expect(parsed.checksum_ok?).to eq(true)
       end
     end
 
