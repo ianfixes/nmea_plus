@@ -19,11 +19,11 @@ module NMEAPlus
         end
 
         def arrival_circle_radius_units
-          _str(@fields[4])
+          _string(@fields[4])
         end
 
         def waypoint_id
-          _str(@fields[5])
+          _string(@fields[5])
         end
 
         def _aam_boolean data

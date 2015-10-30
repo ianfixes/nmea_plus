@@ -35,7 +35,7 @@ module NMEAPlus
         end
 
         def altitude_units
-          _str(@fields[10])
+          _string(@fields[10])
         end
 
         def geoid_height
@@ -43,7 +43,7 @@ module NMEAPlus
         end
 
         def geoid_height_units
-          _str(@fields[12])
+          _string(@fields[12])
         end
 
         def seconds_since_last_update
@@ -51,7 +51,7 @@ module NMEAPlus
         end
 
         def dgps_station_id
-          _str(@fields[14])
+          _string(@fields[14])
         end
       end
 
