@@ -13,3 +13,15 @@ RSpec.describe NMEAPlus::MessageFactory, "#create" do
 
   end
 end
+
+RSpec.describe NMEAPlus::NMEAMessageFactory, "#create" do
+  describe "testing the message factory" do
+
+    context "by itself" do
+      it "has basic functions" do
+        expect(NMEAPlus::NMEAMessageFactory.alternate_data_type("__AAM")).to eq("GPAAM")
+      end
+    end
+
+  end
+end
