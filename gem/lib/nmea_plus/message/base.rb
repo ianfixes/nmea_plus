@@ -55,7 +55,7 @@ module NMEAPlus
      end
 
      # string or nil
-     def _str(field)
+     def _string(field)
        return nil if field.empty?
        field
      end
