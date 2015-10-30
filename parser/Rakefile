@@ -1,0 +1,32 @@
+require 'rubygems'
+
+task :default => [:compile]
+
+# style from https://github.com/sparklemotion/csspool/blob/master/Rakefile
+INPUT_DIR = File.join(File.dirname(__FILE__))
+INPUT_REX = File.join(INPUT_DIR, 'tokenizer.rex')
+INPUT_Y   = File.join(INPUT_DIR, 'parser.y')
+
+OUTPUT_DIR = File.join(File.dirname(__FILE__), '..', 'gem', 'lib', 'nmea_plus', 'generated_parser')
+GENERATED_TOKENIZER = File.join(OUTPUT_DIR, 'tokenizer.rb')
+GENERATED_PARSER    = File.join(OUTPUT_DIR, 'parser.rb')
+
+task :compile => [GENERATED_TOKENIZER, GENERATED_PARSER]
+
+file GENERATED_TOKENIZER => INPUT_REX do |t|
+  begin
+    sh "bundle exec rex -i --independent -o '#{t.name}' '#{t.prerequisites.first}'"
+  rescue
+    abort "need rexical, sudo gem install rexical"
+  end
+end
+
+file GENERATED_PARSER => INPUT_Y do |t|
+  begin
+    racc = 'bundle exec racc'
+    #sh "#{racc} -l -o '#{t.name}' '#{t.prerequisites.first}'"
+    sh "#{racc} -o '#{t.name}' '#{t.prerequisites.first}'"
+  rescue
+    abort "need racc, sudo gem install racc"
+  end
+end
