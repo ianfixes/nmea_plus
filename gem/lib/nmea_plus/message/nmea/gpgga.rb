@@ -7,7 +7,7 @@ module NMEAPlus
 
       class GPGGA < NMEAPlus::Message::NMEA::NMEAMessage
         def fix_time
-          _utctime(@fields[1])
+          _utctime_hms(@fields[1])
         end
 
         def latitude
