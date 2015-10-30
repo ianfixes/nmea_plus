@@ -6,6 +6,7 @@ module NMEAPlus
      attr_reader :payload
      attr_reader :fields
      attr_accessor :checksum
+     attr_accessor :interpreted_data_type
 
      def original
        "#{prefix}#{payload}*#{checksum}"

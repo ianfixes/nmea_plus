@@ -1,6 +1,6 @@
 require 'nmea_plus'
 
-RSpec.describe NMEAPlus::Decoder, "#init" do
+RSpec.describe NMEAPlus::Decoder, "#parse" do
   describe "testing the parser" do
     before do
       @parser = NMEAPlus::Decoder.new
@@ -21,6 +21,7 @@ RSpec.describe NMEAPlus::Decoder, "#init" do
         parsed = @parser.parse(input)
         expect(parsed.original).to eq(input)
         expect(parsed.data_type).to eq("GPGGA")
+        expect(parsed.interpreted_data_type).to eq("GPGGA")
         expect(parsed.checksum).to eq("47")
         expect(parsed.checksum).to eq(parsed.calculated_checksum)
         expect(parsed.checksum_ok).to eq(true)
