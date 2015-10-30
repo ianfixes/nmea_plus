@@ -2,6 +2,7 @@
 require_relative "message_factory"
 require_relative "message/nmea/gpgga"
 require_relative "message/nmea/gpaam"
+require_relative "message/nmea/gpalm"
 
 module NMEAPlus
 

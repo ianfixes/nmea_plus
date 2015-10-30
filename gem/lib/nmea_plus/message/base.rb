@@ -60,6 +60,12 @@ module NMEAPlus
        field
      end
 
+     # hex to int or nil
+     def _hex_to_integer(field)
+       return nil if field.empty?
+       field.hex
+     end
+
      # utc time or nil (HHMMSS)
      def _utctime_hms(field)
        return nil if field.empty?
