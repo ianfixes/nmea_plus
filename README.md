@@ -35,6 +35,19 @@ end
 4. Add tests in `spec/parser_spec.rb`
 5. Add accessor methods in NMEAPlus::Message::NMEA::MYMSG, and appropriate tests.
 
+The following metaprogramming feature has been added to facilitate this:
+
+```ruby
+
+field_reader :my_field, 2, :_integer
+
+# this is equivalent to the following:
+
+def my_field
+  _integer(@fields[2])
+end
+```
+
 
 ## Testing
 * run `rspec`

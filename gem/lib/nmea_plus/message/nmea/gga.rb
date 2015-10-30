@@ -6,9 +6,7 @@ module NMEAPlus
     module NMEA
 
       class GGA < NMEAPlus::Message::NMEA::NMEAMessage
-        def fix_time
-          _utctime_hms(@fields[1])
-        end
+        field_reader :fix_time, 1, :_utctime_hms
 
         def latitude
           _degrees_minutes_to_decimal(@fields[2], @fields[3])
@@ -18,41 +16,15 @@ module NMEAPlus
           _degrees_minutes_to_decimal(@fields[4], @fields[5])
         end
 
-        def fix_quality
-          _integer(@fields[6])
-        end
-
-        def satellites
-          _integer(@fields[7])
-        end
-
-        def horizontal_dilution
-          _float(@fields[8])
-        end
-
-        def altitude
-          _float(@fields[9])
-        end
-
-        def altitude_units
-          _string(@fields[10])
-        end
-
-        def geoid_height
-          _float(@fields[11])
-        end
-
-        def geoid_height_units
-          _string(@fields[12])
-        end
-
-        def seconds_since_last_update
-          _float(@fields[13])
-        end
-
-        def dgps_station_id
-          _string(@fields[14])
-        end
+        field_reader :fix_quality, 6, :_integer
+        field_reader :satellites, 7, :_integer
+        field_reader :horizontal_dilution, 8, :_float
+        field_reader :altitude, 9, :_float
+        field_reader :altitude_units, 10, :_string
+        field_reader :geoid_height, 11, :_float
+        field_reader :geoid_height_units, 12, :_string
+        field_reader :seconds_since_last_update, 13, :_float
+        field_reader :dgps_station_id, 14, :_string
       end
 
     end

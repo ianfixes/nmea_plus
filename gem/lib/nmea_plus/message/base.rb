@@ -1,5 +1,19 @@
 
+
+class Class
+  # make our own shortcut syntax for message attributes
+  def field_reader(name, field_num, formatter=nil)
+    if formatter.nil?
+      self.class_eval("def #{name};@fields[#{field_num}];end")
+    else
+      self.class_eval("def #{name};#{formatter}(@fields[#{field_num}]);end")
+    end
+  end
+end
+
+
 module NMEAPlus
+
  module Message
    class Base
      attr_accessor :prefix
@@ -9,6 +23,8 @@ module NMEAPlus
      attr_accessor :interpreted_data_type
      attr_accessor :next_part
 
+     field_reader :data_type, 0, nil
+
      def original
        "#{prefix}#{payload}*#{checksum}"
      end
@@ -16,10 +32,6 @@ module NMEAPlus
      def payload= val
        @payload = val
        @fields = val.split(',', -1)
-     end
-
-     def data_type
-       @fields[0]
      end
 
      def checksum_ok?

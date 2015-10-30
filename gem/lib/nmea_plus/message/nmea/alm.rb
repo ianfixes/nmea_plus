@@ -4,66 +4,21 @@ module NMEAPlus
   module Message
     module NMEA
       class ALM < NMEAPlus::Message::NMEA::NMEAMessage
-        def total_messages
-          _integer(@fields[1])
-        end
-
-        def message_number
-          _integer(@fields[2])
-        end
-
-        def satellite_prn
-          _integer(@fields[3])
-        end
-
-        def gps_week
-          _integer(@fields[4])
-        end
-
-        def sv_health
-          _hex_to_integer(@fields[5])
-        end
-
-        def eccentricity
-          _hex_to_integer(@fields[6])
-        end
-
-        def reference_time
-          _hex_to_integer(@fields[7])
-        end
-
-        def inclination_angle
-          _hex_to_integer(@fields[8])
-        end
-
-        def ascension_rate
-          _hex_to_integer(@fields[9])
-        end
-
-        def semimajor_axis_root
-          _hex_to_integer(@fields[10])
-        end
-
-        def perigee_argument
-          _hex_to_integer(@fields[11])
-        end
-
-        def ascension_node_longitude
-          _hex_to_integer(@fields[12])
-        end
-
-        def mean_anomaly
-          _hex_to_integer(@fields[13])
-        end
-
-        def f0_clock
-          _hex_to_integer(@fields[14])
-        end
-
-        def f1_clock
-          _hex_to_integer(@fields[15])
-        end
-
+        field_reader :total_messages, 1, :_integer
+        field_reader :message_number, 2, :_integer
+        field_reader :satellite_prn, 3, :_integer
+        field_reader :gps_week, 4, :_integer
+        field_reader :sv_health, 5, :_hex_to_integer
+        field_reader :eccentricity, 6, :_hex_to_integer
+        field_reader :reference_time, 7, :_hex_to_integer
+        field_reader :inclination_angle, 8, :_hex_to_integer
+        field_reader :ascension_rate, 9, :_hex_to_integer
+        field_reader :semimajor_axis_root, 10, :_hex_to_integer
+        field_reader :perigee_argument, 11, :_hex_to_integer
+        field_reader :ascension_node_longitude, 12, :_hex_to_integer
+        field_reader :mean_anomaly, 13, :_hex_to_integer
+        field_reader :f0_clock, 14, :_hex_to_integer
+        field_reader :f1_clock, 15, :_hex_to_integer
       end
     end
   end
