@@ -6,26 +6,11 @@ module NMEAPlus
     module NMEA
 
       class AAM < NMEAPlus::Message::NMEA::NMEAMessage
-        def arrival_circle_entered?
-          _av_boolean(@fields[1])
-        end
-
-        def waypoint_passed?
-          _av_boolean(@fields[2])
-        end
-
-        def arrival_circle_radius
-          _float(@fields[3])
-        end
-
-        def arrival_circle_radius_units
-          _string(@fields[4])
-        end
-
-        def waypoint_id
-          _string(@fields[5])
-        end
-
+        field_reader :arrival_circle_entered?, 1, :_av_boolean
+        field_reader :waypoint_passed?, 2, :_av_boolean
+        field_reader :arrival_circle_radius, 3, :_float
+        field_reader :arrival_circle_radius_units, 4, :_string
+        field_reader :waypoint_id, 5, :_string
       end
     end
   end
