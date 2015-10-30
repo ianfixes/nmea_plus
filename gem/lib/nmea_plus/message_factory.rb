@@ -49,7 +49,7 @@ module NMEAPlus
 
       # create message and make sure it's the right type
       message = self.dynamically_get_message_object(class_name)
-      raise ArgumentError, "Undefined message type #{prefix} (classname #{class_name})" unless message.is_a? NMEAPlus::Message::Base
+      raise ArgumentError, "Undefined message type #{data_type} (classname #{class_name})" unless message.is_a? NMEAPlus::Message::Base
 
       # assign its data and return it
       message.checksum = checksum
