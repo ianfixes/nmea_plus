@@ -66,5 +66,27 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.checksum_ok).to eq(true)
       end
     end
+
+    context "when reading a GPAAM message" do
+      it "properly reports various fields" do
+        input = "$GPAAM,A,A,0.10,N,WPTNME*43"
+        parsed = @parser.parse(input)
+        expect(parsed.arrival_circle_entered?).to eq(true)
+        expect(parsed.waypoint_passed?).to eq(true)
+        expect(parsed.arrival_circle_radius).to eq(0.10)
+        expect(parsed.arrival_circle_radius_units).to eq('N')
+        expect(parsed.waypoint_id).to eq('WPTNME')
+      end
+    end
+
+
+    # context "when reading a  message" do
+    #   it "properly reports various fields" do
+    #     input = ""
+    #     parsed = @parser.parse(input)
+    #     expect(parsed.).to eq()
+    #   end
+    # end
+
   end
 end
