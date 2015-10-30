@@ -42,21 +42,25 @@ module NMEAPlus
        raw
      end
 
+     # integer or nil
      def _integer(field)
        return nil if field.empty?
        field.to_i
      end
 
+     # float or nil
      def _float(field)
        return nil if field.empty?
        field.to_f
      end
 
+     # string or nil
      def _str(field)
        return nil if field.empty?
        field
      end
 
+     # utc time or nil (HHMMSS)
      def _utctime_hms(field)
        return nil if field.empty?
        now = Time.now
