@@ -7,11 +7,11 @@ module NMEAPlus
 
       class GPAAM < NMEAPlus::Message::NMEA::NMEAMessage
         def arrival_circle_entered?
-          _aam_boolean(@fields[1])
+          _av_boolean(@fields[1])
         end
 
         def waypoint_passed?
-          _aam_boolean(@fields[2])
+          _av_boolean(@fields[2])
         end
 
         def arrival_circle_radius
@@ -26,13 +26,6 @@ module NMEAPlus
           _string(@fields[5])
         end
 
-        def _aam_boolean data
-          case data
-          when 'A'; return true
-          when 'V'; return false
-          end
-          nil
-        end
       end
     end
   end
