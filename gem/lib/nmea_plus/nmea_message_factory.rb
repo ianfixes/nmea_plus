@@ -1,5 +1,6 @@
 
 require_relative "message_factory"
+
 require_relative "message/nmea/gga"
 require_relative "message/nmea/aam"
 require_relative "message/nmea/alm"
@@ -7,15 +8,15 @@ require_relative "message/nmea/apa"
 require_relative "message/nmea/apb"
 require_relative "message/nmea/bod"
 require_relative "message/nmea/bwc"
+require_relative "message/nmea/bwr"
 
-
-=begin
+=begin boilerplate for message definitions
 require_relative "base_nmea"
 
 module NMEAPlus
   module Message
     module NMEA
-      class  < NMEAPlus::Message::NMEA::NMEAMessage
+      class < NMEAPlus::Message::NMEA::NMEAMessage
 
       end
     end
