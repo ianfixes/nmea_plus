@@ -120,6 +120,22 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a BWC message" do
+      it "properly reports various fields" do
+        input = "$GPBWC,220516,5130.02,N,00046.34,W,213.8,T,218.0,M,0004.6,N,EGLM*11"
+        parsed = @parser.parse(input)
+        now = Time.now
+        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16))
+        expect(parsed.waypoint_latitude).to eq(51.50033333333333)
+        expect(parsed.waypoint_longitude).to eq(-0.7723333333333334)
+        expect(parsed.bearing_true).to eq(213.8)
+        expect(parsed.bearing_magnetic).to eq(218.0)
+        expect(parsed.nautical_miles).to eq(4.6)
+        expect(parsed.waypoint_id).to eq("EGLM")
+        expect(parsed.faa_mode).to eq(nil)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
