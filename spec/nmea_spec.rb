@@ -224,6 +224,19 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a DTM message" do
+      it "properly reports various fields" do
+        input = "$GPDTM,ab,1,1234,S,5678,W,2.3,dname*00"
+        parsed = @parser.parse(input)
+        expect(parsed.code).to eq('ab')
+        expect(parsed.subcode).to eq('1')
+        expect(parsed.latitude_offset).to eq(-1234)
+        expect(parsed.longitude_offset).to eq(-5678)
+        expect(parsed.altitude_meters).to eq(2.3)
+        expect(parsed.datum_name).to eq('dname')
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""

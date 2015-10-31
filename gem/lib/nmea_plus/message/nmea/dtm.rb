@@ -1,0 +1,24 @@
+require_relative "base_nmea"
+
+module NMEAPlus
+  module Message
+    module NMEA
+      class DTM < NMEAPlus::Message::NMEA::NMEAMessage
+        field_reader :code, 1, :_string
+        field_reader :subcode, 2, :_string
+
+        def latitude_offset
+          _minutes_to_decimal(@fields[3], @fields[4])
+        end
+
+        def longitude_offset
+          _minutes_to_decimal(@fields[5], @fields[6])
+        end
+
+        field_reader :altitude_meters, 7, :_float
+        field_reader :datum_name, 8, :_string
+
+      end
+    end
+  end
+end
