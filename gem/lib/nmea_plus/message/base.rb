@@ -78,7 +78,7 @@ module NMEAPlus
      # convert DDMM.MMM to single decimal value.
      # sign_letter can be N,S,E,W
      def _degrees_minutes_to_decimal(dm_string, sign_letter = "")
-       return nil if dm_string.empty?
+       return nil if dm_string.nil? or dm_string.empty?
        r = /(\d+)(\d{2}\.\d+)/  # (some number of digits) (2 digits for minutes).(decimal minutes)
        m = r.match(dm_string)
        raw = m.values_at(1)[0].to_f + (m.values_at(2)[0].to_f / 60)
@@ -88,31 +88,31 @@ module NMEAPlus
 
      # integer or nil
      def _integer(field)
-       return nil if field.empty?
+       return nil if field.nil? or field.empty?
        field.to_i
      end
 
      # float or nil
      def _float(field)
-       return nil if field.empty?
+       return nil if field.nil? or field.empty?
        field.to_f
      end
 
      # string or nil
      def _string(field)
-       return nil if field.empty?
+       return nil if field.nil? or field.empty?
        field
      end
 
      # hex to int or nil
      def _hex_to_integer(field)
-       return nil if field.empty?
+       return nil if field.nil? or field.empty?
        field.hex
      end
 
      # utc time or nil (HHMMSS or HHMMSS.SS)
      def _utctime_hms(field)
-       return nil if field.empty?
+       return nil if field.nil? or field.empty?
        re_format = /(\d{2})(\d{2})(\d{2}(\.\d+)?)/
        now = Time.now
        begin
