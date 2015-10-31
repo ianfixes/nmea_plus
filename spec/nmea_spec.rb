@@ -88,6 +88,27 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading an APB message" do
+      it "properly reports various fields" do
+        input = "$GPAPB,A,A,0.10,R,N,V,V,011,M,DEST,011,M,011,M*82"
+        parsed = @parser.parse(input)
+        expect(parsed.no_general_warning?).to eq(true)
+        expect(parsed.no_cyclelock_warning?).to eq(true)
+        expect(parsed.cross_track_error).to eq(0.10)
+        expect(parsed.direction_to_steer).to eq("R")
+        expect(parsed.cross_track_units).to eq("N")
+        expect(parsed.arrival_circle_entered?).to eq(false)
+        expect(parsed.perpendicular_passed?).to eq(false)
+        expect(parsed.bearing_origin_to_destination).to eq(11)
+        expect(parsed.compass_type).to eq("M")
+        expect(parsed.destination_waypoint_id).to eq("DEST")
+        expect(parsed.bearing_position_to_destination).to eq(11)
+        expect(parsed.bearing_position_to_destination_compass_type).to eq("M")
+        expect(parsed.heading_to_waypoint).to eq(11)
+        expect(parsed.heading_to_waypoint_compass_type).to eq("M")
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
