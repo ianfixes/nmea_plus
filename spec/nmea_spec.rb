@@ -192,6 +192,29 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a DCN message" do
+      it "properly reports various fields" do
+        input = "$GPDCN,1,ab,2.3,A,cd,4.5,V,ef,6.7,A,A,A,A,8.9,N,3*00"
+        parsed = @parser.parse(input)
+        expect(parsed.decca_chain_id).to eq(1)
+        expect(parsed.red_zone_id).to eq('ab')
+        expect(parsed.red_position_line).to eq(2.3)
+        expect(parsed.red_master_line_ok?).to eq(true)
+        expect(parsed.green_zone_id).to eq('cd')
+        expect(parsed.green_position_line).to eq(4.5)
+        expect(parsed.green_master_line_ok?).to eq(false)
+        expect(parsed.purple_zone_id).to eq('ef')
+        expect(parsed.purple_position_line).to eq(6.7)
+        expect(parsed.purple_master_line_ok?).to eq(true)
+        expect(parsed.use_red_line_navigation?).to eq(true)
+        expect(parsed.use_green_line_navigation?).to eq(true)
+        expect(parsed.use_purple_line_navigation?).to eq(true)
+        expect(parsed.position_uncertainty).to eq(8.9)
+        expect(parsed.position_uncertainty_units).to eq('N')
+        expect(parsed.fix_data_basis).to eq(3)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
