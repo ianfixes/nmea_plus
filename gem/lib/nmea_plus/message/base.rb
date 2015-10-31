@@ -110,12 +110,17 @@ module NMEAPlus
        field.hex
      end
 
-     # utc time or nil (HHMMSS)
+     # utc time or nil (HHMMSS or HHMMSS.SS)
      def _utctime_hms(field)
        return nil if field.empty?
+       re_format = /(\d{2})(\d{2})(\d{2}(\.\d+)?)/
        now = Time.now
-       hms = field.scan(/../).map { |t| t.to_i }
-       Time.new(now.year, now.month, now.day, hms[0], hms[1], hms[2])
+       begin
+         hms = re_format.match(field)
+         Time.new(now.year, now.month, now.day, hms[1].to_i, hms[2].to_i, hms[3].to_f)
+       rescue
+         nil
+       end
      end
 
    end
