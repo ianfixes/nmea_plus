@@ -86,6 +86,17 @@ module NMEAPlus
        raw
      end
 
+     # convert MM.MMM to single decimal value.
+     # sign_letter can be N,S,E,W
+     def _minutes_to_decimal(m_string, sign_letter = "")
+       return nil if m_string.nil? or m_string.empty?
+       r = /(\d+(\.\d+)?)/  # (some number of digits) (2 digits for minutes).(decimal minutes)
+       m = r.match(m_string)
+       raw = m.values_at(1)[0].to_f
+       raw *= -1 if !sign_letter.empty? and "SW".include? sign_letter.upcase
+       raw
+     end
+
      # integer or nil
      def _integer(field)
        return nil if field.nil? or field.empty?
