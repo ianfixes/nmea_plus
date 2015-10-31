@@ -215,6 +215,15 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a DPT message" do
+      it "properly reports various fields" do
+        input = "$GPDPT,1.2,3.4*00"
+        parsed = @parser.parse(input)
+        expect(parsed.depth_meters).to eq(1.2)
+        expect(parsed.offset_distance).to eq(3.4)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
