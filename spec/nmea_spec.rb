@@ -109,6 +109,17 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a BOD message" do
+      it "properly reports various fields" do
+        input = "$GPBOD,099.3,T,105.6,M,POINTB,*01"
+        parsed = @parser.parse(input)
+        expect(parsed.bearing_true).to eq(99.3)
+        expect(parsed.bearing_magnetic).to eq(105.6)
+        expect(parsed.waypoint_to).to eq("POINTB")
+        expect(parsed.waypoint_from).to eq(nil)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
