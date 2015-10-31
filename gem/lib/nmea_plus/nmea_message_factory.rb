@@ -6,6 +6,7 @@ require_relative "message/nmea/alm"
 require_relative "message/nmea/apa"
 require_relative "message/nmea/apb"
 require_relative "message/nmea/bod"
+require_relative "message/nmea/bwc"
 
 
 =begin
