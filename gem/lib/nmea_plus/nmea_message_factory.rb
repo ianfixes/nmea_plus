@@ -4,6 +4,7 @@ require_relative "message/nmea/gga"
 require_relative "message/nmea/aam"
 require_relative "message/nmea/alm"
 require_relative "message/nmea/apa"
+require_relative "message/nmea/apb"
 
 module NMEAPlus
 
