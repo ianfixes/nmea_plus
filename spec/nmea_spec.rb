@@ -15,27 +15,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
-    context "when reading a GGA message" do
-      it "properly reports various fields" do
-        input = "$GPGGA,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*4b"
-        parsed = @parser.parse(input)
-        now = Time.now
-        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19))
-        expect(parsed.latitude).to eq(48.1173)
-        expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.fix_quality).to eq(1)
-        expect(parsed.satellites).to eq(8)
-        expect(parsed.horizontal_dilution).to eq(0.9)
-        expect(parsed.altitude).to eq(545.4)
-        expect(parsed.altitude_units).to eq("M")
-        expect(parsed.geoid_height).to eq(46.9)
-        expect(parsed.geoid_height_units).to eq("M")
-        expect(parsed.seconds_since_last_update).to eq(2.2)
-        expect(parsed.dgps_station_id).to eq("123")
-        expect(parsed.checksum_ok?).to eq(true)
-      end
-    end
-
     context "when reading an AAM message" do
       it "properly reports various fields" do
         input = "$GPAAM,A,A,0.10,N,WPTNME*43"
@@ -261,6 +240,27 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.missed_detection_probability).to eq(9.1)
         expect(parsed.failed_satellite_bias_meters).to eq(1.3)
         expect(parsed.bias_standard_deviation).to eq(1.4)
+      end
+    end
+
+    context "when reading a GGA message" do
+      it "properly reports various fields" do
+        input = "$GPGGA,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*4b"
+        parsed = @parser.parse(input)
+        now = Time.now
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19))
+        expect(parsed.latitude).to eq(48.1173)
+        expect(parsed.longitude).to eq(-11.516666666666666666)
+        expect(parsed.fix_quality).to eq(1)
+        expect(parsed.satellites).to eq(8)
+        expect(parsed.horizontal_dilution).to eq(0.9)
+        expect(parsed.altitude).to eq(545.4)
+        expect(parsed.altitude_units).to eq("M")
+        expect(parsed.geoid_height).to eq(46.9)
+        expect(parsed.geoid_height_units).to eq("M")
+        expect(parsed.seconds_since_last_update).to eq(2.2)
+        expect(parsed.dgps_station_id).to eq(123)
+        expect(parsed.checksum_ok?).to eq(true)
       end
     end
 
