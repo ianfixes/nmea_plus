@@ -741,6 +741,16 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a TPT message" do
+      it "properly reports various fields" do
+        input = "$GPTPT,23.4,M,34.5,P,45.6,M*00"
+        parsed = @parser.parse(input)
+        expect(parsed.range_meters).to eq(23.4)
+        expect(parsed.bearing_true_degrees).to eq(34.5)
+        expect(parsed.depth_meters).to eq(45.6)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
