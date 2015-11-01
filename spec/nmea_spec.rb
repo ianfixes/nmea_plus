@@ -674,6 +674,17 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a RTE message" do
+      it "properly reports various fields" do
+        input = "$GPRTE,3,1,c,1,2,3,4*00"
+        parsed = @parser.parse(input)
+        expect(parsed.total_messages).to eq(3)
+        expect(parsed.message_number).to eq(1)
+        expect(parsed.mode).to eq('c')
+        expect(parsed.waypoints).to eq([1,2,3,4])
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
