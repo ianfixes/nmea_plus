@@ -663,6 +663,17 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a RSD message" do
+      it "properly reports various fields" do
+        input = "$GPRSD,?,?,?,?,?,?,?,?,1.2,2.3,S,U,?*00"
+        parsed = @parser.parse(input)
+        expect(parsed.cursor_range_from_ownship).to eq(1.2)
+        expect(parsed.cursor_bearing_degrees_clockwise).to eq(2.3)
+        expect(parsed.range_scale).to eq('S')
+        expect(parsed.range_units).to eq('U')
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
