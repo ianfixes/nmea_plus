@@ -20,6 +20,7 @@ require_relative "message/nmea/gbs"
 require_relative "message/nmea/gga"
 require_relative "message/nmea/glc"
 require_relative "message/nmea/gll"
+require_relative "message/nmea/gns"
 
 =begin boilerplate for message definitions
 require_relative "base_nmea"

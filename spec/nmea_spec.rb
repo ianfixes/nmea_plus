@@ -297,6 +297,24 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a GNS message" do
+      it "properly reports various fields" do
+        input = "$GPGNS,225444,4916.45,N,12311.12,W,m,33,hdrop,12.3,34.5,45.6,99*00"
+        now = Time.now
+        parsed = @parser.parse(input)
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 22, 54, 44))
+        expect(parsed.latitude).to eq(49.27416666666666666666)
+        expect(parsed.longitude).to eq(-123.18533333333333333)
+        expect(parsed.mode).to eq('m')
+        expect(parsed.satellites).to eq(33)
+        expect(parsed.hdrop).to eq('hdrop')
+        expect(parsed.altitude).to eq(12.3)
+        expect(parsed.geoidal_separation).to eq(34.5)
+        expect(parsed.data_age).to eq(45.6)
+        expect(parsed.differential_reference_station_id).to eq(99)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
