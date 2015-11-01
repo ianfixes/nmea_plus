@@ -237,6 +237,17 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a FSI message" do
+      it "properly reports various fields" do
+        input = "$GPFSI,1234.1,5678.1,c,4.3*00"
+        parsed = @parser.parse(input)
+        expect(parsed.transmit_frequency).to eq(1234.1)
+        expect(parsed.receive_frequency).to eq(5678.1)
+        expect(parsed.communications_mode).to eq('c')
+        expect(parsed.power_level).to eq(4.3)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""

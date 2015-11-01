@@ -16,6 +16,7 @@ require_relative "message/nmea/dbt"
 require_relative "message/nmea/dcn"
 require_relative "message/nmea/dpt"
 require_relative "message/nmea/dtm"
+require_relative "message/nmea/fsi"
 
 =begin boilerplate for message definitions
 require_relative "base_nmea"
