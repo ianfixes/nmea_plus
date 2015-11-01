@@ -1,10 +1,10 @@
 require_relative "base_nmea"
+require_relative "hdm"
 
 module NMEAPlus
   module Message
     module NMEA
-      class HDG < NMEAPlus::Message::NMEA::NMEAMessage
-        field_reader :magnetic_heading_degrees, 1, :_float
+      class HDG < NMEAPlus::Message::NMEA::HDM
 
         def magnetic_deviation_degrees
           _nsew_signed_float(@fields[2], @fields[3])
