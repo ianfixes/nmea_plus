@@ -455,6 +455,15 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a HFB message" do
+      it "properly reports various fields" do
+        input = "$GPHFB,1.2,M,3.4,M*00"
+        parsed = @parser.parse(input)
+        expect(parsed.headrope_to_footrope_meters).to eq(1.2)
+        expect(parsed.headrope_to_bottom_meters).to eq(3.4)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
