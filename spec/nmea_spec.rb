@@ -638,6 +638,18 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a RPM message" do
+      it "properly reports various fields" do
+        input = "$GPRPM,S,2,234.4,39.2,V*00"
+        parsed = @parser.parse(input)
+        expect(parsed.source_type).to eq('S')
+        expect(parsed.source_id).to eq(2)
+        expect(parsed.rpm).to eq(234.4)
+        expect(parsed.forward_pitch_percentage).to eq(39.2)
+        expect(parsed.valid?).to eq(false)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
