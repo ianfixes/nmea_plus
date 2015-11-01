@@ -595,6 +595,40 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a RMB message" do
+      it "properly reports various fields" do
+        input = "$GPRMB,A,0.66,L,003,004,4917.24,N,12309.57,W,001.3,052.5,000.5,V*0B"
+        parsed = @parser.parse(input)
+        expect(parsed.active?).to eq(true)
+        expect(parsed.cross_track_error_nautical_miles).to eq(0.66)
+        expect(parsed.direction_to_steer).to eq('L')
+        expect(parsed.waypoint_to).to eq(3)
+        expect(parsed.waypoint_from).to eq(4)
+        expect(parsed.waypoint_latitude).to eq(49.2873333333333333336)
+        expect(parsed.waypoint_longitude).to eq(-123.1595)
+        expect(parsed.range_to_destination_nautical_miles).to eq(1.3)
+        expect(parsed.bearing_to_destination_degrees_true).to eq(52.5)
+        expect(parsed.destination_closing_velocity_knots).to eq(0.5)
+        expect(parsed.arrival_circle_entered?).to eq(false)
+        expect(parsed.faa_mode).to eq(nil)
+      end
+    end
+
+    context "when reading a RMC message" do
+      it "properly reports various fields" do
+        input = "$GPRMC,220516,A,4917.24,N,12309.57,W,4.5,5.6,260715,6.7,W,MOO*00"
+        parsed = @parser.parse(input)
+        expect(parsed.utc_time).to eq(Time.new(2015, 7, 26, 22, 5, 16))
+        expect(parsed.active?).to eq(true)
+        expect(parsed.latitude).to eq(49.2873333333333333336)
+        expect(parsed.longitude).to eq(-123.1595)
+        expect(parsed.speed_over_ground_knots).to eq(4.5)
+        expect(parsed.track_made_good_degrees_true).to eq(5.6)
+        expect(parsed.magnetic_variation_degrees).to eq(-6.7)
+        expect(parsed.faa_mode).to eq('MOO')
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
