@@ -513,6 +513,18 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a MSS message" do
+      it "properly reports various fields" do
+        input = "$GPMSS,12,34,56.7,89,111*00"
+        parsed = @parser.parse(input)
+        expect(parsed.signal_strength_dbu).to eq(12)
+        expect(parsed.snr_db).to eq(34)
+        expect(parsed.beacon_frequency_khz).to eq(56.7)
+        expect(parsed.beacon_data_rate_bps).to eq(89)
+        expect(parsed.unknown_field).to eq(111)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
