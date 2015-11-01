@@ -580,6 +580,21 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a RMA message" do
+      it "properly reports various fields" do
+        input = "$GPRMA,A,5130.02,N,00046.34,W,1.2,3.4,4.5,5.6,6.7,W*00"
+        parsed = @parser.parse(input)
+        expect(parsed.blink_warning).to eq(true)
+        expect(parsed.latitude).to eq(51.50033333333333)
+        expect(parsed.longitude).to eq(-0.7723333333333334)
+        expect(parsed.time_difference_a).to eq(1.2)
+        expect(parsed.time_difference_b).to eq(3.4)
+        expect(parsed.speed_over_ground_knots).to eq(4.5)
+        expect(parsed.track_made_good_degrees_true).to eq(5.6)
+        expect(parsed.magnetic_variation_degrees).to eq(-6.7)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
