@@ -419,6 +419,18 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a GTD message" do
+      it "properly reports various fields" do
+        input = "$GPGTD,1.1,2.2,3.3,4.4,5.5*00"
+        parsed = @parser.parse(input)
+        expect(parsed.difference1).to eq(1.1)
+        expect(parsed.difference2).to eq(2.2)
+        expect(parsed.difference3).to eq(3.3)
+        expect(parsed.difference4).to eq(4.4)
+        expect(parsed.difference5).to eq(5.5)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
