@@ -315,6 +315,28 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a GRS message" do
+      it "properly reports various fields" do
+        now = Time.now
+        input = "$GPGRS,024603.00,1,1.2,2.3,3.4,4.5,5.6,6.7,7.8,8.9,9.1,0.2,1.3,2.4*00"
+        parsed = @parser.parse(input)
+        expect(parsed.gga_fix_time).to eq(Time.new(now.year, now.month, now.day, 2, 46, 03))
+        expect(parsed.gga_includes_residuals?).to eq(true)
+        expect(parsed.residual_satellite_1).to eq(1.2)
+        expect(parsed.residual_satellite_2).to eq(2.3)
+        expect(parsed.residual_satellite_3).to eq(3.4)
+        expect(parsed.residual_satellite_4).to eq(4.5)
+        expect(parsed.residual_satellite_5).to eq(5.6)
+        expect(parsed.residual_satellite_6).to eq(6.7)
+        expect(parsed.residual_satellite_7).to eq(7.8)
+        expect(parsed.residual_satellite_8).to eq(8.9)
+        expect(parsed.residual_satellite_9).to eq(9.1)
+        expect(parsed.residual_satellite_10).to eq(0.2)
+        expect(parsed.residual_satellite_11).to eq(1.3)
+        expect(parsed.residual_satellite_12).to eq(2.4)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
