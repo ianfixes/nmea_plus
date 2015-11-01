@@ -82,19 +82,16 @@ module NMEAPlus
        r = /(\d+)(\d{2}\.\d+)/  # (some number of digits) (2 digits for minutes).(decimal minutes)
        m = r.match(dm_string)
        raw = m.values_at(1)[0].to_f + (m.values_at(2)[0].to_f / 60)
-       raw *= -1 if !sign_letter.empty? and "SW".include? sign_letter.upcase
-       raw
+       _nsew_signed_float(raw, sign_letter)
      end
 
-     # convert MM.MMM to single decimal value.
-     # sign_letter can be N,S,E,W
-     def _minutes_to_decimal(m_string, sign_letter = "")
-       return nil if m_string.nil? or m_string.empty?
-       r = /(\d+(\.\d+)?)/  # (some number of digits) (2 digits for minutes).(decimal minutes)
-       m = r.match(m_string)
-       raw = m.values_at(1)[0].to_f
-       raw *= -1 if !sign_letter.empty? and "SW".include? sign_letter.upcase
-       raw
+     # Use cardinal directions to assign positive or negative to mixed_val
+     # mixed_val can be string or float
+     # Of possible directions NSEW (sign_letter) treat N/E as + and S/W as -
+     def _nsew_signed_float(mixed_val, sign_letter = "")
+       value = mixed_val.to_f
+       value *= -1 if !sign_letter.empty? and "SW".include? sign_letter.upcase
+       value
      end
 
      # integer or nil

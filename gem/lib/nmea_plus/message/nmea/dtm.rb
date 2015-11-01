@@ -8,11 +8,11 @@ module NMEAPlus
         field_reader :subcode, 2, :_string
 
         def latitude_offset
-          _minutes_to_decimal(@fields[3], @fields[4])
+          _nsew_signed_float(@fields[3], @fields[4])
         end
 
         def longitude_offset
-          _minutes_to_decimal(@fields[5], @fields[6])
+          _nsew_signed_float(@fields[5], @fields[6])
         end
 
         field_reader :altitude_meters, 7, :_float
