@@ -525,6 +525,15 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a MTW message" do
+      it "properly reports various fields" do
+        input = "$GPMTW,2.3,C*00"
+        parsed = @parser.parse(input)
+        expect(parsed.degrees).to eq(2.3)
+        expect(parsed.units).to eq('C')
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
