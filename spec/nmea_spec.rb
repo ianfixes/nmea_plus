@@ -353,6 +353,30 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a GSA message" do
+      it "properly reports various fields" do
+        input = "$GPGSA,M,2,11,22,33,44,55,66,77,88,99,100,110,120,pdop,hdop,vdop*00"
+        parsed = @parser.parse(input)
+        expect(parsed.selection_mode).to eq('M')
+        expect(parsed.mode).to eq(2)
+        expect(parsed.satellite1).to eq(11)
+        expect(parsed.satellite2).to eq(22)
+        expect(parsed.satellite3).to eq(33)
+        expect(parsed.satellite4).to eq(44)
+        expect(parsed.satellite5).to eq(55)
+        expect(parsed.satellite6).to eq(66)
+        expect(parsed.satellite7).to eq(77)
+        expect(parsed.satellite8).to eq(88)
+        expect(parsed.satellite9).to eq(99)
+        expect(parsed.satellite10).to eq(100)
+        expect(parsed.satellite11).to eq(110)
+        expect(parsed.satellite12).to eq(120)
+        expect(parsed.pdop).to eq('pdop')
+        expect(parsed.hdop).to eq('hdop')
+        expect(parsed.vdop).to eq('vdop')
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
