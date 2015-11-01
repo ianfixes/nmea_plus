@@ -556,14 +556,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
-    # context "when reading a  message" do
-    #   it "properly reports various fields" do
-    #     input = ""
-    #     parsed = @parser.parse(input)
-    #     expect(parsed.).to eq()
-    #   end
-    # end
-
     context "when reading an OSD message" do
       it "properly reports various fields" do
         input = "$GPOSD,1.2,A,2.3,cref,4.5,sref,5.6,6.7,unit*00"
@@ -579,6 +571,22 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.vessel_drift_speed_units).to eq('unit')
       end
     end
+
+    context "when reading a R00 message" do
+      it "properly reports various fields" do
+        input = "$GPR00,abc,foo*00"
+        parsed = @parser.parse(input)
+        expect(parsed.waypoint_id).to eq('abc')
+      end
+    end
+
+    # context "when reading a  message" do
+    #   it "properly reports various fields" do
+    #     input = ""
+    #     parsed = @parser.parse(input)
+    #     expect(parsed.).to eq()
+    #   end
+    # end
 
   end
 end
