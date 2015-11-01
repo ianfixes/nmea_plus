@@ -473,6 +473,14 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading an ITS message" do
+      it "properly reports various fields" do
+        input = "$GPITS,2.3,M*00"
+        parsed = @parser.parse(input)
+        expect(parsed.second_spread_distance_meters).to eq(2.3)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
