@@ -22,6 +22,14 @@ module NMEAPlus
           nil
         end
 
+        def _10_boolean data
+          case data
+          when '1'; return true
+          when '0'; return false
+          end
+          nil
+        end
+
       end
     end
   end
