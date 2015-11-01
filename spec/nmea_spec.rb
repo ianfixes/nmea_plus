@@ -415,6 +415,21 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a GXA message" do
+      it "properly reports various fields" do
+        input = "$GPGXA,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
+        parsed = @parser.parse(input)
+        now = Time.now
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19))
+        expect(parsed.latitude).to eq(48.1173)
+        expect(parsed.longitude).to eq(-11.516666666666666666)
+        expect(parsed.waypoint_id).to eq(1)
+        expect(parsed.satellite).to eq(8)
+
+      end
+    end
+
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
