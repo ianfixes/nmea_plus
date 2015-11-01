@@ -629,6 +629,15 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a ROT message" do
+      it "properly reports various fields" do
+        input = "$GPROT,-23.4,A*00"
+        parsed = @parser.parse(input)
+        expect(parsed.rate_of_turn_starboard_degrees_per_minute).to eq(-23.4)
+        expect(parsed.valid?).to eq(true)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
