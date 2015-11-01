@@ -1,7 +1,6 @@
 
 require_relative "message_factory"
 
-require_relative "message/nmea/gga"
 require_relative "message/nmea/aam"
 require_relative "message/nmea/alm"
 require_relative "message/nmea/apa"
@@ -18,6 +17,7 @@ require_relative "message/nmea/dpt"
 require_relative "message/nmea/dtm"
 require_relative "message/nmea/fsi"
 require_relative "message/nmea/gbs"
+require_relative "message/nmea/gga"
 
 =begin boilerplate for message definitions
 require_relative "base_nmea"

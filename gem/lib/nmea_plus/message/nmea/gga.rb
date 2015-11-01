@@ -24,7 +24,7 @@ module NMEAPlus
         field_reader :geoid_height, 11, :_float
         field_reader :geoid_height_units, 12, :_string
         field_reader :seconds_since_last_update, 13, :_float
-        field_reader :dgps_station_id, 14, :_string
+        field_reader :dgps_station_id, 14, :_integer
       end
 
     end
