@@ -650,6 +650,19 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a RSA message" do
+      it "properly reports various fields" do
+        input = "$GPRSA,1.2,V,3.4,A*00"
+        parsed = @parser.parse(input)
+        expect(parsed.rudder_angle).to eq(1.2)
+        expect(parsed.rudder_angle_valid?).to eq(false)
+        expect(parsed.starboard_rudder_angle).to eq(1.2)
+        expect(parsed.starboard_rudder_angle_valid?).to eq(false)
+        expect(parsed.port_rudder_angle).to eq(3.4)
+        expect(parsed.port_rudder_angle_valid?).to eq(true)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
