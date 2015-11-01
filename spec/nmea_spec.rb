@@ -337,22 +337,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
-    context "when reading a GST message" do
-      it "properly reports various fields" do
-        now = Time.now
-        input = "$GPGST,024603.00,1.2,2.3,3.4,4.5,5.6,6.7,7.8*00"
-        parsed = @parser.parse(input)
-        expect(parsed.gga_fix_time).to eq(Time.new(now.year, now.month, now.day, 2, 46, 03))
-        expect(parsed.total_rms_standard_deviation).to eq(1.2)
-        expect(parsed.standard_deviation_semimajor_meters).to eq(2.3)
-        expect(parsed.standard_deviation_semiminor_meters).to eq(3.4)
-        expect(parsed.semimajor_error_ellipse_orientation_degrees).to eq(4.5)
-        expect(parsed.standard_deviation_latitude_meters).to eq(5.6)
-        expect(parsed.standard_deviation_longitude_meters).to eq(6.7)
-        expect(parsed.standard_deviation_altitude_meters).to eq(7.8)
-      end
-    end
-
     context "when reading a GSA message" do
       it "properly reports various fields" do
         input = "$GPGSA,M,2,11,22,33,44,55,66,77,88,99,100,110,120,pdop,hdop,vdop*00"
@@ -377,19 +361,19 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
-    context "when reading an OSD message" do
+    context "when reading a GST message" do
       it "properly reports various fields" do
-        input = "$GPOSD,1.2,A,2.3,cref,4.5,sref,5.6,6.7,unit*00"
+        now = Time.now
+        input = "$GPGST,024603.00,1.2,2.3,3.4,4.5,5.6,6.7,7.8*00"
         parsed = @parser.parse(input)
-        expect(parsed.heading_degrees_true).to eq(1.2)
-        expect(parsed.valid?).to eq(true)
-        expect(parsed.course_degrees_true).to eq(2.3)
-        expect(parsed.course_reference).to eq('cref')
-        expect(parsed.vessel_speed).to eq(4.5)
-        expect(parsed.speed_reference).to eq('sref')
-        expect(parsed.vessel_set_degrees_true).to eq(5.6)
-        expect(parsed.vessel_drift_speed).to eq(6.7)
-        expect(parsed.vessel_drift_speed_units).to eq('unit')
+        expect(parsed.gga_fix_time).to eq(Time.new(now.year, now.month, now.day, 2, 46, 03))
+        expect(parsed.total_rms_standard_deviation).to eq(1.2)
+        expect(parsed.standard_deviation_semimajor_meters).to eq(2.3)
+        expect(parsed.standard_deviation_semiminor_meters).to eq(3.4)
+        expect(parsed.semimajor_error_ellipse_orientation_degrees).to eq(4.5)
+        expect(parsed.standard_deviation_latitude_meters).to eq(5.6)
+        expect(parsed.standard_deviation_longitude_meters).to eq(6.7)
+        expect(parsed.standard_deviation_altitude_meters).to eq(7.8)
       end
     end
 
@@ -438,6 +422,22 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
     #     expect(parsed.).to eq()
     #   end
     # end
+
+    context "when reading an OSD message" do
+      it "properly reports various fields" do
+        input = "$GPOSD,1.2,A,2.3,cref,4.5,sref,5.6,6.7,unit*00"
+        parsed = @parser.parse(input)
+        expect(parsed.heading_degrees_true).to eq(1.2)
+        expect(parsed.valid?).to eq(true)
+        expect(parsed.course_degrees_true).to eq(2.3)
+        expect(parsed.course_reference).to eq('cref')
+        expect(parsed.vessel_speed).to eq(4.5)
+        expect(parsed.speed_reference).to eq('sref')
+        expect(parsed.vessel_set_degrees_true).to eq(5.6)
+        expect(parsed.vessel_drift_speed).to eq(6.7)
+        expect(parsed.vessel_drift_speed_units).to eq('unit')
+      end
+    end
 
   end
 end
