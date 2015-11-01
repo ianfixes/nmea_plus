@@ -284,6 +284,19 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a GLL message" do
+      it "properly reports various fields" do
+        now = Time.now
+        input = "$GPGLL,4916.45,N,12311.12,W,225444,A*00"
+        parsed = @parser.parse(input)
+        expect(parsed.latitude).to eq(49.27416666666666666666)
+        expect(parsed.longitude).to eq(-123.18533333333333333)
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 22, 54, 44))
+        expect(parsed.valid?).to eq(true)
+        expect(parsed.faa_mode).to eq(nil)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
