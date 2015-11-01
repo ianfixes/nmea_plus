@@ -429,6 +429,15 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a HDG message" do
+      it "properly reports various fields" do
+        input = "$GPHDG,1.2,2.3,E,3.4,W*00"
+        parsed = @parser.parse(input)
+        expect(parsed.magnetic_heading_degrees).to eq(1.2)
+        expect(parsed.magnetic_deviation_degrees).to eq(2.3)
+        expect(parsed.magnetic_variation_degrees).to eq(-3.4)
+      end
+    end
 
     # context "when reading a  message" do
     #   it "properly reports various fields" do
