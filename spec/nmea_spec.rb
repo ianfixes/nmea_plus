@@ -264,6 +264,26 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a GLC message" do
+      it "properly reports various fields" do
+        input = "$GPGLC,123,1.2,A,3.4,V,5.6,A,7.8,V,9.1,A,2.3,V*00"
+        parsed = @parser.parse(input)
+        expect(parsed.gri_tenth_microseconds).to eq(123)
+        expect(parsed.master_toa_microseconds).to eq(1.2)
+        expect(parsed.master_toa_signal?).to eq(true)
+        expect(parsed.time_difference_1_microseconds).to eq(3.4)
+        expect(parsed.time_difference_1_signal?).to eq(false)
+        expect(parsed.time_difference_2_microseconds).to eq(5.6)
+        expect(parsed.time_difference_2_signal?).to eq(true)
+        expect(parsed.time_difference_3_microseconds).to eq(7.8)
+        expect(parsed.time_difference_3_signal?).to eq(false)
+        expect(parsed.time_difference_4_microseconds).to eq(9.1)
+        expect(parsed.time_difference_4_signal?).to eq(true)
+        expect(parsed.time_difference_5_microseconds).to eq(2.3)
+        expect(parsed.time_difference_5_signal?).to eq(false)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
