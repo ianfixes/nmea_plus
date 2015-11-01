@@ -29,6 +29,7 @@ require_relative "message/nmea/gtd"
 require_relative "message/nmea/gxa"
 require_relative "message/nmea/hdg"
 require_relative "message/nmea/hdm"
+require_relative "message/nmea/hdt"
 require_relative "message/nmea/osd"
 
 =begin boilerplate for message definitions
