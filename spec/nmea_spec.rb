@@ -711,6 +711,16 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a TFI message" do
+      it "properly reports various fields" do
+        input = "$GPTFI,0,1,2*00"
+        parsed = @parser.parse(input)
+        expect(parsed.catch_sensor1).to eq(0)
+        expect(parsed.catch_sensor2).to eq(1)
+        expect(parsed.catch_sensor3).to eq(2)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
