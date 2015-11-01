@@ -393,6 +393,32 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a GSV message" do
+      it "properly reports various fields" do
+        input = "$GPGSV,3,1,11,03,03,111,00,04,15,270,00,06,01,010,00,13,06,292,00*74"
+        parsed = @parser.parse(input)
+        expect(parsed.total_messages).to eq(3)
+        expect(parsed.message_number).to eq(1)
+        expect(parsed.satellites).to eq(11)
+        expect(parsed.satellite1_prn).to eq(3)
+        expect(parsed.satellite1_elevation_degrees).to eq(3)
+        expect(parsed.satellite1_azimuth_degrees).to eq(111)
+        expect(parsed.satellite1_snr).to eq(0)
+        expect(parsed.satellite2_prn).to eq(4)
+        expect(parsed.satellite2_elevation_degrees).to eq(15)
+        expect(parsed.satellite2_azimuth_degrees).to eq(270)
+        expect(parsed.satellite2_snr).to eq(0)
+        expect(parsed.satellite3_prn).to eq(6)
+        expect(parsed.satellite3_elevation_degrees).to eq(1)
+        expect(parsed.satellite3_azimuth_degrees).to eq(10)
+        expect(parsed.satellite3_snr).to eq(0)
+        expect(parsed.satellite4_prn).to eq(13)
+        expect(parsed.satellite4_elevation_degrees).to eq(6)
+        expect(parsed.satellite4_azimuth_degrees).to eq(292)
+        expect(parsed.satellite4_snr).to eq(0)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
