@@ -534,6 +534,18 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a MWV message" do
+      it "properly reports various fields" do
+        input = "$GPMWV,45.4,R,3.4,M,A*00"
+        parsed = @parser.parse(input)
+        expect(parsed.wind_angle).to eq(45.4)
+        expect(parsed.wind_angle_reference).to eq('R')
+        expect(parsed.wind_speed).to eq(3.4)
+        expect(parsed.wind_speed_units).to eq('M')
+        expect(parsed.valid?).to eq(true)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
