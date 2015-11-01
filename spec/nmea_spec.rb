@@ -377,6 +377,22 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading an OSD message" do
+      it "properly reports various fields" do
+        input = "$GPOSD,1.2,A,2.3,cref,4.5,sref,5.6,6.7,unit*00"
+        parsed = @parser.parse(input)
+        expect(parsed.heading_degrees_true).to eq(1.2)
+        expect(parsed.valid?).to eq(true)
+        expect(parsed.course_degrees_true).to eq(2.3)
+        expect(parsed.course_reference).to eq('cref')
+        expect(parsed.vessel_speed).to eq(4.5)
+        expect(parsed.speed_reference).to eq('sref')
+        expect(parsed.vessel_set_degrees_true).to eq(5.6)
+        expect(parsed.vessel_drift_speed).to eq(6.7)
+        expect(parsed.vessel_drift_speed_units).to eq('unit')
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
