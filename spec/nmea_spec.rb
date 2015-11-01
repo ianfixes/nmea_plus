@@ -248,6 +248,22 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a GBS message" do
+      it "properly reports various fields" do
+        input = "$GPGBS,112233.44,1.2,3.4,5.6,78,9.1,1.3,1.4*00"
+        parsed = @parser.parse(input)
+        now = Time.now
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 11, 22, 33.44))
+        expect(parsed.expected_error_latitude_meters).to eq(1.2)
+        expect(parsed.expected_error_longitude_meters).to eq(3.4)
+        expect(parsed.expected_error_altitude_meters).to eq(5.6)
+        expect(parsed.failed_satelite_prn).to eq(78)
+        expect(parsed.missed_detection_probability).to eq(9.1)
+        expect(parsed.failed_satellite_bias_meters).to eq(1.3)
+        expect(parsed.bias_standard_deviation).to eq(1.4)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
@@ -255,7 +271,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
     #     expect(parsed.).to eq()
     #   end
     # end
-
 
   end
 end
