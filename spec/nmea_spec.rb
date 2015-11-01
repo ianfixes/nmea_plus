@@ -501,6 +501,18 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a MSK message" do
+      it "properly reports various fields" do
+        input = "$GPMSK,123,A,234,M,333*00"
+        parsed = @parser.parse(input)
+        expect(parsed.frequency).to eq(123)
+        expect(parsed.frequency_mode).to eq('A')
+        expect(parsed.bitrate).to eq(234)
+        expect(parsed.bitrate_mode).to eq('M')
+        expect(parsed.mss_frequency).to eq(333)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
