@@ -873,6 +873,15 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a WCT message" do
+      it "properly reports various fields" do
+        input = "$GPWCV,1.2,N,abc*00"
+        parsed = @parser.parse(input)
+        expect(parsed.velocity_knots).to eq(1.2)
+        expect(parsed.waypoint_id).to eq('abc')
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
