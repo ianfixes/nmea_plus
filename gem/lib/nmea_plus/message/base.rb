@@ -131,6 +131,18 @@ module NMEAPlus
        end
      end
 
+     # time interval or nil (HHMMSS or HHMMSS.SS)
+     def _interval_hms(field)
+       return nil if field.nil? or field.empty?
+       re_format = /(\d{2})(\d{2})(\d{2}(\.\d+)?)/
+       begin
+         hms = re_format.match(field)
+         Time.new(0, 0, 0, hms[1].to_i, hms[2].to_i, hms[3].to_f)
+       rescue
+         nil
+       end
+     end
+
      def _utc_date_time(d_field, t_field)
           return nil if t_field.nil? or t_field.empty?
           return nil if d_field.nil? or d_field.empty?
