@@ -944,6 +944,17 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a ZFO message" do
+      it "properly reports various fields" do
+        now = Time.now
+        input = "$GPZFO,160012.71,220516,abc*00"
+        parsed = @parser.parse(input)
+        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71))
+        #expect(parsed.elapsed_time).to eq(Time.new(1, 0, 0, 22, 5, 16))
+        expect(parsed.origin_waypoint_id).to eq('abc')
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
