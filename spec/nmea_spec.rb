@@ -767,6 +767,25 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a TTM message" do
+      it "properly reports various fields" do
+        input = "$GPTTM,1,2.3,4.5,u,5.6,6.7,u2,7.8,8.9,-,foo,bar,tgt*00"
+        parsed = @parser.parse(input)
+        expect(parsed.target_number).to eq(1)
+        expect(parsed.target_distance).to eq(2.3)
+        expect(parsed.target_bearing_from_ownship).to eq(4.5)
+        expect(parsed.target_bearing_units).to eq('u')
+        expect(parsed.target_speed).to eq(5.6)
+        expect(parsed.target_course).to eq(6.7)
+        expect(parsed.target_course_units).to eq('u2')
+        expect(parsed.closest_approach_point_distance).to eq(7.8)
+        expect(parsed.closest_approach_point_time).to eq(8.9)
+        expect(parsed.target_name).to eq('foo')
+        expect(parsed.target_status).to eq('bar')
+        expect(parsed.reference_target).to eq('tgt')
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
