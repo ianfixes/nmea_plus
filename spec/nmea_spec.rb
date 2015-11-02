@@ -893,6 +893,16 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a WPL message" do
+      it "properly reports various fields" do
+        input = "$GPWPL,4917.24,N,12309.57,W,foo*00"
+        parsed = @parser.parse(input)
+        expect(parsed.latitude).to eq(49.2873333333333333333333336)
+        expect(parsed.longitude).to eq(-123.1595)
+        expect(parsed.name).to eq('foo')
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
