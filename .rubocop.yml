@@ -1,6 +1,8 @@
 AllCops:
   Exclude:
     - '*.gemspec'
+    - 'spec/*'
+    - '**/generated_parser/*'
 
 inherit_from: .rubocop_todo.yml
 
@@ -14,3 +16,34 @@ Metrics/LineLength:
 Metrics/ClassLength:
   Enabled: false
   Max: 400
+
+Metrics/AbcSize:
+  Enabled: false
+  Max: 50
+
+Metrics/MethodLength:
+  Enabled: false
+  Max: 50
+
+Style/BlockComments:
+  Enabled: false
+
+Style/ColonMethodCall:
+  Enabled: false
+
+Style/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Style/EmptyLinesAroundMethodBody:
+  Enabled: false
+
+Style/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/FormatString:
+  Enabled: false
+
+# Cop supports --auto-correct.
+Style/RedundantSelf:
+  Enabled: false

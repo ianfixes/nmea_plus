@@ -17,12 +17,10 @@ module NMEAPlus
 
     # check whether a given object exists.  this will work for all consts but shhhhhhhhh
     def self.message_class_exists?(class_identifier)
-      begin
-        Object::const_get(class_identifier)
-        return true
-      rescue ::NameError => e
-        return false
-      end
+      Object::const_get(class_identifier)
+      return true
+    rescue ::NameError
+      return false
     end
 
     # shortcut for the full name to a message class
@@ -33,16 +31,14 @@ module NMEAPlus
     # use the actual type if we have it, else try an alternate (and let it fail there)
     def self.best_match_for_data_type(data_type)
       return data_type if self.message_class_exists?(self.message_class_name(data_type))
-      return self.alternate_data_type(data_type)
+      self.alternate_data_type(data_type)
     end
 
     # get a message class through reflection
     def self.dynamically_get_message_object(class_identifier)
-      begin
-        Object::const_get(class_identifier).new
-      rescue ::NameError => e
-        raise ::NameError, "Couldn't instantiate a #{class_identifier} object: #{e}"
-      end
+      Object::const_get(class_identifier).new
+    rescue ::NameError => e
+      raise ::NameError, "Couldn't instantiate a #{class_identifier} object: #{e}"
     end
 
     # Choose what class to create, and create it based on the first of the (unsplitted) fields
@@ -55,7 +51,9 @@ module NMEAPlus
 
       # create message and make sure it's the right type
       message = self.dynamically_get_message_object(class_name)
-      raise ArgumentError, "Undefined message type #{data_type} (classname #{class_name})" unless message.is_a? NMEAPlus::Message::Base
+      unless message.is_a? NMEAPlus::Message::Base
+        fail ArgumentError, "Undefined message type #{data_type} (classname #{class_name})"
+      end
 
       # assign its data and return it
       message.checksum = checksum

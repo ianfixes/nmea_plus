@@ -13,25 +13,25 @@ module NMEAPlus
 
         def track_degrees_magnetic
           f = new_format? ? 3 : 2
-          return nil if @fields[f].nil? or @fields[f].empty?
+          return nil if @fields[f].nil? || @fields[f].empty?
           @fields[f].to_f
         end
 
         def speed_knots
           f = new_format? ? 5 : 3
-          return nil if @fields[f].nil? or @fields[f].empty?
+          return nil if @fields[f].nil? || @fields[f].empty?
           @fields[f].to_f
         end
 
         def speed_kmh
           f = new_format? ? 7 : 4
-          return nil if @fields[f].nil? or @fields[f].empty?
+          return nil if @fields[f].nil? || @fields[f].empty?
           @fields[f].to_f
         end
 
         def faa_mode
           f = new_format? ? 9 : 100
-          return nil if @fields[f].nil? or @fields[f].empty?
+          return nil if @fields[f].nil? || @fields[f].empty?
           @fields[f]
         end
 

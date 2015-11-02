@@ -8,7 +8,7 @@ module NMEAPlus
         field_reader :message_number, 2, :_integer
         field_reader :mode, 3, :_string
         def waypoints
-          @fields[4..-1].map {|w| w.to_i}
+          @fields[4..-1].map(&:to_i)
         end
       end
     end

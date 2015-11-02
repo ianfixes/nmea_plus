@@ -7,25 +7,25 @@ module NMEAPlus
 
       class NMEAMessage < NMEAPlus::Message::Base
         def talker
-          return data_type[0..1]
+          data_type[0..1]
         end
 
         def message_type
-          return data_type[2..-1]
+          data_type[2..-1]
         end
 
-        def _av_boolean data
+        def _av_boolean(data)
           case data
-          when 'A'; return true
-          when 'V'; return false
+          when 'A' then return true
+          when 'V' then return false
           end
           nil
         end
 
-        def _10_boolean data
+        def _10_boolean(data)
           case data
-          when '1'; return true
-          when '0'; return false
+          when '1' then return true
+          when '0' then return false
           end
           nil
         end
