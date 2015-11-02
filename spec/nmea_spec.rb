@@ -751,6 +751,22 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a TRF message" do
+      it "properly reports various fields" do
+        input = "$GPTRF,220516,260715,4917.24,N,12309.57,W,1.2,3,4,5.6,7,A*00"
+        parsed = @parser.parse(input)
+        expect(parsed.utc_time).to eq(Time.new(2015, 7, 26, 22, 5, 16))
+        expect(parsed.latitude).to eq(49.2873333333333333333333336)
+        expect(parsed.longitude).to eq(-123.1595)
+        expect(parsed.elevation_angle).to eq(1.2)
+        expect(parsed.iterations).to eq(3)
+        expect(parsed.doppler_intervals).to eq(4)
+        expect(parsed.update_distance_nautical_miles).to eq(5.6)
+        expect(parsed.satellite).to eq(7)
+        expect(parsed.valid?).to eq(true)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
