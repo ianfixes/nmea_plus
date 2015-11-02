@@ -882,6 +882,17 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a WNC message" do
+      it "properly reports various fields" do
+        input = "$GPWNC,1.2,N,2.3,K,abc,def*00"
+        parsed = @parser.parse(input)
+        expect(parsed.distance_nautical_miles).to eq(1.2)
+        expect(parsed.distance_kilometers).to eq(2.3)
+        expect(parsed.waypoint_to).to eq('abc')
+        expect(parsed.waypoint_from).to eq('def')
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
