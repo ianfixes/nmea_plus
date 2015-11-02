@@ -70,6 +70,7 @@ require_relative "message/nmea/wnc"
 require_relative "message/nmea/wpl"
 require_relative "message/nmea/xdr"
 require_relative "message/nmea/xte"
+require_relative "message/nmea/xtr"
 
 =begin boilerplate for message definitions
 require_relative "base_nmea"
