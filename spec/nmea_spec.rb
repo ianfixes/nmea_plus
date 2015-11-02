@@ -966,13 +966,24 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
-    # context "when reading a  message" do
-    #   it "properly reports various fields" do
-    #     input = ""
-    #     parsed = @parser.parse(input)
-    #     expect(parsed.).to eq()
-    #   end
-    # end
+    context "when reading a PASHR message" do
+      it "properly reports various fields" do
+        now = Time.now
+        input = "$PASHR,085335.000,224.19,T,-01.26,+00.83,+00.00,0.101,0.113,0.267,1,0*06"
+        parsed = @parser.parse(input)
+        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 8, 53, 35))
+        expect(parsed.heading_degrees).to eq(224.19)
+        expect(parsed.heading_type).to eq('T')
+        expect(parsed.roll_degrees).to eq(-1.26)
+        expect(parsed.pitch_degrees).to eq(0.83)
+        expect(parsed.heave).to eq(0)
+        expect(parsed.roll_stdev).to eq(0.101)
+        expect(parsed.pitch_stdev).to eq(0.113)
+        expect(parsed.heading_stdev).to eq(0.267)
+        expect(parsed.aiding_status).to eq(1)
+        expect(parsed.imu_status).to eq(0)
+      end
+    end
 
   end
 end
