@@ -40,6 +40,10 @@ Style/EmptyLinesAroundMethodBody:
 Style/EmptyLinesAroundModuleBody:
   Enabled: false
 
+# Configuration parameters: AllowForAlignment.
+Style/ExtraSpacing:
+  Enabled: false
+
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/FormatString:
   Enabled: false
