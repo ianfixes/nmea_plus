@@ -9,7 +9,7 @@ module NMEAPlus
 
         # returns pairs of frequency, mode
         def frequencies
-          @fields[3..-1].each_slice(2).to_a.map {|x| [x[0].to_f, x[1]]}
+          @fields[3..-1].each_slice(2).to_a.map { |x| [x[0].to_f, x[1]] }
         end
 
       end

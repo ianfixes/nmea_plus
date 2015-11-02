@@ -24,7 +24,7 @@ end
 file GENERATED_PARSER => INPUT_Y do |t|
   begin
     racc = 'bundle exec racc'
-    #sh "#{racc} -l -o '#{t.name}' '#{t.prerequisites.first}'"
+    # sh "#{racc} -l -o '#{t.name}' '#{t.prerequisites.first}'"
     sh "#{racc} -o '#{t.name}' '#{t.prerequisites.first}'"
   rescue
     abort "need racc, sudo gem install racc"

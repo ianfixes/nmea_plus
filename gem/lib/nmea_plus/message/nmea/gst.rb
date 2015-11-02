@@ -11,7 +11,7 @@ module NMEAPlus
         field_reader :semimajor_error_ellipse_orientation_degrees, 5, :_float
         field_reader :standard_deviation_latitude_meters, 6, :_float
         field_reader :standard_deviation_longitude_meters, 7, :_float
-        field_reader :standard_deviation_altitude_meters, 8 , :_float
+        field_reader :standard_deviation_altitude_meters, 8, :_float
       end
     end
   end
