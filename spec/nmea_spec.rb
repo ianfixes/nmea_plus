@@ -927,6 +927,15 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading an XTR message" do
+      it "properly reports various fields" do
+        input = "$GPXTR,0.10,R,N*00"
+        parsed = @parser.parse(input)
+        expect(parsed.cross_track_error).to eq(0.10)
+        expect(parsed.direction_to_steer).to eq("R")
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
