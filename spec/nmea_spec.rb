@@ -786,6 +786,19 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a VBW message" do
+      it "properly reports various fields" do
+        input = "$GPVBW,1.2,2.3,A,3.4,4.5,V*00"
+        parsed = @parser.parse(input)
+        expect(parsed.longitudinal_water_speed).to eq(1.2)
+        expect(parsed.transverse_water_speed).to eq(2.3)
+        expect(parsed.water_speed_valid?).to eq(true)
+        expect(parsed.longitudinal_ground_speed).to eq(3.4)
+        expect(parsed.transverse_ground_speed).to eq(4.5)
+        expect(parsed.ground_speed_valid?).to eq(false)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""

@@ -58,6 +58,7 @@ require_relative "message/nmea/tpr"
 require_relative "message/nmea/tpt"
 require_relative "message/nmea/trf"
 require_relative "message/nmea/ttm"
+require_relative "message/nmea/vbw"
 
 =begin boilerplate for message definitions
 require_relative "base_nmea"
