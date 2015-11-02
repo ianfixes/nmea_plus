@@ -820,6 +820,15 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a VLW message" do
+      it "properly reports various fields" do
+        input = "$GPVLW,1.1,N,2.3,N*00"
+        parsed = @parser.parse(input)
+        expect(parsed.total_distance_nautical_miles).to eq(1.1)
+        expect(parsed.distance_since_reset_nautical_miles).to eq(2.3)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
