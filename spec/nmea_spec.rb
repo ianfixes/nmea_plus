@@ -903,6 +903,17 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a XDR message" do
+      it "properly reports various fields" do
+        input = "$GPXDR,a,2.3,b,foo*00"
+        parsed = @parser.parse(input)
+        expect(parsed.type).to eq('a')
+        expect(parsed.measurement).to eq(2.3)
+        expect(parsed.measurement_unit).to eq('b')
+        expect(parsed.name).to eq('foo')
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
