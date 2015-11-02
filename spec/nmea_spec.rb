@@ -861,6 +861,18 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a VWR message" do
+      it "properly reports various fields" do
+        input = "$GPVWR,1.2,L,2.3,N,3.4,M,4.5,K*00"
+        parsed = @parser.parse(input)
+        expect(parsed.wind_direction_degrees).to eq(1.2)
+        expect(parsed.wind_direction_bow).to eq('L')
+        expect(parsed.speed_knots).to eq(2.3)
+        expect(parsed.speed_ms).to eq(3.4)
+        expect(parsed.speed_kmh).to eq(4.5)
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
