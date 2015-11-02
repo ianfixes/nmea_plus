@@ -1,6 +1,7 @@
 
 require_relative "message_factory"
 
+# standard NMEA
 require_relative "message/nmea/aam"
 require_relative "message/nmea/alm"
 require_relative "message/nmea/apa"
@@ -74,6 +75,9 @@ require_relative "message/nmea/xtr"
 require_relative "message/nmea/zda"
 require_relative "message/nmea/zfo"
 require_relative "message/nmea/ztg"
+
+# proprietary
+require_relative "message/nmea/pashr"
 
 =begin boilerplate for message definitions
 require_relative "base_nmea"
