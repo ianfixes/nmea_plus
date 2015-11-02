@@ -838,6 +838,29 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading an old VTG  message" do
+      it "properly reports various fields" do
+        input = "$GPVTG,1.2,2.3,3.4,4.5*00"
+        parsed = @parser.parse(input)
+        expect(parsed.track_degrees_true).to eq(1.2)
+        expect(parsed.track_degrees_magnetic).to eq(2.3)
+        expect(parsed.speed_knots).to eq(3.4)
+        expect(parsed.speed_kmh).to eq(4.5)
+      end
+    end
+
+    context "when reading a new VTG  message" do
+      it "properly reports various fields" do
+        input = "$GPVTG,1.2,T,2.3,M,3.4,N,4.5,K,m*00"
+        parsed = @parser.parse(input)
+        expect(parsed.track_degrees_true).to eq(1.2)
+        expect(parsed.track_degrees_magnetic).to eq(2.3)
+        expect(parsed.speed_knots).to eq(3.4)
+        expect(parsed.speed_kmh).to eq(4.5)
+        expect(parsed.faa_mode).to eq('m')
+      end
+    end
+
     # context "when reading a  message" do
     #   it "properly reports various fields" do
     #     input = ""
