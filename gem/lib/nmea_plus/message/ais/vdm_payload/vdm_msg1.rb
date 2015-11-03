@@ -8,6 +8,23 @@ module NMEAPlus
 
           payload_reader :navigational_status, 38, 4, :_u
 
+          def navigational_status_description
+            case navigational_status
+            when 0 then return "Under way using engine"
+            when 1 then return "At anchor"
+            when 2 then return "Not under command"
+            when 3 then return "Restricted manoeuverability"
+            when 4 then return "Constrained by her draught"
+            when 5 then return "Moored"
+            when 6 then return "Aground"
+            when 7 then return "Engaged in Fishing"
+            when 8 then return "Under way sailing"
+            when 14 then return "AIS-SART active"
+            else
+              return "undefined"
+            end
+          end
+
           def rate_of_turn
             ret = _i(42, 8)
             return nil if ret == -128
