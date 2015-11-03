@@ -101,6 +101,20 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when parsing a list of real messages" do
+      it "recognizes all of them" do
+        samples = File.join(File.dirname(__FILE__), "samples", "aivdm_message_samples.txt")
+        found = {}
+        File.readlines(samples).each do |line|
+          parsed = @parser.parse(line)
+          expect(parsed.is_a? NMEAPlus::Message::AIS::AISMessage).to eq(true)
+          expect(parsed.is_a? NMEAPlus::Message::Base).to eq(true)
+          if parsed.checksum_ok?
+            expect(parsed.ais.message_type.is_a? Integer).to eq(true)
+          end
+        end
+      end
+    end
 
 
   end
