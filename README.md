@@ -1,58 +1,104 @@
-# nmea_plus
-Ruby gem for NMEA (plus other similar formats) message parsing
+# NMEAPlus Ruby Gem
 
-## Source data
-This gem was coded to the unoffical spec found here: http://www.catb.org/gpsd/NMEA.txt
+[![Gem Version](https://badge.fury.io/rb/nmea_plus.svg)](https://rubygems.org/gems/nmea_plus)
+[![Build Status](https://travis-ci.org/ifreecarve/nmea_plus.svg)](https://travis-ci.org/ifreecarve/nmea_plus)
 
-## Organization
-A very trivial parser extracts the message type and checksum information, passing them directly to a message factory class.  The factory classes read the data type and create the appropriate class through reflection.
+[NMEAPlus](https://github.com/ifreecarve/nmea_plus) is a Ruby gem for decoding NMEA, AIS, and any other similar formats of short messaging typically used by marine equipment.  It provides convenient developer access to the fields of each message type.
 
-The classes are by default named after the message types they support.  However, NMEA supports so-called "Standard Sentences" -- talker-independent commands -- which need to be attempted if a given message class does not exist.  These can be configured in the `self.alternate_data_type` method of a message factory subclass.
 
-Message classes are given the message prefix (e.g. "$"), payload (string of comma-separated fields), and checksum string (without the `*`).  They are also given the "interpreted data type" -- the possible alternate data type produced above.  Messages immediately split the payload on the commas, and any subclasses of messages should expose those fields as proper data types with proper names.
+## Install
 
-### Adding a new data type
+`gem install nmea_plus`
 
-Let's say we've defined a new NMEA message called MYMSG and want our decoder to properly parse it.
+## Example
 
-1. Edit `gem/lib/nmea_plus/message/nmea/mymsg.rb`
-2. Stub it out as follows:
+In its most basic use, you can decode messages as follows:
 
 ```ruby
-require_relative "base_nmea"
+require 'nmea_plus'
 
-module NMEAPlus
-  module Message
-    module NMEA
-      class MYMSG < NMEAPlus::Message::NMEA::NMEAMessage
-      end
-    end
-  end
-end
-```
+decoder = NMEAPlus::Decoder.new
+message = decoder.parse("$GPGLL,4916.45,N,12311.12,W,225444,A*00")
+puts message.latitude     # prints 49.27416666666666666666
+puts message.longitude    # prints -123.18533333333333333
+puts message.fix_time     # prints <today's date> 22:54:44 <your local time zone offset>
+puts message.valid?       # prints true
+puts message.faa_mode     # prints nil
 
-3. Add `require_relative "message/nmea/mymsg"` to `gem/lib/nmea_plus/nmea_message_factory.rb`
-4. Add tests in `spec/parser_spec.rb`
-5. Add accessor methods in NMEAPlus::Message::NMEA::MYMSG, and appropriate tests.
+# metadata
+puts message.checksum_ok? # prints false -- because this checksum is made up
+puts message.original     # prints "$GPGLL,4916.45,N,12311.12,W,225444,A*00"
+puts message.data_type    # prints "GPGLL" -- what was specified in the message
+puts message.interpreted_data_type  # prints "GLL" -- the actual container used
 
-The following metaprogramming feature has been added to facilitate this:
-
-```ruby
-
-field_reader :my_field, 2, :_integer
-
-# this is equivalent to the following:
-
-def my_field
-  _integer(@fields[2])
-end
+# metadata that applies to multipart messages (also works for single messages)
+puts message.all_messages_received? # prints true
+puts message.all_checksums_ok? # prints true
 ```
 
 
-## Testing
-* run `rspec`
+Of course, decoding in practice is more complex than that.  Some messages can have multiple parts, and AIS messages have their own complicated payload.  NMEAPlus provides a SourceDecoder object that operates on IO objects (anything with `each_line` support) -- a File, SerialPort, etc.  You can iterate over each message (literally `each_message`), or receive only fully assembled multipart messages by iterating over `each_complete_message`.
 
-## Packaging the Gem
+```ruby
+require 'nmea_plus'
 
-* `rake -f parser/Rakefile`
-* `gem build nmea_plus.gemspec`
+input1 = "!AIVDM,2,1,0,A,58wt8Ui`g??r21`7S=:22058<v05Htp000000015>8OA;0sk,0*7B"
+input2 = "!AIVDM,2,2,0,A,eQ8823mDm3kP00000000000,2*5D"
+io_source = StringIO.new("#{input1}\n#{input2}")
+
+source_decoder = NMEAPlus::SourceDecoder.new(io_source)
+source_decoder.each_complete_message do |parsed|
+  puts message_all_checksums_ok?                  # prints true -- the full message set has good checksums
+  puts message_all_messages_received?             # prints true -- taken care of by each_complete_message
+  puts message.ais.message_type                   # prints 5
+  puts message.ais.repeat_indicator               # prints 0
+  puts message.ais.source_mmsi                    # prints 603916439
+  puts message.ais.ais_version                    # prints 0
+  puts message.ais.imo_number                     # prints 439303422
+  puts message.ais.callsign.strip                 # prints "ZA83R"
+  puts message.ais.name.strip                     # prints "ARCO AVON"
+  puts message.ais.ship_cargo_type                # prints 69
+  puts message.ais.ship_dimension_to_bow          # prints 113
+  puts message.ais.ship_dimension_to_stern        # prints 31
+  puts message.ais.ship_dimension_to_port         # prints 17
+  puts message.ais.ship_dimension_to_starboard    # prints 11
+  puts message.ais.epfd_type                      # prints 0
+  puts message.ais.eta                            # prints <this year>-03-23 19:45:00 <your local time zone offset>
+  puts message.ais.static_draught                 # prints 13.2
+  puts message.ais.destination.strip              # prints "HOUSTON"
+  puts message.ais.dte?                           # prints false
+end
+
+```
+
+## Design documents
+
+This gem was coded to accept the standard NMEA messages defined in the unoffical spec found here:
+http://www.catb.org/gpsd/NMEA.txt
+
+Because the message types are standard, if no override is found for a particular talker ID then the message will parse according to the command (the last 3 characters) of the data type.  In other words, $GPGLL will use the general GLL message type.  Currently, the following standard message types are supported:
+
+> AAM, ALM, APA, APB, BOD, BWC, BWR, BWW, DBK, DBS, DBT, DCN, DPT, DTM, FSI, GBS, GGA, GLC, GLL, GNS, GRS, GSA, GST, GSV, GTD, GXA, HDG, HDM, HDT, HFB, HSC, ITS, LCD, MSK, MSS, MTW, MWV, OLN, OSD, R00, RMA, RMB, RMC, ROT, RPM, RSA, RSD, RTE, SFI, STN, TDS, TFI, TPC, TPR, TPT, TRF, TTM, VBW, VDR, VHW, VLW, VPW, VTG, VWR, WCV, WNC, WPL, XDR, XTE, XTR, ZDA, ZFO, ZTG
+
+
+Additionally, AIS message type definitions were implemented from the unofficial spec found here:
+http://catb.org/gpsd/AIVDM.html
+
+> Currently AIVDM messages types 1, 2, 3, 5, and 8 are implemented.
+
+Support for proprietary messages is also possible.  PASHR is included as proof-of-concept.
+
+
+## Disclaimer
+
+This module was written from information scraped together on the web, not from testing on actual devices.  Please don't entrust your life or the safety of your ship to this code without doing your own rigorous testing.
+
+
+## Author
+
+This gem was written by Ian Katz (ifreecarve@gmail.com) in 2015.  It's released under the Apache 2.0 license.
+
+
+## See Also
+
+* [Contributing](CONTRIBUTING.md)
