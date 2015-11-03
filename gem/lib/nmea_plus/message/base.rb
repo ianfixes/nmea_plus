@@ -65,18 +65,22 @@ module NMEAPlus
       end
 
       def all_messages_received?
-        message_number == 1 && _all_message_parts_chained?(0)
+        total_messages == highest_contiguous_index
       end
 
-      def _all_message_parts_chained?(highest_contiguous_index)
+      def highest_contiguous_index
+        _highest_contiguous_index(0)
+      end
+
+      def _highest_contiguous_index(last_index)
         mn = message_number # just in case this is expensive to compute
-        return false if mn - highest_contiguous_index != 1 # indicating a skip or restart
-        return true  if mn == total_messages               # indicating we made it to the end
-        return false if @next_part.nil?                    # indicating we're incomplete
-        @next_part._all_message_parts_chained?(mn)         # recurse down
+        return last_index if mn - last_index != 1      # indicating a skip or restart
+        return mn if @next_part.nil?                   # indicating we're the last message
+        @next_part._highest_contiguous_index(mn)       # recurse down
       end
 
-      # conversion functions
+
+     # conversion functions
 
       # convert DDMM.MMM to single decimal value.
       # sign_letter can be N,S,E,W
