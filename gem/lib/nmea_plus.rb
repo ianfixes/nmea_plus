@@ -9,7 +9,9 @@ module NMEAPlus
     attr_accessor :throw_on_unrecognized_type  # typically for development
 
     def initialize(line_reader)
-      fail ArgumentError, "line_reader must inherit from type IO" unless line_reader.is_a? IO
+      unless line_reader.respond_to? :each_line
+        fail ArgumentError, "line_reader must inherit from type IO (or implement each_line)"
+      end
       @throw_on_parse_fail = false
       @source = line_reader
       @decoder = NMEAPlus::Decoder.new
