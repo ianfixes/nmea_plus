@@ -35,6 +35,12 @@ module NMEAPlus
         calculated_checksum == checksum
       end
 
+      def all_checksums_ok?
+        return false if !checksum_ok?
+        return true if @next_part.nil?
+        return @next_part.all_checksums_ok?
+      end
+
       def calculated_checksum
         "%02x" % payload.each_byte.map(&:ord).reduce(:^)
       end
