@@ -89,10 +89,10 @@ module NMEAPlus
         def _payload_container(message_type_id)
           class_identifier = "NMEAPlus::Message::AIS::VDMPayload::VDMMsg#{message_type_id}"
           Object::const_get(class_identifier).new
-        rescue ::NameError => e
-          raise ::NameError, "Couldn't instantiate a #{class_identifier} object: #{e}"
+        rescue ::NameError
+          class_identifier = "NMEAPlus::Message::AIS::VDMPayload::VDMMsgUndefined" # generic
+          Object::const_get(class_identifier).new
         end
-
       end
     end
   end
