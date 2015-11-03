@@ -3,7 +3,6 @@ require_relative 'message_factory'
 
 require_relative 'message/ais/vdm'
 
-
 module NMEAPlus
   class AISMessageFactory < MessageFactory
     def self.parent_module

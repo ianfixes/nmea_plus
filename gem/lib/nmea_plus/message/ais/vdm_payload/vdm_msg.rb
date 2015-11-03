@@ -88,11 +88,10 @@ module NMEAPlus
           alias_method :_e, :_6b_unsigned_integer
           alias_method :_t, :_6b_string_nullterminated
           alias_method :_d, :_2b_data_string
-          #alias_method :a
 
         end
 
-        class VDMMsgUndefined < VDMMsg ; end
+        class VDMMsgUndefined < VDMMsg; end
 
       end
     end
