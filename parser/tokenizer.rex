@@ -6,13 +6,14 @@ macro
   csum      \*[0-9A-F]{2}
   cash      \$
   bang      !
-  data     [^\*]+
+  data      [^\*]+
+  nlns      [\w\n\r]*
 
 rule
 
 # [:state]  pattern  [actions]
 
-  {csum}           { [:CSUM, text[1..2]] }
+  {csum}{nlns}     { [:CSUM, text[1..2]] }
   {cash}           { [:CASH, text] }
   {bang}           { [:BANG, text] }
   {data}           { [:DATA, text] }
