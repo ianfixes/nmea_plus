@@ -21,8 +21,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly detects the armored payload" do
         input = "!AIVDM,1,1,,B,15NO=ndP01JrjhlH@0s;3?vD0L0e,0*77"
         parsed = @parser.parse(input)
-        expect(parsed.full_armored_payload).to eq("15NO=ndP01JrjhlH@0s;3?vD0L0e")
-        expect(parsed.payload.message_type).to eq(1)
+        expect(parsed.full_armored_ais_payload).to eq("15NO=ndP01JrjhlH@0s;3?vD0L0e")
+        expect(parsed.ais.message_type).to eq(1)
       end
     end
 
@@ -44,11 +44,11 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input2 = "!AIVDM,2,2,3,B,1@0000000000000,2*55"
         parsed = @parser.parse(input1)
         parsed.add_message_part(@parser.parse(input2))
-        expect(parsed.full_armored_payload).to eq("55P5TL01VIaAL@7WKO@mBplU@<PDhh000000001S;AJ::4A80?4i@E531@0000000000000")
-        expect(parsed.last_fill_bits).to eq(2)
+        expect(parsed.full_armored_ais_payload).to eq("55P5TL01VIaAL@7WKO@mBplU@<PDhh000000001S;AJ::4A80?4i@E531@0000000000000")
+        expect(parsed.last_ais_fill_bits).to eq(2)
 
-        expect(parsed.payload.message_type).to eq(5)
-        expect(parsed.payload.repeat_indicator).to eq(0)
+        expect(parsed.ais.message_type).to eq(5)
+        expect(parsed.ais.repeat_indicator).to eq(0)
       end
     end
 
@@ -60,23 +60,23 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         parsed.add_message_part(@parser.parse(input2))
         now = Time.now
 
-        expect(parsed.payload.message_type).to eq(5)
-        expect(parsed.payload.repeat_indicator).to eq(0)
-        expect(parsed.payload.source_mmsi).to eq(603916439)
-        expect(parsed.payload.ais_version).to eq(0)
-        expect(parsed.payload.imo_number).to eq(439303422)
-        expect(parsed.payload.callsign.strip).to eq("ZA83R")
-        expect(parsed.payload.name.strip).to eq("ARCO AVON")
-        expect(parsed.payload.ship_cargo_type).to eq(69)
-        expect(parsed.payload.ship_dimension_to_bow).to eq(113)
-        expect(parsed.payload.ship_dimension_to_stern).to eq(31)
-        expect(parsed.payload.ship_dimension_to_port).to eq(17)
-        expect(parsed.payload.ship_dimension_to_starboard).to eq(11)
-        expect(parsed.payload.epfd_type).to eq(0)
-        expect(parsed.payload.eta).to eq(Time.new(now.year, 3, 23, 19, 45, 0))
-        expect(parsed.payload.static_draught).to eq(13.2)
-        expect(parsed.payload.destination.strip).to eq("HOUSTON")
-        expect(parsed.payload.dte?).to eq(false)
+        expect(parsed.ais.message_type).to eq(5)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(603916439)
+        expect(parsed.ais.ais_version).to eq(0)
+        expect(parsed.ais.imo_number).to eq(439303422)
+        expect(parsed.ais.callsign.strip).to eq("ZA83R")
+        expect(parsed.ais.name.strip).to eq("ARCO AVON")
+        expect(parsed.ais.ship_cargo_type).to eq(69)
+        expect(parsed.ais.ship_dimension_to_bow).to eq(113)
+        expect(parsed.ais.ship_dimension_to_stern).to eq(31)
+        expect(parsed.ais.ship_dimension_to_port).to eq(17)
+        expect(parsed.ais.ship_dimension_to_starboard).to eq(11)
+        expect(parsed.ais.epfd_type).to eq(0)
+        expect(parsed.ais.eta).to eq(Time.new(now.year, 3, 23, 19, 45, 0))
+        expect(parsed.ais.static_draught).to eq(13.2)
+        expect(parsed.ais.destination.strip).to eq("HOUSTON")
+        expect(parsed.ais.dte?).to eq(false)
       end
     end
 
@@ -84,20 +84,20 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly decodes the armored payload" do
         input = "!AIVDM,1,1,,B,15NO=ndP01JrjhlH@0s;3?vD0L0e,0*77"
         parsed = @parser.parse(input)
-        expect(parsed.payload.message_type).to eq(1)
-        expect(parsed.payload.repeat_indicator).to eq(0)
-        expect(parsed.payload.source_mmsi).to eq(367513050)
-        expect(parsed.payload.navigational_status).to eq(12)
-        expect(parsed.payload.rate_of_turn).to eq(nil)
-        expect(parsed.payload.speed_over_ground).to eq(0.1)
-        expect(parsed.payload.position_10m_accuracy?).to eq(false)
-        expect(parsed.payload.longitude).to eq(-71.04251666666667)
-        expect(parsed.payload.latitude).to eq(42.380340000000004)
-        expect(parsed.payload.course_over_ground).to eq(282.8)
-        expect(parsed.payload.true_heading).to eq(nil)
-        expect(parsed.payload.time_stamp).to eq(10)
-        expect(parsed.payload.special_manoeuvre).to eq(0)
-        expect(parsed.payload.raim?).to eq(false)
+        expect(parsed.ais.message_type).to eq(1)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(367513050)
+        expect(parsed.ais.navigational_status).to eq(12)
+        expect(parsed.ais.rate_of_turn).to eq(nil)
+        expect(parsed.ais.speed_over_ground).to eq(0.1)
+        expect(parsed.ais.position_10m_accuracy?).to eq(false)
+        expect(parsed.ais.longitude).to eq(-71.04251666666667)
+        expect(parsed.ais.latitude).to eq(42.380340000000004)
+        expect(parsed.ais.course_over_ground).to eq(282.8)
+        expect(parsed.ais.true_heading).to eq(nil)
+        expect(parsed.ais.time_stamp).to eq(10)
+        expect(parsed.ais.special_manoeuvre).to eq(0)
+        expect(parsed.ais.raim?).to eq(false)
       end
     end
 
