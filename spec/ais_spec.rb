@@ -101,6 +101,19 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when dealing with VDM payload data message type 8" do
+      it "properly decodes the armored payload" do
+        input = "!AIVDM,1,1,,B,85PnJ9QKf3jT:tSC1W9fQuad7t?>rGW9>j?id9cbot:uO10c5Nj7,0*4A"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(8)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(369990182)
+        expect(parsed.ais.designated_area_code).to eq(366)
+        expect(parsed.ais.functional_id).to eq(56)
+        expect(parsed.ais.application_data_6b).to eq("OJP+2MLF\\&:G6&0_0<;)^\\$;H?F0&.+_0+5<DB,U;HG")
+      end
+    end
+
     context "when parsing a list of real messages" do
       it "recognizes all of them" do
         samples = File.join(File.dirname(__FILE__), "samples", "aivdm_message_samples.txt")
@@ -111,6 +124,9 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
           expect(parsed.is_a? NMEAPlus::Message::Base).to eq(true)
           if parsed.checksum_ok?
             expect(parsed.ais.message_type.is_a? Integer).to eq(true)
+            if parsed.message_number == 1 && parsed.ais.is_a?(NMEAPlus::Message::AIS::VDMPayload::VDMMsgUndefined)
+              puts "AIS message type #{parsed.ais.message_type} isn't fleshed out: #{parsed.original}"
+            end
           end
         end
       end

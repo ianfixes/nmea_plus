@@ -29,7 +29,15 @@ module NMEAPlus
           # convert an entire string from the payload
           def _6b_string(start, length)
             # pull out 6b chunks from the string, use their value as a lookup into the ascii array
-            @payload_bitstring[start, length].chars.each_slice(6).to_a.map(&:join).map { |x| _6b_ascii(x.to_i(2)) }.join
+            _bit_slices(start, length, 6).to_a.map(&:join).map { |x| _6b_ascii(x.to_i(2)) }.join
+          end
+
+          def _8b_data_string(start, length)
+            _bit_slices(start, length, 8).to_a.map(&:join).map { |x| x.to_i(2).chr }.join
+          end
+
+          def _bit_slices(start, length, chunk_size)
+            @payload_bitstring[start, length].chars.each_slice(chunk_size)
           end
 
           # convert a string but trim off the 0s ('@')
@@ -67,7 +75,7 @@ module NMEAPlus
             @payload_bitstring[start].to_i == 1
           end
 
-          def _6b_data_string(start, length)
+          def _2b_data_string(start, length)
             @payload_bitstring[start, length]
           end
 
@@ -79,7 +87,7 @@ module NMEAPlus
           alias_method :_b, :_6b_boolean
           alias_method :_e, :_6b_unsigned_integer
           alias_method :_t, :_6b_string_nullterminated
-          alias_method :_d, :_6b_data_string
+          alias_method :_d, :_2b_data_string
           #alias_method :a
 
         end
