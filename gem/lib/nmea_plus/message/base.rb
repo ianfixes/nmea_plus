@@ -36,9 +36,9 @@ module NMEAPlus
       end
 
       def all_checksums_ok?
-        return false if !checksum_ok?
+        return false unless checksum_ok?
         return true if @next_part.nil?
-        return @next_part.all_checksums_ok?
+        @next_part.all_checksums_ok?
       end
 
       def calculated_checksum
@@ -79,8 +79,7 @@ module NMEAPlus
         @next_part._highest_contiguous_index(mn)       # recurse down
       end
 
-
-     # conversion functions
+      ######################### Conversion functions
 
       # convert DDMM.MMM to single decimal value.
       # sign_letter can be N,S,E,W

@@ -1,7 +1,7 @@
 AllCops:
   Exclude:
     - '*.gemspec'
-    - 'spec/*'
+    - 'spec/*.rb'
     - '**/generated_parser/*'
 
 inherit_from: .rubocop_todo.yml
@@ -47,6 +47,11 @@ Style/ExtraSpacing:
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/FormatString:
   Enabled: false
+
+# Offense count: 1
+Metrics/CyclomaticComplexity:
+  Enabled: false
+  Max: 11
 
 # Cop supports --auto-correct.
 Style/RedundantSelf:
