@@ -32,7 +32,7 @@ module NMEAPlus
       end
 
       def checksum_ok?
-        calculated_checksum == checksum
+        calculated_checksum.upcase == checksum.upcase
       end
 
       def all_checksums_ok?
@@ -42,7 +42,7 @@ module NMEAPlus
       end
 
       def calculated_checksum
-        "%02x" % payload.each_byte.map(&:ord).reduce(:^)
+        "%02x" % @payload.each_byte.map(&:ord).reduce(:^)
       end
 
       # many messages override these fields
