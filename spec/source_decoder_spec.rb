@@ -107,7 +107,9 @@ RSpec.describe NMEAPlus::SourceDecoder, "#parse" do
           expect(message.is_a? NMEAPlus::Message::Base).to eq(true)
           expect(message.all_messages_received?).to eq(true)
           expect(message.all_checksums_ok?).to eq(true)
-          expect(message.ais.message_type.is_a? Integer).to eq(true)
+          if message.interpreted_data_type == "VDM"
+            expect(message.ais.message_type.is_a? Integer).to eq(true)
+          end
         end
 
         expect(called_once).to eq(true)

@@ -23,11 +23,13 @@ module NMEAPlus
         if @throw_on_parse_fail
           yield @decoder.parse(line)
         else
+          got_error = false
           begin
             y = @decoder.parse(line)
-            yield y
           rescue
+            got_error = true
           end
+          yield y unless got_error
         end
       end
     end
