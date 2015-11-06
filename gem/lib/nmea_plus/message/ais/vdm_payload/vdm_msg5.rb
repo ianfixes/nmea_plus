@@ -73,7 +73,7 @@ module NMEAPlus
             when 64 then return "Passenger, Hazardous category D"
             when 65..68 then return "Passenger, Reserved for future use"
             when 69 then return "Passenger, No additional information"
-            when 70 then return "Cargo, all ships of this type"
+            when 70 then return "Cargo"
             when 71 then return "Cargo, Hazardous category A"
             when 72 then return "Cargo, Hazardous category B"
             when 73 then return "Cargo, Hazardous category C"
