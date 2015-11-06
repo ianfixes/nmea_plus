@@ -26,6 +26,14 @@ module NMEAPlus
             '@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_ !"#$%&\'()*+,-./0123456789:;<=>?'[ord]
           end
 
+          # access part of the payload.  if there aren't bytes, there, return nil
+          # else execute a block
+          def _access(start, length)
+            part = @payload_bitstring[start, length]
+            return nil if part.nil? || part.empty?
+            yield part
+          end
+
           # convert an entire string from the payload
           def _6b_string(start, length)
             # pull out 6b chunks from the string, use their value as a lookup into the ascii array
@@ -37,7 +45,7 @@ module NMEAPlus
           end
 
           def _bit_slices(start, length, chunk_size)
-            @payload_bitstring[start, length].chars.each_slice(chunk_size)
+            _access(start, length) { |bits| bits.chars.each_slice(chunk_size) }
           end
 
           # convert a string but trim off the 0s ('@')
@@ -47,18 +55,19 @@ module NMEAPlus
 
           # directly convert a string to a binary number as you'd read it
           def _6b_unsigned_integer(start, length)
-            @payload_bitstring[start, length].to_i(2)
+            _access(start, length) { |bits| bits.to_i(2) }
           end
 
           # perform a twos complement operation on part of the payload
           def _6b_twoscomplement(start, length)
             # two's complement: flip bits, then add 1
-            @payload_bitstring[start, length].tr("01", "10").to_i(2) + 1
+            _access(start, length) { |bits| bits.tr("01", "10").to_i(2) + 1 }
           end
 
           def _6b_integer(start, length)
             # MSB is 1 for negative
-            _6b_twoscomplement(start, length) * (@payload_bitstring[start] == 0 ? 1 : -1)
+            twoc = _6b_twoscomplement(start, length)
+            twoc && twoc * (@payload_bitstring[start] == 0 ? 1 : -1)
           end
 
           # scale an integer by dividing it by 10^decimal_places
@@ -72,11 +81,11 @@ module NMEAPlus
           end
 
           def _6b_boolean(start, _)
-            @payload_bitstring[start].to_i == 1
+            _access(start, 1) { |bits| bits.to_i == 1 }
           end
 
           def _2b_data_string(start, length)
-            @payload_bitstring[start, length]
+            _access(start, length)
           end
 
           # use shorthand for data types as defined in http://catb.org/gpsd/AIVDM.html
