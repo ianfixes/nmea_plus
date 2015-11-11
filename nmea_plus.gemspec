@@ -5,7 +5,7 @@ require 'nmea_plus/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "nmea_plus"
-  spec.description   = %q{A pure-ruby decoder toolkit for NMEA messages (plus AIS and other similar formats)
+  spec.description   = %q{A pure-ruby decoder toolkit for NMEA messages (GPS, AIS, and other similar formats)
                           that provides convenient access to all data fields.  Nearly all standard NMEA messages,
                           the most common AIS messages, and some proprietary messages are supported.
                          }
@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Ian Katz"]
   spec.email         = ["ifreecarve@gmail.com"]
 
-  spec.summary       = %q{Tools for decoding NMEA-style messages}
+  spec.summary       = %q{Tools for decoding NMEA-style (GPS) messages}
   spec.homepage      = "http://github.com/ifreecarve/nmea_plus"
 
   spec.files         =  Dir['gem/**/*.*'].reject { |f| f.match(%r{^(test|spec|features)/}) }
