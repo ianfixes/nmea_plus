@@ -19,6 +19,7 @@ require 'nmea_plus'
 
 decoder = NMEAPlus::Decoder.new
 message = decoder.parse("$GPGLL,4916.45,N,12311.12,W,225444,A*00")
+# message data -- specific to this message type
 puts message.latitude     # prints 49.27416666666666666666
 puts message.longitude    # prints -123.18533333333333333
 puts message.fix_time     # prints <today's date> 22:54:44 <your local time zone offset>
@@ -33,7 +34,16 @@ puts message.interpreted_data_type  # prints "GLL" -- the actual container used
 
 # metadata that applies to multipart messages (also works for single messages)
 puts message.all_messages_received? # prints true
-puts message.all_checksums_ok? # prints true
+puts message.all_checksums_ok?      # prints true
+
+# safer way to do what we did above
+if "GPGLL" == message.data_type     # Alternately, if "GLL" == message.interpreted_data_type
+  puts message.latitude     # prints 49.27416666666666666666
+  puts message.longitude    # prints -123.18533333333333333
+  puts message.fix_time     # prints <today's date> 22:54:44 <your local time zone offset>
+  puts message.valid?       # prints true
+  puts message.faa_mode     # prints nil
+end
 ```
 
 
@@ -44,29 +54,31 @@ require 'nmea_plus'
 
 input1 = "!AIVDM,2,1,0,A,58wt8Ui`g??r21`7S=:22058<v05Htp000000015>8OA;0sk,0*7B"
 input2 = "!AIVDM,2,2,0,A,eQ8823mDm3kP00000000000,2*5D"
-io_source = StringIO.new("#{input1}\n#{input2}")
+io_source = StringIO.new("#{input1}\n#{input2}")  # source decoder works on any IO object
 
 source_decoder = NMEAPlus::SourceDecoder.new(io_source)
 source_decoder.each_complete_message do |parsed|
   puts message_all_checksums_ok?                  # prints true -- the full message set has good checksums
   puts message_all_messages_received?             # prints true -- taken care of by each_complete_message
-  puts message.ais.message_type                   # prints 5
-  puts message.ais.repeat_indicator               # prints 0
-  puts message.ais.source_mmsi                    # prints 603916439
-  puts message.ais.ais_version                    # prints 0
-  puts message.ais.imo_number                     # prints 439303422
-  puts message.ais.callsign.strip                 # prints "ZA83R"
-  puts message.ais.name.strip                     # prints "ARCO AVON"
-  puts message.ais.ship_cargo_type                # prints 69
-  puts message.ais.ship_dimension_to_bow          # prints 113
-  puts message.ais.ship_dimension_to_stern        # prints 31
-  puts message.ais.ship_dimension_to_port         # prints 17
-  puts message.ais.ship_dimension_to_starboard    # prints 11
-  puts message.ais.epfd_type                      # prints 0
-  puts message.ais.eta                            # prints <this year>-03-23 19:45:00 <your local time zone offset>
-  puts message.ais.static_draught                 # prints 13.2
-  puts message.ais.destination.strip              # prints "HOUSTON"
-  puts message.ais.dte?                           # prints false
+  if "AIVDM" == message.data_type
+    puts message.ais.message_type                   # prints 5
+    puts message.ais.repeat_indicator               # prints 0
+    puts message.ais.source_mmsi                    # prints 603916439
+    puts message.ais.ais_version                    # prints 0
+    puts message.ais.imo_number                     # prints 439303422
+    puts message.ais.callsign.strip                 # prints "ZA83R"
+    puts message.ais.name.strip                     # prints "ARCO AVON"
+    puts message.ais.ship_cargo_type                # prints 69
+    puts message.ais.ship_dimension_to_bow          # prints 113
+    puts message.ais.ship_dimension_to_stern        # prints 31
+    puts message.ais.ship_dimension_to_port         # prints 17
+    puts message.ais.ship_dimension_to_starboard    # prints 11
+    puts message.ais.epfd_type                      # prints 0
+    puts message.ais.eta                            # prints <this year>-03-23 19:45:00 <your local time zone offset>
+    puts message.ais.static_draught                 # prints 13.2
+    puts message.ais.destination.strip              # prints "HOUSTON"
+    puts message.ais.dte?                           # prints false
+  end
 end
 
 ```
