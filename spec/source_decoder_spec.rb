@@ -92,6 +92,50 @@ RSpec.describe NMEAPlus::SourceDecoder, "#parse" do
     end
 
 
+
+     context "when reading from a StringIO source" do
+       it "can swallow parse errors" do
+
+        input1 = "!AIVDM,2,1,0,A,58wt8Ui`g??r21`7S=:22058<v05Htp000000015>8OA;0sk,0*7B"
+        input2 = "junk line"
+        input3 = "!AIVDM,2,2,0,A,eQ8823mDm3kP00000000000,2*5D"
+        io_source = StringIO.new("#{input1}\n#{input2}\n#{input3}")
+
+        sd = NMEAPlus::SourceDecoder.new(io_source)
+
+        called_once = false
+        multipart_found = false
+
+        sd.each_complete_message do |parsed|
+          called_once = true
+          multipart_found = true if 1 < parsed.total_messages
+        end
+
+        expect(called_once).to eq(true)
+        expect(multipart_found).to eq(true)
+      end
+    end
+
+     context "when reading from a StringIO source" do
+       it "can expose parse errors" do
+
+        input1 = "!AIVDM,2,1,0,A,58wt8Ui`g??r21`7S=:22058<v05Htp000000015>8OA;0sk,0*7B"
+        input2 = "junk line"
+        input3 = "!AIVDM,2,2,0,A,eQ8823mDm3kP00000000000,2*5D"
+        io_source = StringIO.new("#{input1}\n#{input2}\n#{input3}")
+
+        sd = NMEAPlus::SourceDecoder.new(io_source)
+        sd.throw_on_parse_fail = true
+
+        called_once = false
+        multipart_found = false
+
+        expect{sd.each_complete_message {}}.to raise_error(Racc::ParseError)
+
+      end
+    end
+
+
     context "when reading from a file source" do
       it "reads NMEA messages" do
         samples = File.join(File.dirname(__FILE__), "samples", "gps_message_samples.txt")
