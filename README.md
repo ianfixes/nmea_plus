@@ -3,7 +3,7 @@
 [![Gem Version](https://badge.fury.io/rb/nmea_plus.svg)](https://rubygems.org/gems/nmea_plus)
 [![Build Status](https://travis-ci.org/ifreecarve/nmea_plus.svg)](https://travis-ci.org/ifreecarve/nmea_plus)
 
-[NMEAPlus](https://github.com/ifreecarve/nmea_plus) is a Ruby gem for decoding NMEA, AIS, and any other similar formats of short messaging typically used by marine equipment.  It provides convenient developer access to the fields of each message type.
+[NMEAPlus](https://github.com/ifreecarve/nmea_plus) is a Ruby gem for decoding NMEA, AIS, and any other similar formats of short messaging typically used by GPS units or marine equipment.  It provides convenient developer access to the fields of each message type.
 
 
 ## Install
