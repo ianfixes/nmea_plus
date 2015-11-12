@@ -34,7 +34,7 @@ puts message.interpreted_data_type  # prints "GLL" -- the actual container used
 
 # metadata that applies to multipart messages (also works for single messages)
 puts message.all_messages_received? # prints true
-puts message.all_checksums_ok?      # prints true
+puts message.all_checksums_ok?      # prints false -- checksum is still made up
 
 # safer way to do what we did above
 if "GPGLL" == message.data_type     # Alternately, if "GLL" == message.interpreted_data_type
