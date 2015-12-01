@@ -12,7 +12,7 @@ module NMEAPlus
       # @param name [String] What the accessor will be called
       # @param field_num [Integer] The index of the field in the payload
       # @param formatter [Symbol] The symbol for the formatting function to apply to the field (optional)
-      # @!macro [attach] field_reader
+      # @macro [attach] field_reader
       #   @method $1
       #   @return field $2 of the payload, formatted with the function {#$3}
       def self.field_reader(name, field_num, formatter = nil)
