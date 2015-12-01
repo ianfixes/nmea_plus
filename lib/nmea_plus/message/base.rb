@@ -1,6 +1,12 @@
 
 module NMEAPlus
+
+  # The module containing all parsed message types.
+  # @see NMEAPlus::Message::Base
   module Message
+
+    # The base message type, from which all others inherit
+    # @abstract
     class Base
       # make our own shortcut syntax for message attribute accessors
       # @param name [String] What the accessor will be called
@@ -17,49 +23,75 @@ module NMEAPlus
         end
       end
 
+      # @return [String] The single character prefix for this NMEA 0183 message type
       attr_accessor :prefix
+
+      # @return [String] The unprocessed payload of the message
       attr_reader :payload
+
+      # @return [Array<String>] The payload of the message, split into fields
       attr_reader :fields
+
+      # @return [String] The two-character checksum of the message
       attr_accessor :checksum
+
+      # @return [String] The data type used by the {MessageFactory} to parse this message
       attr_accessor :interpreted_data_type
+
+      # @return [NMEAPlus::Message] The next part of a multipart message, if available
       attr_accessor :next_part
 
       field_reader :data_type, 0, nil
 
+      # @!parse attr_reader :original
+      # @return [String] The original message
       def original
         "#{prefix}#{payload}*#{checksum}"
       end
 
+      # @!parse attr_accessor :payload
       def payload=(val)
         @payload = val
         @fields = val.split(',', -1)
       end
 
+      # @return [bool] Whether the checksum calculated from the payload matches the checksum given in the message
       def checksum_ok?
         calculated_checksum.upcase == checksum.upcase
       end
 
+      # return [bool] Whether the checksums for all available message parts are OK
       def all_checksums_ok?
         return false unless checksum_ok?
         return true if @next_part.nil?
         @next_part.all_checksums_ok?
       end
 
+      # return [String] The calculated checksum for this payload as a two-character string
       def calculated_checksum
         "%02x" % @payload.each_byte.map(&:ord).reduce(:^)
       end
 
-      # many messages override these fields
+      # @!parse attr_reader :total_messages
+      # @abstract
+      # @see #message_number
+      # @return [Integer] The number of parts to this message
       def total_messages
         1
       end
 
-      # sequence number
+      # @!parse attr_reader :message_number
+      # @abstract
+      # @see #total_messages
+      # @return [Integer] The ordinal number of this message in its sequence
       def message_number
         1
       end
 
-      # create a linked list (O(n) implementation; message parts assumed to be < 10) of message parts
+      # Create a linked list of messages by appending a new message to the end of the chain that starts
+      # with this message.  (O(n) implementation; message parts assumed to be < 10)
+      # @param msg [NMEAPlus::Message] The latest message in the chain
+      # @return [void]
       def add_message_part(msg)
         if @next_part.nil?
           @next_part = msg
@@ -68,14 +100,22 @@ module NMEAPlus
         end
       end
 
+      # @return [bool] Whether all messages in a multipart message have been received.
       def all_messages_received?
         total_messages == highest_contiguous_index
       end
 
+      # @return [Integer] The highest contiguous sequence number of linked message parts
+      # @see #message_number
+      # @see #_highest_contiguous_index
       def highest_contiguous_index
         _highest_contiguous_index(0)
       end
 
+      # Helper function to calculate the contiguous index
+      # @param last_index [Integer] the index of the starting message
+      # @see #highest_contiguous_index
+      # @return [Integer] The highest contiguous sequence number of linked message parts
       def _highest_contiguous_index(last_index)
         mn = message_number # just in case this is expensive to compute
         return last_index if mn - last_index != 1      # indicating a skip or restart
@@ -85,8 +125,10 @@ module NMEAPlus
 
       ######################### Conversion functions
 
-      # convert DDMM.MMM to single decimal value.
-      # sign_letter can be N,S,E,W
+      # Convert A string latitude or longitude as fields into a signed number
+      # @param dm_string [String] An angular measurement in the form DDMM.MMM
+      # @param sign_letter [String] can be N,S,E,W
+      # @return [Float] A signed latitude or longitude
       def _degrees_minutes_to_decimal(dm_string, sign_letter = "")
         return nil if dm_string.nil? || dm_string.empty?
         r = /(\d+)(\d{2}\.\d+)/  # (some number of digits) (2 digits for minutes).(decimal minutes)
@@ -95,9 +137,11 @@ module NMEAPlus
         _nsew_signed_float(raw, sign_letter)
       end
 
-      # Use cardinal directions to assign positive or negative to mixed_val
-      # mixed_val can be string or float
+      # Use cardinal directions to assign positive or negative to mixed_val.
       # Of possible directions NSEW (sign_letter) treat N/E as + and S/W as -
+      # @param mixed_val [String] input value, can be string or float
+      # @param sign_letter [String] can be N,S,E,W, or empty
+      # @return [Float] The input value signed as per the sign letter.
       def _nsew_signed_float(mixed_val, sign_letter = "")
         value = mixed_val.to_f
         value *= -1 if !sign_letter.empty? && "SW".include?(sign_letter.upcase)
@@ -105,30 +149,40 @@ module NMEAPlus
       end
 
       # integer or nil
+      # @param field [String] the field index to check
+      # @return [Integer] The value in the field or nil
       def _integer(field)
         return nil if field.nil? || field.empty?
         field.to_i
       end
 
       # float or nil
+      # @param field [String] the field index to check
+      # @return [Float] The value in the field or nil
       def _float(field)
         return nil if field.nil? || field.empty?
         field.to_f
       end
 
       # string or nil
+      # @param field [String] the field index to check
+      # @return [String] The value in the field or nil
       def _string(field)
         return nil if field.nil? || field.empty?
         field
       end
 
       # hex to int or nil
+      # @param field [String] the field index to check
+      # @return [Integer] The value in the field or nil
       def _hex_to_integer(field)
         return nil if field.nil? || field.empty?
         field.hex
       end
 
       # utc time or nil (HHMMSS or HHMMSS.SS)
+      # @param field [String] the field index to check
+      # @return [Time] The value in the field or nil
       def _utctime_hms(field)
         return nil if field.nil? || field.empty?
         re_format = /(\d{2})(\d{2})(\d{2}(\.\d+)?)/
@@ -142,6 +196,8 @@ module NMEAPlus
       end
 
       # time interval or nil (HHMMSS or HHMMSS.SS)
+      # @param field [String] the field index to check
+      # @return [Time] The value in the field or nil
       def _interval_hms(field)
         return nil if field.nil? || field.empty?
         re_format = /(\d{2})(\d{2})(\d{2}(\.\d+)?)/
@@ -153,6 +209,9 @@ module NMEAPlus
         end
       end
 
+      # @param d_field [String] the date field index to check
+      # @param t_field [String] the time field index to check
+      # @return [Time] The value in the fields, or nil if either is not provided
       def _utc_date_time(d_field, t_field)
         return nil if t_field.nil? || t_field.empty?
         return nil if d_field.nil? || d_field.empty?
