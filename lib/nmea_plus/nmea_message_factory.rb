@@ -95,12 +95,17 @@ end
 
 module NMEAPlus
 
+  # Defines a factory for NMEA messages, which will all use {NMEAPlus::Message::NMEA::NMEAMessage} as their base
   class NMEAMessageFactory < MessageFactory
 
+    # @return [String] The name of the parent module: NMEA
     def self.parent_module
       'NMEA'
     end
 
+    # Match all NMEA messages as their generic counterparts.  GPGLL becomes GLL, etc.
+    # @param data_type [String] The data_type of the NMEA message (e.g. the GPGLL of "$GPGLL,12,3,,4,5*00")
+    # @return [String] The data_type that we will attempt to use in decoding the message (e.g. GLL)
     def self.alternate_data_type(data_type)
       # match last 3 digits (get rid of talker)
       data_type[2..4]

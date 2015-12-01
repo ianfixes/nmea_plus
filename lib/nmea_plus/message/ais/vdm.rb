@@ -1,9 +1,5 @@
 require_relative "base_ais"
 
-require_relative "vdm_payload/vdm_msg1"
-require_relative "vdm_payload/vdm_msg5"
-require_relative "vdm_payload/vdm_msg8"
-
 =begin boilerplate for vdm payload objects
 require_relative 'vdm_msg'
 
@@ -20,6 +16,11 @@ module NMEAPlus
 end
 
 =end
+
+require_relative "vdm_payload/vdm_msg1"
+require_relative "vdm_payload/vdm_msg5"
+require_relative "vdm_payload/vdm_msg8"
+
 
 module NMEAPlus
   module Message

@@ -3,6 +3,7 @@ require 'nmea_plus/version'
 require 'nmea_plus/generated_parser/parser'
 require 'nmea_plus/generated_parser/tokenizer'
 
+# NMEAPlus contains classes for parsing and decoding NMEA and AIS messages.
 # @author Ian Katz
 module NMEAPlus
 
