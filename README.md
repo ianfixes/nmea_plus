@@ -3,7 +3,7 @@
 [![Gem Version](https://badge.fury.io/rb/nmea_plus.svg)](https://rubygems.org/gems/nmea_plus)
 [![Build Status](https://travis-ci.org/ifreecarve/nmea_plus.svg)](https://travis-ci.org/ifreecarve/nmea_plus)
 
-[NMEA Plus](https://github.com/ifreecarve/nmea_plus) is a Ruby gem for decoding NMEA, AIS, and any other similar formats of short messaging typically used by GPS units or marine equipment.  It provides convenient developer access to the fields of each message type.
+[NMEA Plus](https://github.com/ifreecarve/nmea_plus) is a Ruby gem for parsing and decoding "GPS" messages: NMEA, AIS, and any other similar formats of short messaging typically used by marine equipment.  It provides convenient access (by name) to the fields of each message type, and a stream reader designed for use with Ruby Blocks.
 
 
 ## Install
@@ -57,7 +57,7 @@ input2 = "!AIVDM,2,2,0,A,eQ8823mDm3kP00000000000,2*5D"
 io_source = StringIO.new("#{input1}\n#{input2}")  # source decoder works on any IO object
 
 source_decoder = NMEAPlus::SourceDecoder.new(io_source)
-source_decoder.each_complete_message do |parsed|
+source_decoder.each_complete_message do |message|
   puts message_all_checksums_ok?                  # prints true -- the full message set has good checksums
   puts message_all_messages_received?             # prints true -- taken care of by each_complete_message
   if "AIVDM" == message.data_type
