@@ -43,7 +43,9 @@ module NMEAPlus
           ret
         end
 
-        # the full encoded payload as it was received
+        # the full encoded payload as it was received -- spanning multiple messages
+        # @!parse attr_reader :full_armored_ais_payload
+        # @return [String]
         def full_armored_ais_payload
           # get the full message and fill bits for the last one
           ptr = self
@@ -57,6 +59,8 @@ module NMEAPlus
         end
 
         # a binary string ("0010101110110") representing the dearmored payload
+        # @!parse attr_reader :full_dearmored_ais_payload
+        # @return [String]
         def full_dearmored_ais_payload
           data = full_armored_ais_payload
           out = ""
@@ -66,8 +70,10 @@ module NMEAPlus
           out
         end
 
+        # Get the fill bits for the last message in the sequence -- the only one that matters
+        # @!parse attr_reader :last_ais_fill_bits
+        # @return [Integer]
         def last_ais_fill_bits
-          # get the fill bits for the last message in the sequence
           ptr = self
           fill_bits = nil
           loop do
@@ -79,6 +85,9 @@ module NMEAPlus
         end
 
         # perform the 6-bit to 8-bit conversion defined in the spec
+        # @param c [String] a character
+        # @param len [Integer] The number of bits to consider
+        # @return [String] a binary encoded string
         def _dearmor6b(c, len = 6)
           val = c.ord
           if val >= 96
@@ -89,6 +98,9 @@ module NMEAPlus
           ret.to_s(2).rjust(6, "0")[0..(len - 1)]
         end
 
+        # Find an appropriate payload container for the payload type, based on its stated message ID
+        # @param message_type_id [String]
+        # @return [NMEAPlus::Message::AIS::VDMPayload::VDMMsg] The parsed payload
         def _payload_container(message_type_id)
           class_identifier = "NMEAPlus::Message::AIS::VDMPayload::VDMMsg#{message_type_id}"
           Object::const_get(class_identifier).new
