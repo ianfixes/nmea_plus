@@ -79,7 +79,6 @@ require_relative 'message/nmea/ztg'
 # proprietary
 require_relative 'message/nmea/pashr'
 
-
 module NMEAPlus
 
 =begin boilerplate for message definitions
