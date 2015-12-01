@@ -79,6 +79,9 @@ require_relative 'message/nmea/ztg'
 # proprietary
 require_relative 'message/nmea/pashr'
 
+
+module NMEAPlus
+
 =begin boilerplate for message definitions
 require_relative 'base_nmea'
 
@@ -92,8 +95,6 @@ module NMEAPlus
   end
 end
 =end
-
-module NMEAPlus
 
   # Defines a factory for NMEA messages, which will all use {NMEAPlus::Message::NMEA::NMEAMessage} as their base
   class NMEAMessageFactory < MessageFactory

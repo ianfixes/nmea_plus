@@ -8,6 +8,8 @@ module NMEAPlus
         field_reader :message_number, 2, :_integer
 
         # returns pairs of frequency, mode
+        # @!parse attr_reader :frequencies
+        # @return [Array<Float>]
         def frequencies
           @fields[3..-1].each_slice(2).to_a.map { |x| [x[0].to_f, x[1]] }
         end

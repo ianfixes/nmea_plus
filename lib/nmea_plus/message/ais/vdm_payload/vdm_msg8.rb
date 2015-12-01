@@ -22,6 +22,8 @@ module NMEAPlus
           payload_reader :ship_dimension_to_starboard, 264, 6, :_u
           payload_reader :epfd_type, 270, 4, :_e
 
+          # @!parse attr_reader :eta
+          # @return [Time]
           def eta
             now = Time.now
             Time.new(now.year,

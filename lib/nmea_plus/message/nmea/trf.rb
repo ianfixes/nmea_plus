@@ -4,14 +4,20 @@ module NMEAPlus
   module Message
     module NMEA
       class TRF < NMEAPlus::Message::NMEA::NMEAMessage
+        # @!parse attr_reader :utc_time
+        # @return [Time]
         def utc_time
           _utc_date_time(@fields[2], @fields[1])
         end
 
+        # @!parse attr_reader :latitude
+        # @return [Float]
         def latitude
           _degrees_minutes_to_decimal(@fields[3], @fields[4])
         end
 
+        # @!parse attr_reader :longitude
+        # @return [Float]
         def longitude
           _degrees_minutes_to_decimal(@fields[5], @fields[6])
         end
