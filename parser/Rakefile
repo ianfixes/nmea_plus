@@ -7,7 +7,7 @@ INPUT_DIR = File.join(File.dirname(__FILE__))
 INPUT_REX = File.join(INPUT_DIR, 'tokenizer.rex')
 INPUT_Y   = File.join(INPUT_DIR, 'parser.y')
 
-OUTPUT_DIR = File.join(File.dirname(__FILE__), '..', 'gem', 'lib', 'nmea_plus', 'generated_parser')
+OUTPUT_DIR = File.join(File.dirname(__FILE__), '..', 'lib', 'nmea_plus', 'generated_parser')
 GENERATED_TOKENIZER = File.join(OUTPUT_DIR, 'tokenizer.rb')
 GENERATED_PARSER    = File.join(OUTPUT_DIR, 'parser.rb')
 
