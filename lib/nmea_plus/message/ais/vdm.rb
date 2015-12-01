@@ -21,7 +21,6 @@ require_relative "vdm_payload/vdm_msg1"
 require_relative "vdm_payload/vdm_msg5"
 require_relative "vdm_payload/vdm_msg8"
 
-
 module NMEAPlus
   module Message
     module AIS

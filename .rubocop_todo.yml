@@ -9,7 +9,7 @@
 # Offense count: 1
 Lint/HandleExceptions:
   Exclude:
-    - 'gem/lib/nmea_plus.rb'
+    - 'lib/nmea_plus.rb'
 
 # Offense count: 85
 # Configuration parameters: Exclude.
@@ -27,8 +27,8 @@ Style/HashSyntax:
 # Configuration parameters: MultiSpaceAllowedForOperators.
 Style/SpaceAroundOperators:
   Exclude:
-    - 'gem/lib/nmea_plus/message/ais/vdm_payload/vdm_msg.rb'
-    - 'gem/lib/nmea_plus/message/ais/vdm_payload/vdm_msg1.rb'
+    - 'lib/nmea_plus/message/ais/vdm_payload/vdm_msg.rb'
+    - 'lib/nmea_plus/message/ais/vdm_payload/vdm_msg1.rb'
 
 # Offense count: 119
 # Cop supports --auto-correct.
