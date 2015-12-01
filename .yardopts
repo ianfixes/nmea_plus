@@ -1,0 +1,1 @@
+lib/nmea_plus.rb lib/nmea_plus/message/nmea/base_nmea.rb lib/nmea_plus/message/ais/vdm_payload/vdm_msg.rb lib/**/*.rb

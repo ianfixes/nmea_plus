@@ -13,7 +13,7 @@ module NMEAPlus
       # @param field_num [Integer] The index of the field in the payload
       # @param formatter [Symbol] The symbol for the formatting function to apply to the field (optional)
       # @macro [attach] field_reader
-      #   @method $1
+      #   @!attribute [r] $1
       #   @return field $2 of the payload, formatted with the function {#$3}
       def self.field_reader(name, field_num, formatter = nil)
         if formatter.nil?
@@ -149,7 +149,7 @@ module NMEAPlus
       end
 
       # integer or nil
-      # @param field [String] the field index to check
+      # @param field [String] the value in the field to be checked
       # @return [Integer] The value in the field or nil
       def _integer(field)
         return nil if field.nil? || field.empty?
@@ -157,7 +157,7 @@ module NMEAPlus
       end
 
       # float or nil
-      # @param field [String] the field index to check
+      # @param field [String] the value in the field to be checked
       # @return [Float] The value in the field or nil
       def _float(field)
         return nil if field.nil? || field.empty?
@@ -165,7 +165,7 @@ module NMEAPlus
       end
 
       # string or nil
-      # @param field [String] the field index to check
+      # @param field [String] the value in the field to be checked
       # @return [String] The value in the field or nil
       def _string(field)
         return nil if field.nil? || field.empty?
@@ -173,7 +173,7 @@ module NMEAPlus
       end
 
       # hex to int or nil
-      # @param field [String] the field index to check
+      # @param field [String] the value in the field to be checked
       # @return [Integer] The value in the field or nil
       def _hex_to_integer(field)
         return nil if field.nil? || field.empty?
@@ -181,7 +181,7 @@ module NMEAPlus
       end
 
       # utc time or nil (HHMMSS or HHMMSS.SS)
-      # @param field [String] the field index to check
+      # @param field [String] the value in the field to be checked
       # @return [Time] The value in the field or nil
       def _utctime_hms(field)
         return nil if field.nil? || field.empty?
@@ -196,7 +196,7 @@ module NMEAPlus
       end
 
       # time interval or nil (HHMMSS or HHMMSS.SS)
-      # @param field [String] the field index to check
+      # @param field [String] the value in the field to be checked
       # @return [Time] The value in the field or nil
       def _interval_hms(field)
         return nil if field.nil? || field.empty?
@@ -209,8 +209,8 @@ module NMEAPlus
         end
       end
 
-      # @param d_field [String] the date field index to check
-      # @param t_field [String] the time field index to check
+      # @param d_field [String] the date value in the field to be checked
+      # @param t_field [String] the time value in the field to be checked
       # @return [Time] The value in the fields, or nil if either is not provided
       def _utc_date_time(d_field, t_field)
         return nil if t_field.nil? || t_field.empty?

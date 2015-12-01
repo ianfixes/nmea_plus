@@ -7,10 +7,14 @@ module NMEAPlus
         field_reader :code, 1, :_string
         field_reader :subcode, 2, :_string
 
+        # @!parse attr_reader :latitude_offset
+        # @return [Float]
         def latitude_offset
           _nsew_signed_float(@fields[3], @fields[4])
         end
 
+        # @!parse attr_reader :longitude_offset
+        # @return [Float]
         def longitude_offset
           _nsew_signed_float(@fields[5], @fields[6])
         end

@@ -4,8 +4,10 @@ module NMEAPlus
   module Message
     module NMEA
       class ZDA < NMEAPlus::Message::NMEA::NMEAMessage
-        def utc_time
 
+        # @!parse attr_reader :utc_time
+        # @return [Time]
+        def utc_time
           re_format = /(\d{2})(\d{2})(\d{2}(\.\d+)?)/
           hms = re_format.match(@fields[1])
           begin

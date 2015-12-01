@@ -4,10 +4,13 @@ module NMEAPlus
   module Message
     module AIS
       module VDMPayload
+        # CNB - The Common Navigation Block, transmitted by AIS messages 1, 2, and 3.
         class VDMMsgCNB < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
 
           payload_reader :navigational_status, 38, 4, :_u
 
+          # @!parse attr_reader :navigational_status_description
+          # @return [String] the human-readable description of navigational status
           def navigational_status_description
             case navigational_status
             when 0 then return "Under way using engine"
@@ -25,6 +28,9 @@ module NMEAPlus
             end
           end
 
+          # The rate of turn in degrees per minute
+          # @!parse attr_reader :rate_of_turn
+          # @return [Float]
           def rate_of_turn
             ret = _i(42, 8)
             return nil if ret == -128
@@ -34,16 +40,22 @@ module NMEAPlus
           payload_reader :speed_over_ground, 50, 10, :_U, 1
           payload_reader :position_10m_accuracy?, 60, 1, :_b
 
+          # @!parse attr_reader :longitude
+          # @return [Float]
           def longitude
             _I(61, 28, 4) / 60
           end
 
+          # @!parse attr_reader :latitude
+          # @return [Float]
           def latitude
             _U(89, 27, 4) / 60
           end
 
           payload_reader :course_over_ground, 116, 12, :_U, 1
 
+          # @!parse attr_reader :true_heading
+          # @return [Float]
           def true_heading
             ret = _u(128, 9)
             return nil if ret == 511  # means "not available"

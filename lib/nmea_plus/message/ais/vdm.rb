@@ -32,8 +32,11 @@ module NMEAPlus
         field_reader :raw_ais_payload, 5, :_string
         field_reader :ais_payload_fill_bits, 6, :_integer
 
+
+        # factory method: find the appropriate message type class and instantiate it
+        # @!parse attr_reader :ais
+        # @return [VDMPayload::VDMMsg]
         def ais
-          # factory method: find the appropriate message type class and instantiate it
           p = full_dearmored_ais_payload
           ret = _payload_container(p[0, 6].to_i(2))
           ret.payload_bitstring = p
