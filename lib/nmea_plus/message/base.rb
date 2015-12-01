@@ -1,18 +1,22 @@
 
-class Class
-  # make our own shortcut syntax for message attributes
-  def field_reader(name, field_num, formatter = nil)
-    if formatter.nil?
-      self.class_eval("def #{name};@fields[#{field_num}];end")
-    else
-      self.class_eval("def #{name};#{formatter}(@fields[#{field_num}]);end")
-    end
-  end
-end
-
 module NMEAPlus
   module Message
     class Base
+      # make our own shortcut syntax for message attribute accessors
+      # @param name [String] What the accessor will be called
+      # @param field_num [Integer] The index of the field in the payload
+      # @param formatter [Symbol] The symbol for the formatting function to apply to the field (optional)
+      # @!macro [attach] field_reader
+      #   @method $1
+      #   @return field $2 of the payload, formatted with the function {#$3}
+      def self.field_reader(name, field_num, formatter = nil)
+        if formatter.nil?
+          self.class_eval("def #{name};@fields[#{field_num}];end")
+        else
+          self.class_eval("def #{name};#{formatter}(@fields[#{field_num}]);end")
+        end
+      end
+
       attr_accessor :prefix
       attr_reader :payload
       attr_reader :fields
