@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Tools for decoding NMEA-style (GPS) messages}
   spec.homepage      = "http://github.com/ifreecarve/nmea_plus"
 
-  spec.files         =  ['README.md'] + Dir['lib/**/*.*'].reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.files         =  ['README.md', '.yardopts'] + Dir['lib/**/*.*'].reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
