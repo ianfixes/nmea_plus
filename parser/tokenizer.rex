@@ -1,6 +1,6 @@
 
 module NMEAPlus
-class Decoder < Parser  # not indented due to constraints of .rex format
+class Decoder < Parser  # This file is in .rex format, so no indenting.  And yard docs are impossible.
 
 macro
   csum      \*[0-9A-F]{2}
