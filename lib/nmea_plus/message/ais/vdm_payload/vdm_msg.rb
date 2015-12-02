@@ -225,7 +225,6 @@ module NMEAPlus
             end
           end
 
-
         end
 
         # We haven't defined all the AIS payload types, so this is a catch-all
