@@ -1,5 +1,3 @@
-class Class
-end
 
 module NMEAPlus
   module Message
