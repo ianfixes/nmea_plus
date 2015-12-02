@@ -37,6 +37,7 @@ module NMEAPlus
 
         end
 
+        # Type 18: Standard Class B CS Position Report
         class VDMMsg18 < VDMMsgClassBCSPosition
           payload_reader :cs_unit?, 141, 1, :_b
           payload_reader :display?, 142, 1, :_b
@@ -47,6 +48,7 @@ module NMEAPlus
           payload_reader :raim?, 147, 1, :_b
         end
 
+        # Type 19: Extended Class B CS Position Report
         class VDMMsg19 < VDMMsgClassBCSPosition
           payload_reader :name, 143, 120, :_t
           payload_reader :ship_cargo_type, 263, 8, :_e

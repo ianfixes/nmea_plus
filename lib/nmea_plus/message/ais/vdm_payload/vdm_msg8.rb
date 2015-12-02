@@ -4,6 +4,7 @@ module NMEAPlus
   module Message
     module AIS
       module VDMPayload
+        # Type 8: Binary Broadcast Message
         class VDMMsg8 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
           payload_reader :designated_area_code, 40, 10, :_u
           payload_reader :functional_id, 50, 6, :_u

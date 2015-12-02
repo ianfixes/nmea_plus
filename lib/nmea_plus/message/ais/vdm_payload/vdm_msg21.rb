@@ -4,6 +4,7 @@ module NMEAPlus
   module Message
     module AIS
       module VDMPayload
+        # Type 21: Aid-to-Navigation Report
         class VDMMsg21 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
 
           payload_reader :aid_type, 38, 5, :_e
