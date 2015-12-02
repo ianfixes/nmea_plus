@@ -4,6 +4,7 @@ module NMEAPlus
   module Message
     module AIS
       module VDMPayload
+        # Type 5: Static and Voyage Related Data
         class VDMMsg5 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
 
           payload_reader :ais_version, 38, 2, :_u
