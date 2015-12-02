@@ -17,6 +17,8 @@ module NMEAPlus
           payload_reader :ship_dimension_to_starboard, 264, 6, :_u
           payload_reader :epfd_type, 270, 4, :_e
 
+          # @!parse attr_reader :eta
+          # @return [Time] ETA
           def eta
             now = Time.now
             Time.new(now.year,
@@ -31,6 +33,8 @@ module NMEAPlus
           payload_reader :destination, 302, 120, :_t
           payload_reader :dte?, 422, 1, :_b
 
+          # @!parse attr_reader :ship_cargo_type_description
+          # @return [String] Cargo type description
           def ship_cargo_type_description
             case ship_cargo_type
             when 0 then return nil
