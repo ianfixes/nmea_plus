@@ -18,6 +18,7 @@ end
 =end
 
 require_relative "vdm_payload/vdm_msg1"
+require_relative "vdm_payload/vdm_msg4"
 require_relative "vdm_payload/vdm_msg5"
 require_relative "vdm_payload/vdm_msg8"
 
