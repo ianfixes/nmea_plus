@@ -12,6 +12,7 @@ module NMEAPlus
           # @!parse attr_reader :navigational_status_description
           # @return [String] the human-readable description of navigational status
           def navigational_status_description
+            return nil if navigational_status.nil?
             case navigational_status
             when 0 then return "Under way using engine"
             when 1 then return "At anchor"
