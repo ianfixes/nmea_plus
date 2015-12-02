@@ -6,7 +6,7 @@ module NMEAPlus
     module AIS
       # There are many VDM payload types, and this is their container.  See {VDMMsg}.
       module VDMPayload
-        # The base class for the AIS payload (of {NMEAPlus::Message::AIS::VDM}) which can be of many types.
+        # The base class for the AIS payload (of {NMEAPlus::Message::AIS::VDM}), which uses its own encoding for its own subtypes
         class VDMMsg
           # @return [String] The raw "armored payload" in the original message
           attr_accessor :payload_bitstring
@@ -115,7 +115,7 @@ module NMEAPlus
           # scale an integer by dividing it by 10^decimal_places
           # @param start [Integer] The index of the first bit in the payload field
           # @param length [Integer] The number of bits in the payload field
-          # @param decimal_places [Integer] The power of ten to use in scaling the result
+          # @param decimal_places [Integer] The power of ten to use in scaling down the result
           # @return [Integer] an integer value
           def _6b_integer_scaled(start, length, decimal_places)
             _6b_integer(start, length).to_f / (10 ** decimal_places)

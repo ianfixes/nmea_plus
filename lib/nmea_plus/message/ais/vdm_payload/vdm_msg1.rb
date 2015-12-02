@@ -68,8 +68,13 @@ module NMEAPlus
 
         end
 
+        # Position report class A, which is really {VDMMsgCNB}
         class VDMMsg1 < VDMMsgCNB; end
+
+        # Position report class A, which is really {VDMMsgCNB}
         class VDMMsg2 < VDMMsgCNB; end
+
+        # Position report class A, which is really {VDMMsgCNB}
         class VDMMsg3 < VDMMsgCNB; end
       end
     end
