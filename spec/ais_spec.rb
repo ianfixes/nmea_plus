@@ -73,6 +73,23 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a VDM message type 4" do
+      it "properly decodes the armored payload" do
+        input = "!AIVDM,1,1,,B,403OK@Quw35W<rsg:hH:wK70087D,0*6E"
+        parsed = @parser.parse(input)
+
+        expect(parsed.ais.message_type).to eq(4)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq("003660610".to_i)
+        expect(parsed.ais.current_time).to eq(Time.new(2015, 12,6, 5, 39, 12))
+        expect(parsed.ais.position_10m_accuracy?).to eq(true)
+        expect(parsed.ais.longitude).to eq(-70.83633333333334)
+        expect(parsed.ais.latitude).to eq(42.24316666666667)
+        expect(parsed.ais.epfd_type).to eq(7)
+        expect(parsed.ais.raim?).to eq(false)
+      end
+    end
+
     context "when reading a multipart VDM message type 5" do
       it "properly decodes the armored payload" do
         input1 = "!AIVDM,2,1,0,A,58wt8Ui`g??r21`7S=:22058<v05Htp000000015>8OA;0sk,0*7B"
