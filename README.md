@@ -97,7 +97,7 @@ Because the message types are standard, if no override is found for a particular
 Additionally, AIS message type definitions were implemented from the unofficial spec found here:
 http://catb.org/gpsd/AIVDM.html
 
-> Currently AIVDM messages types 1, 2, 3, 4, 5, 8, 9, 12, 14, 18, 19, 20, and 21 are implemented.
+> Currently AIVDM messages types 1, 2, 3, 4, 5, 8, 9, 12, 14, 18, 19, 20, 21, and 24 are implemented.
 
 Support for proprietary messages is also possible.  PASHR is included as proof-of-concept.
 

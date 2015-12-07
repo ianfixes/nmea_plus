@@ -6,6 +6,9 @@ module NMEAPlus
       module VDMPayload
         # The base class for the AIS payload (of {NMEAPlus::Message::AIS::VDM}), which uses its own encoding for its own subtypes
         class VDMMsg
+
+          def initialize; end
+
           # @return [String] The raw "armored payload" in the original message
           attr_accessor :payload_bitstring
 
@@ -221,6 +224,11 @@ module NMEAPlus
             when 95..98 then return "Other Type, Reserved for future use"
             when 99 then return "Other Type, no additional information"
             end
+          end
+
+          # An MMSI is associated with an auxiliary craft when it is of the form 98XXXYYYY
+          def auxiliary_craft?
+            980_000_000 < source_mmsi && source_mmsi < 990_000_000
           end
 
         end
