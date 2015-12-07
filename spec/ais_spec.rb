@@ -156,6 +156,32 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when dealing with VDM payload data message type 20" do
+      it "properly decodes the armored payload" do
+        input = "!AIVDM,1,1,,B,D03OK@QclNfp00N007pf9H80v9H,2*33"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(20)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq("003660610".to_i)
+        expect(parsed.ais.offset1).to eq(1725)
+        expect(parsed.ais.reserved_slots1).to eq(1)
+        expect(parsed.ais.timeout1).to eq(7)
+        expect(parsed.ais.increment1).to eq(750)
+        expect(parsed.ais.offset2).to eq(0)
+        expect(parsed.ais.reserved_slots2).to eq(1)
+        expect(parsed.ais.timeout2).to eq(7)
+        expect(parsed.ais.increment2).to eq(0)
+        expect(parsed.ais.offset3).to eq(126)
+        expect(parsed.ais.reserved_slots3).to eq(2)
+        expect(parsed.ais.timeout3).to eq(7)
+        expect(parsed.ais.increment3).to eq(150)
+        expect(parsed.ais.offset4).to eq(128)
+        expect(parsed.ais.reserved_slots4).to eq(3)
+        expect(parsed.ais.timeout4).to eq(7)
+        expect(parsed.ais.increment4).to eq(150)
+      end
+    end
+
     context "when parsing a list of real messages" do
       it "recognizes all of them" do
         samples = File.join(File.dirname(__FILE__), "samples", "aivdm_message_samples.txt")
