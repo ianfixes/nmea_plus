@@ -7,6 +7,7 @@ module NMEAPlus
         # Type 21: Aid-to-Navigation Report
         class VDMMsg21 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
 
+          # TODO: Navaid type descriptions (there are 32 of them)
           payload_reader :aid_type, 38, 5, :_e
           payload_reader :name, 43, 120, :_t
 
@@ -38,6 +39,7 @@ module NMEAPlus
 
           payload_reader :name_extension, 272, 88, :_t
 
+          # TODO: full name property?
         end
       end
     end
