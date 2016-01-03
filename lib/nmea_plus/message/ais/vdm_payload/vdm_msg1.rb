@@ -44,16 +44,25 @@ module NMEAPlus
           # @!parse attr_reader :longitude
           # @return [Float]
           def longitude
-            _I(61, 28, 4) / 60
+            ret = _I(61, 28, 4) / 60
+            181 == ret ? nil : ret
           end
 
           # @!parse attr_reader :latitude
           # @return [Float]
           def latitude
-            _I(89, 27, 4) / 60
+            ret = _I(89, 27, 4) / 60
+            91 == ret ? nil : ret
           end
 
-          payload_reader :course_over_ground, 116, 12, :_U, 1
+          payload_reader :_course_over_ground, 116, 12, :_U, 1
+
+          # @!parse attr_reader :course_over_ground
+          # @return [Float]
+          def course_over_ground
+            ret = _course_over_ground
+            3600 == ret ? nil : ret
+          end
 
           # @!parse attr_reader :true_heading
           # @return [Float]
@@ -63,7 +72,33 @@ module NMEAPlus
             ret
           end
 
-          payload_reader :time_stamp, 137, 6, :_u
+          payload_reader :_time_stamp, 137, 6, :_u
+
+          # @!parse attr_reader :time_stamp
+          # @return [Integer]
+          def time_stamp
+            ret = _time_stamp
+            59 < ret ? nil : ret
+          end
+
+          # @!parse attr_reader :position_manual_input?
+          # @return [bool]
+          def position_manual_input?
+            61 == _time_stamp
+          end
+
+          # @!parse attr_reader :position_estimated?
+          # @return [bool]
+          def position_estimated?
+            62 == _time_stamp
+          end
+
+          # @!parse attr_reader :position_inoperative?
+          # @return [bool]
+          def position_inoperative?
+            63 == _time_stamp
+          end
+
           payload_reader :special_manoeuvre, 143, 2, :_e
           payload_reader :raim?, 148, 1, :_b
 
