@@ -37,6 +37,27 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when dealing with a decoded payload" do
+      def test_payload(message, field_length, method_name, input, expected)
+        message.payload_bitstring = input.to_s(2).rjust(field_length, "0")
+        calculated = message.send(method_name, 0, field_length)
+        expect(calculated).to eq(expected)
+      end
+
+      [0, 1, 2, 127, 128, 129, 254, 255].each do |input|
+        it "properly decodes 8-bit #{input.to_s(2).rjust(8, "0")} as an unsigned integer" do
+          m = NMEAPlus::Message::AIS::VDMPayload::VDMMsg.new
+          test_payload(m, 8, :_u, input, input)
+        end
+      end
+
+      [[0, 0], [1, 1], [2, 2], [127, 127], [128, -128], [129, -127], [254, -2], [255, -1]].each do |input, expected|
+        it "properly decodes 8-bit #{input.to_s(2).rjust(8, "0")} as a signed integer" do
+          m = NMEAPlus::Message::AIS::VDMPayload::VDMMsg.new
+          test_payload(m, 8, :_i, input, expected)
+        end
+      end
+    end
 
     context "when reading a multipart VDM message" do
       it "properly decodes the armored payload" do

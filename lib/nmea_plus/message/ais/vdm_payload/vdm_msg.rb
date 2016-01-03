@@ -99,18 +99,17 @@ module NMEAPlus
           # @param start [Integer] The index of the first bit in the payload field
           # @param length [Integer] The number of bits in the payload field
           # @return [Integer] an integer value
-          def _6b_twoscomplement(start, length)
-            # two's complement: flip bits, then add 1
-            _access(start, length) { |bits| bits.tr("01", "10").to_i(2) + 1 }
-          end
-
-          # @param start [Integer] The index of the first bit in the payload field
-          # @param length [Integer] The number of bits in the payload field
-          # @return [Integer] an integer value
           def _6b_integer(start, length)
-            # MSB is 1 for negative
-            twoc = _6b_twoscomplement(start, length)
-            twoc && twoc * (@payload_bitstring[start] == 0 ? 1 : -1)
+            case @payload_bitstring[start]
+            when "0"
+              _6b_unsigned_integer(start, length)
+            when "1"
+              # MSB is 1 for negative
+              # two's complement: flip bits, then add 1
+              _access(start, length) { |bits| (bits.tr("01", "10").to_i(2) + 1) * -1 }
+            else
+              nil
+            end
           end
 
           # scale an integer by dividing it by 10^decimal_places
