@@ -107,8 +107,6 @@ module NMEAPlus
               # MSB is 1 for negative
               # two's complement: flip bits, then add 1
               _access(start, length) { |bits| (bits.tr("01", "10").to_i(2) + 1) * -1 }
-            else
-              nil
             end
           end
 
