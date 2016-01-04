@@ -41,6 +41,7 @@ module NMEAPlus
             91 == ret ? nil : ret
           end
 
+          # @!visibility private
           payload_reader :_course_over_ground, 116, 12, :_U, 1
 
           # @!parse attr_reader :course_over_ground
@@ -58,6 +59,7 @@ module NMEAPlus
             ret
           end
 
+          # @!visibility private
           payload_reader :_time_stamp, 137, 6, :_u
 
           # @!parse attr_reader :time_stamp
