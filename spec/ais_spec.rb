@@ -81,6 +81,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.repeat_indicator).to eq(0)
         expect(parsed.ais.source_mmsi).to eq(367513050)
         expect(parsed.ais.navigational_status).to eq(12)
+        expect(parsed.ais.navigational_status_description).to eq("Reserved for future use")
         expect(parsed.ais.rate_of_turn).to eq(nil)
         expect(parsed.ais.speed_over_ground).to eq(0.1)
         expect(parsed.ais.position_10m_accuracy?).to eq(false)
