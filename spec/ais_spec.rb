@@ -152,6 +152,17 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when dealing with VDM payload data message type 14" do
+      it "properly decodes the armored payload" do
+        input = "!AIVDM,1,1,,B,>>M4fWA<59B1@E=@,0*17"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(14)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(970010269)
+        expect(parsed.ais.text).to eq("SART TEST")
+      end
+    end
+
     context "when dealing with VDM payload data message type 18" do
       it "properly decodes the armored payload" do
         input = "!AIVDM,1,1,,B,B5NLCa000>fdwc63f?aBKwPUoP06,0*15"
