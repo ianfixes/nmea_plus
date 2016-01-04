@@ -22,7 +22,7 @@ module NMEAPlus
           # @!parse attr_reader :latitude
           # @return [Float]
           def latitude
-            _U(192, 27, 4) / 60
+            _I(192, 27, 4) / 60
           end
 
           payload_reader :ship_dimension_to_bow, 219, 9, :_u

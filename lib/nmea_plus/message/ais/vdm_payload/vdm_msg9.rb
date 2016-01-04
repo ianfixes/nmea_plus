@@ -21,7 +21,7 @@ module NMEAPlus
           # @!parse attr_reader :latitude
           # @return [Float]
           def latitude
-            _U(89, 27, 4) / 60
+            _I(89, 27, 4) / 60
           end
 
           payload_reader :course_over_ground, 116, 12, :_U, 1
