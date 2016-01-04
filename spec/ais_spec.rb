@@ -188,6 +188,38 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+
+    context "when dealing with VDM payload data message type 19" do
+      it "properly decodes the armored payload" do
+        input1 = "!AIVDM,2,1,0,B,C8u:8C@t7@TnGCKfm6Po`e6N`:Va0L2J;06HV50JV?SjBPL3,0*28"
+        input2 = "!AIVDM,2,2,0,B,11RP,0*17"
+        parsed = @parser.parse(input1)
+        parsed.add_message_part(@parser.parse(input2))
+        expect(parsed.ais.message_type).to eq(19)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(601000013)
+        expect(parsed.ais.speed_over_ground).to eq(2.9)
+        expect(parsed.ais.position_10m_accuracy?).to eq(false)
+        expect(parsed.ais.longitude).to eq(32.19953)
+        expect(parsed.ais.latitude).to eq(-29.837480000000003)
+        expect(parsed.ais.course_over_ground).to eq(89)
+        expect(parsed.ais.true_heading).to eq(90)
+        expect(parsed.ais.time_stamp).to eq(12)
+        expect(parsed.ais.name).to eq("TEST NAME CLSB MSG19")
+        expect(parsed.ais.ship_cargo_type).to eq(37)
+        expect(parsed.ais.ship_cargo_type_description).to eq("Pleasure craft")
+        expect(parsed.ais.ship_dimension_to_bow).to eq(7)
+        expect(parsed.ais.ship_dimension_to_stern).to eq(6)
+        expect(parsed.ais.ship_dimension_to_port).to eq(2)
+        expect(parsed.ais.ship_dimension_to_starboard).to eq(3)
+        expect(parsed.ais.epfd_type).to eq(1)
+        expect(parsed.ais.raim?).to eq(false)
+        expect(parsed.ais.dte?).to eq(true)
+        expect(parsed.ais.assigned?).to eq(false)
+      end
+    end
+
+
     context "when dealing with VDM payload data message type 20" do
       it "properly decodes the armored payload" do
         input = "!AIVDM,1,1,,B,D03OK@QclNfp00N007pf9H80v9H,2*33"
