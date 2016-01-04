@@ -28,6 +28,7 @@ require_relative "vdm_payload/vdm_msg18" # also includes 19
 require_relative "vdm_payload/vdm_msg20"
 require_relative "vdm_payload/vdm_msg21"
 require_relative "vdm_payload/vdm_msg24"
+require_relative "vdm_payload/vdm_msg27"
 
 module NMEAPlus
   module Message
