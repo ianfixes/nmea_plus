@@ -29,7 +29,7 @@ module NMEAPlus
           # @!parse attr_reader :latitude
           # @return [Float]
           def latitude
-            _U(107, 27, 4) / 60
+            _I(107, 27, 4) / 60
           end
 
           payload_reader :epfd_type, 134, 4, :_e
