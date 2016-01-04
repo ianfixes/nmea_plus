@@ -298,24 +298,24 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
-    context "when dealing with VDM payload data message type 24 part A" do
-      it "properly decodes the armored payload" do
+    context "when dealing with VDM payload data message type 24" do
+      it "properly decodes the armored payload for part A" do
         input = "!AIVDM,1,1,,B,H5NLCa0JuJ0U8tr0l4T@Dp00000,2*1C"
         parsed = @parser.parse(input)
         expect(parsed.ais.message_type).to eq(24)
         expect(parsed.ais.repeat_indicator).to eq(0)
         expect(parsed.ais.source_mmsi).to eq(367465380)
+        expect(parsed.ais.part_number).to eq(0)
         expect(parsed.ais.name).to eq("F/V IRON MAIDEN")
       end
-    end
 
-    context "when dealing with VDM payload data message type 24 part B" do
-      it "properly decodes the armored payload" do
+      it "properly decodes the armored payload for part B" do
         input = "!AIVDM,1,1,,B,H5NLCa4NCD=6mTDG46mnji000000,0*36"
         parsed = @parser.parse(input)
         expect(parsed.ais.message_type).to eq(24)
         expect(parsed.ais.repeat_indicator).to eq(0)
         expect(parsed.ais.source_mmsi).to eq(367465380)
+        expect(parsed.ais.part_number).to eq(1)
         expect(parsed.ais.ship_cargo_type).to eq(30)
         expect(parsed.ais.vendor_id).to eq("STM")
         expect(parsed.ais.model_code).to eq(1)
@@ -327,6 +327,27 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.ship_dimension_to_port).to eq(0)
         expect(parsed.ais.ship_dimension_to_starboard).to eq(0)
         #expect(parsed.ais.mothership_mmsi).to eq(3)
+      end
+
+      it "properly decodes another armored payload for part B" do
+        input = "!AIVDM,1,1,,B,H1c2;qDTijklmno31<" + "<C970`43<1,0*28" # << is problematic for emacs formatting?
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(24)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(112233445)
+        expect(parsed.ais.part_number).to eq(1)
+        expect(parsed.ais.ship_cargo_type).to eq(36)
+        expect(parsed.ais.ship_cargo_type_description).to eq("Sailing")
+        #expect(parsed.ais.vendor_id).to eq("1234567") # as seen in online parser, but spec says only 3 chars
+        #expect(parsed.ais.model_code).to eq(1)
+        #expect(parsed.ais.serial_number).to eq(743700)
+        expect(parsed.ais.vendor_id).to eq("123")
+        expect(parsed.ais.callsign).to eq("CALLSIG")
+        expect(parsed.ais.auxiliary_craft?).to eq(false)
+        expect(parsed.ais.ship_dimension_to_bow).to eq(5)
+        expect(parsed.ais.ship_dimension_to_stern).to eq(4)
+        expect(parsed.ais.ship_dimension_to_port).to eq(3)
+        expect(parsed.ais.ship_dimension_to_starboard).to eq(12)
       end
     end
 
