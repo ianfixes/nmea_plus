@@ -270,6 +270,32 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.virtual_aid?).to eq(false)
         expect(parsed.ais.assigned?).to eq(false)
       end
+
+      it "properly decodes a mulitpart armored payload" do
+        input1 = "!AIVDM,2,1,5,B,E1c2;q@b44ah4ah0h:2ab@70VRpU<Bgpm4:gP50HH`Th`QF5,0*7B"
+        input2 = "!AIVDM,2,2,5,B,1CQ1A83PCAH0,0*60"
+        parsed = @parser.parse(input1)
+        parsed.add_message_part(@parser.parse(input2))
+        expect(parsed.ais.message_type).to eq(21)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(112233445)
+        expect(parsed.ais.aid_type).to eq(1)
+        expect(parsed.ais.name.strip).to eq("THIS IS A TEST NAME1")
+        expect(parsed.ais.name_extension.strip).to eq("EXTENDED NAME")
+        expect(parsed.ais.position_10m_accuracy?).to eq(false)
+        expect(parsed.ais.longitude).to eq(145.181)
+        expect(parsed.ais.latitude).to eq(-38.220166666666664)
+        expect(parsed.ais.ship_dimension_to_bow).to eq(5)
+        expect(parsed.ais.ship_dimension_to_stern).to eq(3)
+        expect(parsed.ais.ship_dimension_to_port).to eq(3)
+        expect(parsed.ais.ship_dimension_to_starboard).to eq(5)
+        expect(parsed.ais.epfd_type).to eq(1)
+        expect(parsed.ais.time_stamp).to eq(9)
+        expect(parsed.ais.off_position?).to eq(true)
+        expect(parsed.ais.raim?).to eq(false)
+        expect(parsed.ais.virtual_aid?).to eq(false)
+        expect(parsed.ais.assigned?).to eq(true)
+      end
     end
 
     context "when dealing with VDM payload data message type 24 part A" do
