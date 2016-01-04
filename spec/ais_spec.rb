@@ -352,6 +352,25 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when dealing with VDM payload data message type 27" do
+      it "properly decodes the armored payload" do
+        input = "!AIVDM,1,1,,B,KC5E2b@U19PFdLbMuc5=ROv62<7m,0*16"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(27)
+        expect(parsed.ais.repeat_indicator).to eq(1)
+        expect(parsed.ais.source_mmsi).to eq(206914217)
+        expect(parsed.ais.position_10m_accuracy?).to eq(false)
+        expect(parsed.ais.raim?).to eq(false)
+        expect(parsed.ais.navigational_status).to eq(2)
+        expect(parsed.ais.navigational_status_description).to eq("Not under command")
+        expect(parsed.ais.longitude).to eq(137.02333333333334)
+        expect(parsed.ais.latitude).to eq(4.84)
+        expect(parsed.ais.speed_over_ground).to eq(57)
+        expect(parsed.ais.course_over_ground).to eq(167)
+        expect(parsed.ais.gnss?).to eq(false)
+      end
+    end
+
     context "when parsing a list of real messages" do
       it "recognizes all of them" do
         samples = File.join(File.dirname(__FILE__), "samples", "aivdm_message_samples.txt")
