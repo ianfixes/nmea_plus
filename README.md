@@ -48,7 +48,7 @@ end
 ```
 
 
-Of course, decoding in practice is more complex than that.  Some messages can have multiple parts, and AIS messages have their own complicated payload.  NMEAPlus provides a SourceDecoder object that operates on IO objects (anything with `each_line` support) -- a File, SerialPort, etc.  You can iterate over each message (literally `each_message`), or receive only fully assembled multipart messages by iterating over `each_complete_message`.
+Of course, decoding in practice is more complex than that.  Some messages can have multiple parts, and AIS messages have their own complicated payload.  NMEAPlus provides a `SourceDecoder` class that operates on `IO` objects (anything with `each_line` support) -- a `File`, `SerialPort`, etc.  You can iterate over each message (literally `each_message`), or receive only fully assembled multipart messages by iterating over `each_complete_message`.
 
 ```ruby
 require 'nmea_plus'
