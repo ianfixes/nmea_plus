@@ -228,6 +228,25 @@ module NMEAPlus
             980_000_000 < source_mmsi && source_mmsi < 990_000_000
           end
 
+          # @param code [Integer] The navigational status id
+          # @return [String] Navigational status description
+          def get_navigational_status_description(code)
+            return nil if code.nil?
+            case code
+            when 0 then return "Under way using engine"
+            when 1 then return "At anchor"
+            when 2 then return "Not under command"
+            when 3 then return "Restricted manoeuverability"
+            when 4 then return "Constrained by her draught"
+            when 5 then return "Moored"
+            when 6 then return "Aground"
+            when 7 then return "Engaged in Fishing"
+            when 8 then return "Under way sailing"
+            when 14 then return "AIS-SART active"
+            end
+            "Reserved for future use"
+          end
+
         end
 
         # We haven't defined all the AIS payload types, so this is a catch-all
