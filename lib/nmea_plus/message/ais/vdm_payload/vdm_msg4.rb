@@ -19,19 +19,8 @@ module NMEAPlus
           end
 
           payload_reader :position_10m_accuracy?, 78, 1, :_b
-
-          # @!parse attr_reader :longitude
-          # @return [Float]
-          def longitude
-            _I(79, 28, 4) / 60
-          end
-
-          # @!parse attr_reader :latitude
-          # @return [Float]
-          def latitude
-            _I(107, 27, 4) / 60
-          end
-
+          payload_reader :longitude, 79, 28, :_I, 60 * 10 ** 4, 181
+          payload_reader :latitude, 107, 27, :_I, 60 * 10 ** 4, 91
           payload_reader :epfd_type, 134, 4, :_e
           payload_reader :raim?, 148, 1, :_b
 
