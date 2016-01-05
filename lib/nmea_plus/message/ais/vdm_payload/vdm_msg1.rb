@@ -24,40 +24,12 @@ module NMEAPlus
             (_I(42, 8, 3) / 4.733) ** 2
           end
 
-          payload_reader :speed_over_ground, 50, 10, :_U, 1
+          payload_reader :speed_over_ground, 50, 10, :_U, 10
           payload_reader :position_10m_accuracy?, 60, 1, :_b
-
-          # @!parse attr_reader :longitude
-          # @return [Float]
-          def longitude
-            ret = _I(61, 28, 4) / 60
-            181 == ret ? nil : ret
-          end
-
-          # @!parse attr_reader :latitude
-          # @return [Float]
-          def latitude
-            ret = _I(89, 27, 4) / 60
-            91 == ret ? nil : ret
-          end
-
-          # @!visibility private
-          payload_reader :_course_over_ground, 116, 12, :_U, 1
-
-          # @!parse attr_reader :course_over_ground
-          # @return [Float]
-          def course_over_ground
-            ret = _course_over_ground
-            3600 == ret ? nil : ret
-          end
-
-          # @!parse attr_reader :true_heading
-          # @return [Float]
-          def true_heading
-            ret = _u(128, 9)
-            return nil if ret == 511  # means "not available"
-            ret
-          end
+          payload_reader :longitude, 61, 28, :_I, 60 * 10 ** 4, 181
+          payload_reader :latitude, 89, 27, :_I, 60 * 10 ** 4, 91
+          payload_reader :course_over_ground, 116, 12, :_U, 10, 3600
+          payload_reader :true_heading, 128, 9, :_u, 511
 
           # @!visibility private
           payload_reader :_time_stamp, 137, 6, :_u

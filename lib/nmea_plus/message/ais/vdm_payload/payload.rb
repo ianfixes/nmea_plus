@@ -20,14 +20,17 @@ module NMEAPlus
           # @param length [Integer] The number of bits in this field
           # @param formatter [Symbol] The symbol for the formatting function to apply to the field (optional)
           # @param formatter_arg Any argument necessary for the formatting function
+          # @param formatter_arg2 Any otherargument necessary for the formatting function
           # @macro [attach] payload_reader
           #   @!attribute [r] $1
-          #   @return The field defined by $3 bits starting at bit $2 of the payload, formatted with the function {#$4}($5)
-          def self.payload_reader(name, start_bit, length, formatter, formatter_arg = nil)
+          #   @return The field defined by $3 bits starting at bit $2 of the payload, formatted with the function {#$4}($5, $6)
+          def self.payload_reader(name, start_bit, length, formatter, formatter_arg = nil, formatter_arg2 = nil)
             if formatter_arg.nil?
               self.class_eval("def #{name};#{formatter}(#{start_bit}, #{length});end")
-            else
+            elsif formatter_arg2.nil?
               self.class_eval("def #{name};#{formatter}(#{start_bit}, #{length}, #{formatter_arg});end")
+            else
+              self.class_eval("def #{name};#{formatter}(#{start_bit}, #{length}, #{formatter_arg}, #{formatter_arg2});end")
             end
           end
 
@@ -85,42 +88,54 @@ module NMEAPlus
           # directly convert a string to a binary number as you'd read it
           # @param start [Integer] The index of the first bit in the payload field
           # @param length [Integer] The number of bits in the payload field
+          # @param equiv_nil [Integer] If applicable, the value for this field that would indicate nil
           # @return [Integer] an unsigned integer value
-          def _6b_unsigned_integer(start, length)
-            _access(start, length) { |bits| bits.to_i(2) }
+          def _6b_unsigned_integer(start, length, equiv_nil = nil)
+            ret = _access(start, length) { |bits| bits.to_i(2) }
+            return nil if ret == equiv_nil
+            ret
           end
 
           # perform a twos complement operation on part of the payload
           # @param start [Integer] The index of the first bit in the payload field
           # @param length [Integer] The number of bits in the payload field
+          # @param equiv_nil [Integer] If applicable, the value for this field that would indicate nil
           # @return [Integer] an integer value
-          def _6b_integer(start, length)
+          def _6b_integer(start, length, equiv_nil = nil)
             case @payload_bitstring[start]
             when "0"
-              _6b_unsigned_integer(start, length)
+              _6b_unsigned_integer(start, length, equiv_nil)
             when "1"
               # MSB is 1 for negative
               # two's complement: flip bits, then add 1
-              _access(start, length) { |bits| (bits.tr("01", "10").to_i(2) + 1) * -1 }
+              ret = _access(start, length) { |bits| (bits.tr("01", "10").to_i(2) + 1) * -1 }
+              return nil if ret == equiv_nil
+              ret
             end
           end
 
-          # scale an integer by dividing it by 10^decimal_places
+          # scale an integer by dividing it by a denominator
           # @param start [Integer] The index of the first bit in the payload field
           # @param length [Integer] The number of bits in the payload field
-          # @param decimal_places [Integer] The power of ten to use in scaling down the result
+          # @param denominator [Integer] The divisor to use in scaling down the result
+          # @param equiv_nil [Integer] If applicable, the value for this field that would indicate nil
           # @return [Integer] an integer value
-          def _6b_integer_scaled(start, length, decimal_places)
-            _6b_integer(start, length).to_f / (10 ** decimal_places)
+          def _6b_integer_scaled(start, length, denominator, equiv_nil = nil)
+            ret = _6b_integer(start, length).to_f / denominator
+            return nil if ret == equiv_nil
+            ret
           end
 
-          # scale an unsigned integer by dividing it by 10^decimal_places
+          # scale an unsigned integer by dividing it by a denominator
           # @param start [Integer] The index of the first bit in the payload field
           # @param length [Integer] The number of bits in the payload field
-          # @param decimal_places [Integer] The power of ten to use in scaling the result
+          # @param denominator [Integer] The divisor to use in scaling down the result
+          # @param equiv_nil [Integer] If applicable, the value for this field that would indicate nil
           # @return [Integer] an integer value
-          def _6b_unsigned_integer_scaled(start, length, decimal_places)
-            _6b_unsigned_integer(start, length).to_f / (10.0 ** decimal_places)
+          def _6b_unsigned_integer_scaled(start, length, denominator, equiv_nil = nil)
+            ret =_6b_unsigned_integer(start, length).to_f / denominator
+            return nil if ret == equiv_nil
+            ret
           end
 
           # Get the value of a bit in the payload
@@ -148,7 +163,6 @@ module NMEAPlus
           alias_method :_e, :_6b_unsigned_integer
           alias_method :_t, :_6b_string_nullterminated
           alias_method :_d, :_2b_data_string
-
 
         end
       end

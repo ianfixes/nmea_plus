@@ -30,7 +30,7 @@ module NMEAPlus
                      0)
           end
 
-          payload_reader :static_draught, 294, 8, :_U, 1
+          payload_reader :static_draught, 294, 8, :_U, 10
           payload_reader :destination, 302, 120, :_t
           payload_reader :dte?, 422, 1, :_b
 
