@@ -6,6 +6,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       @parser = NMEAPlus::Decoder.new
     end
 
+    epsilon = 0.0000001
+
     # validated against http://www.maritec.co.za/tools/aisvdmvdodecoding/
 
     context "when reading an AIS message" do
@@ -85,8 +87,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.rate_of_turn).to eq(nil)
         expect(parsed.ais.speed_over_ground).to eq(0.1)
         expect(parsed.ais.position_10m_accuracy?).to eq(false)
-        expect(parsed.ais.longitude).to eq(-71.04251666666667)
-        expect(parsed.ais.latitude).to eq(42.380340000000004)
+        expect(parsed.ais.longitude).to be_within(epsilon).of(-71.04251666666667)
+        expect(parsed.ais.latitude).to be_within(epsilon).of(42.380340000000004)
         expect(parsed.ais.course_over_ground).to eq(282.8)
         expect(parsed.ais.true_heading).to eq(nil)
         expect(parsed.ais.time_stamp).to eq(10)
@@ -103,10 +105,10 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.message_type).to eq(4)
         expect(parsed.ais.repeat_indicator).to eq(0)
         expect(parsed.ais.source_mmsi).to eq("003660610".to_i)
-        expect(parsed.ais.current_time).to eq(Time.new(2015, 12,6, 5, 39, 12))
+        expect(parsed.ais.current_time).to eq(Time.new(2015, 12, 6, 5, 39, 12))
         expect(parsed.ais.position_10m_accuracy?).to eq(true)
-        expect(parsed.ais.longitude).to eq(-70.83633333333334)
-        expect(parsed.ais.latitude).to eq(42.24316666666667)
+        expect(parsed.ais.longitude).to be_within(epsilon).of(-70.83633333333334)
+        expect(parsed.ais.latitude).to be_within(epsilon).of(42.24316666666667)
         expect(parsed.ais.epfd_type).to eq(7)
         expect(parsed.ais.raim?).to eq(false)
       end
@@ -173,9 +175,9 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.source_mmsi).to eq(367465380)
         expect(parsed.ais.speed_over_ground).to eq(0.0)
         expect(parsed.ais.position_10m_accuracy?).to eq(true)
-        expect(parsed.ais.longitude).to eq(-71.03836333333334)
-        expect(parsed.ais.latitude).to eq(42.34964333333333)
-        expect(parsed.ais.course_over_ground).to eq(131.8)
+        expect(parsed.ais.longitude).to be_within(epsilon).of(-71.03836333333334)
+        expect(parsed.ais.latitude).to be_within(epsilon).of(42.34964333333333)
+        expect(parsed.ais.course_over_ground).to be_within(epsilon).of(131.8)
         expect(parsed.ais.true_heading).to eq(nil)
         expect(parsed.ais.time_stamp).to eq(1)
         # above here is common with type 19
@@ -201,8 +203,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.source_mmsi).to eq(601000013)
         expect(parsed.ais.speed_over_ground).to eq(2.9)
         expect(parsed.ais.position_10m_accuracy?).to eq(false)
-        expect(parsed.ais.longitude).to eq(32.19953)
-        expect(parsed.ais.latitude).to eq(-29.837480000000003)
+        expect(parsed.ais.longitude).to be_within(epsilon).of(32.19953)
+        expect(parsed.ais.latitude).to be_within(epsilon).of(-29.837480000000003)
         expect(parsed.ais.course_over_ground).to eq(89)
         expect(parsed.ais.true_heading).to eq(90)
         expect(parsed.ais.time_stamp).to eq(12)
@@ -258,8 +260,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.name.strip).to eq("PRES ROADS ANCH B")
         expect(parsed.ais.name_extension.strip).to eq("")
         expect(parsed.ais.position_10m_accuracy?).to eq(false)
-        expect(parsed.ais.longitude).to eq(-70.96399500000001)
-        expect(parsed.ais.latitude).to eq(42.34526)
+        expect(parsed.ais.longitude).to be_within(epsilon).of(-70.96399500000001)
+        expect(parsed.ais.latitude).to be_within(epsilon).of(42.34526)
         expect(parsed.ais.ship_dimension_to_bow).to eq(0)
         expect(parsed.ais.ship_dimension_to_stern).to eq(0)
         expect(parsed.ais.ship_dimension_to_port).to eq(0)
@@ -284,8 +286,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.name.strip).to eq("THIS IS A TEST NAME1")
         expect(parsed.ais.name_extension.strip).to eq("EXTENDED NAME")
         expect(parsed.ais.position_10m_accuracy?).to eq(false)
-        expect(parsed.ais.longitude).to eq(145.181)
-        expect(parsed.ais.latitude).to eq(-38.220166666666664)
+        expect(parsed.ais.longitude).to be_within(epsilon).of(145.181)
+        expect(parsed.ais.latitude).to be_within(epsilon).of(-38.220166666666664)
         expect(parsed.ais.ship_dimension_to_bow).to eq(5)
         expect(parsed.ais.ship_dimension_to_stern).to eq(3)
         expect(parsed.ais.ship_dimension_to_port).to eq(3)
@@ -363,8 +365,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.raim?).to eq(false)
         expect(parsed.ais.navigational_status).to eq(2)
         expect(parsed.ais.navigational_status_description).to eq("Not under command")
-        expect(parsed.ais.longitude).to eq(137.02333333333334)
-        expect(parsed.ais.latitude).to eq(4.84)
+        expect(parsed.ais.longitude).to be_within(epsilon).of(137.02333333333334)
+        expect(parsed.ais.latitude).to be_within(epsilon).of(4.84)
         expect(parsed.ais.speed_over_ground).to eq(57)
         expect(parsed.ais.course_over_ground).to eq(167)
         expect(parsed.ais.gnss?).to eq(false)
