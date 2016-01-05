@@ -19,19 +19,18 @@ module NMEAPlus
           # @param start_bit [Integer] The index of first bit of this field in the payload
           # @param length [Integer] The number of bits in this field
           # @param formatter [Symbol] The symbol for the formatting function to apply to the field (optional)
-          # @param formatter_arg Any argument necessary for the formatting function
-          # @param formatter_arg2 Any otherargument necessary for the formatting function
+          # @param fmt_arg Any argument necessary for the formatting function
+          # @param fmt_arg2 Any other argument necessary for the formatting function
+          # @param fmt_arg3 Any other argument necessary for the formatting function
           # @macro [attach] payload_reader
           #   @!attribute [r] $1
-          #   @return The field defined by $3 bits starting at bit $2 of the payload, formatted with the function {#$4}($5, $6)
-          def self.payload_reader(name, start_bit, length, formatter, formatter_arg = nil, formatter_arg2 = nil)
-            if formatter_arg.nil?
-              self.class_eval("def #{name};#{formatter}(#{start_bit}, #{length});end")
-            elsif formatter_arg2.nil?
-              self.class_eval("def #{name};#{formatter}(#{start_bit}, #{length}, #{formatter_arg});end")
-            else
-              self.class_eval("def #{name};#{formatter}(#{start_bit}, #{length}, #{formatter_arg}, #{formatter_arg2});end")
-            end
+          #   @return The field defined by the $3 bits starting at payload bit $2, formatted with the function {#$4}($5, $6, $7)
+          def self.payload_reader(name, start_bit, length, formatter, fmt_arg = nil, fmt_arg2 = nil, fmt_arg3 = nil)
+            args = [start_bit, length]
+            args << fmt_arg unless fmt_arg.nil?
+            args << fmt_arg2 unless fmt_arg2.nil?
+            args << fmt_arg3 unless fmt_arg3.nil?
+            self.class_eval("def #{name};#{formatter}(#{args.join(', ')});end")
           end
 
           # Convert 6-bit ascii to a character, according to http://catb.org/gpsd/AIVDM.html#_ais_payload_data_types
@@ -121,9 +120,9 @@ module NMEAPlus
           # @param equiv_nil [Integer] If applicable, the value for this field that would indicate nil
           # @return [Integer] an integer value
           def _6b_integer_scaled(start, length, denominator, equiv_nil = nil)
-            ret = _6b_integer(start, length).to_f / denominator
-            return nil if ret == equiv_nil
-            ret
+            ret = _6b_integer(start, length, equiv_nil)
+            return nil if ret.nil?
+            ret.to_f / denominator
           end
 
           # scale an unsigned integer by dividing it by a denominator
@@ -133,9 +132,35 @@ module NMEAPlus
           # @param equiv_nil [Integer] If applicable, the value for this field that would indicate nil
           # @return [Integer] an integer value
           def _6b_unsigned_integer_scaled(start, length, denominator, equiv_nil = nil)
-            ret =_6b_unsigned_integer(start, length).to_f / denominator
-            return nil if ret == equiv_nil
-            ret
+            ret = _6b_unsigned_integer(start, length, equiv_nil)
+            return nil if ret.nil?
+            ret.to_f / denominator
+          end
+
+          # scale an integer by dividing it by a denominator
+          # @param start [Integer] The index of the first bit in the payload field
+          # @param length [Integer] The number of bits in the payload field
+          # @param denominator [Integer] The divisor to use in scaling down the result
+          # @param shift [Float] the amount to shift (up) the result by
+          # @param equiv_nil [Integer] If applicable, the value for this field that would indicate nil
+          # @return [Integer] an integer value
+          def _6b_integer_scaled_shifted(start, length, denominator, shift, equiv_nil = nil)
+            ret = _6b_integer_scaled(start, length, denominator, equiv_nil)
+            return nil if ret.nil?
+            ret + shift
+          end
+
+          # scale an unsigned integer by dividing it by a denominator
+          # @param start [Integer] The index of the first bit in the payload field
+          # @param length [Integer] The number of bits in the payload field
+          # @param denominator [Integer] The divisor to use in scaling down the result
+          # @param shift [Float] the amount to shift (up) the result by
+          # @param equiv_nil [Integer] If applicable, the value for this field that would indicate nil
+          # @return [Integer] an integer value
+          def _6b_unsigned_integer_scaled_shifted(start, length, denominator, shift, equiv_nil = nil)
+            ret = _6b_unsigned_integer_scaled(start, length, denominator, equiv_nil)
+            return nil if ret.nil?
+            ret + shift
           end
 
           # Get the value of a bit in the payload
@@ -163,6 +188,8 @@ module NMEAPlus
           alias_method :_e, :_6b_unsigned_integer
           alias_method :_t, :_6b_string_nullterminated
           alias_method :_d, :_2b_data_string
+          alias_method :_UU, :_6b_unsigned_integer_scaled_shifted
+          alias_method :_II, :_6b_integer_scaled_shifted
 
         end
       end
