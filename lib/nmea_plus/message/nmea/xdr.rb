@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # XDR - Transducer Measurement
       class XDR < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :type, 1, :_string
         field_reader :measurement, 2, :_float

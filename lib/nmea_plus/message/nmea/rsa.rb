@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # RSA - Rudder Sensor Angle
       class RSA < NMEAPlus::Message::NMEA::NMEAMessage
         # single rudder or starboard rudder are the same fields
         field_reader :rudder_angle, 1, :_float

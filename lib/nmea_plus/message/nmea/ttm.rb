@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # TTM - Tracked Target Message
       class TTM < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :target_number, 1, :_integer
         field_reader :target_distance, 2, :_float

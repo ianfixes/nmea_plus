@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # RMB - Recommended Minimum Navigation Information
       class RMB < NMEAPlus::Message::NMEA::NMEAMessage
 
         field_reader :active?, 1, :_av_boolean

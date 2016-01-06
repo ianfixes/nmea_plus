@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # GTD - Geographic Location in Time Differences
       class GTD < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :difference1, 1, :_float
         field_reader :difference2, 2, :_float

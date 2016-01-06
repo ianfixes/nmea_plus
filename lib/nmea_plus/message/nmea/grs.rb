@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # GRS - GPS Range Residuals
       class GRS < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :gga_fix_time, 1, :_utctime_hms
         field_reader :gga_includes_residuals?, 2, :_10_boolean

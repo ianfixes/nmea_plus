@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # RMC - Recommended Minimum Navigation Information
       class RMC < NMEAPlus::Message::NMEA::NMEAMessage
 
         # @!parse attr_reader :utc_time

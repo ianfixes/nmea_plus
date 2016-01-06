@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # GGA - Global Positioning System Fix Data
       class GLC < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :gri_tenth_microseconds, 1, :_integer
         field_reader :master_toa_microseconds, 2, :_float

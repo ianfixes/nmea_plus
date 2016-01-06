@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # MSS - Beacon Receiver Status
       class MSS < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :signal_strength_dbu, 1, :_float
         field_reader :snr_db, 2, :_float

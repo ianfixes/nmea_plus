@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # GSV - Satellites in view
       class GSV < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :total_messages, 1, :_integer
         field_reader :message_number, 2, :_integer

@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # PASHR - RT300 proprietary roll and pitch sentence
       class PASHR < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :utc_time, 1, :_utctime_hms
         field_reader :heading_degrees, 2, :_float

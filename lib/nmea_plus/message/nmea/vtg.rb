@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # VTG - Track made good and Ground speed
       class VTG < NMEAPlus::Message::NMEA::NMEAMessage
         # whether this is the new format.  docs say check field #2 for value "2"
         # @return [bool]

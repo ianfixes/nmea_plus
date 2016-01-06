@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # VWR - Relative Wind Speed and Angle
       class VWR < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :wind_direction_degrees, 1, :_float
         field_reader :wind_direction_bow, 2, :_string

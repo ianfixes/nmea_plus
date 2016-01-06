@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # MWV - Wind Speed and Angle
       class MWV < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :wind_angle, 1, :_float
         field_reader :wind_angle_reference, 2, :_string

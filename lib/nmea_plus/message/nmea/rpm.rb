@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # RPM - Revolutions
       class RPM < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :source_type, 1, :_string
         field_reader :source_id, 2, :_integer

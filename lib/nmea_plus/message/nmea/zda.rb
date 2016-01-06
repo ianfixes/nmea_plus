@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # ZDA - Time & Date - UTC, day, month, year and local time zone
       class ZDA < NMEAPlus::Message::NMEA::NMEAMessage
 
         # @!parse attr_reader :utc_time

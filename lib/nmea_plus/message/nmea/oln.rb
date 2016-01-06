@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # OLN - Omega Lane Numbers
       class OLN < NMEAPlus::Message::NMEA::NMEAMessage
         def omega_pair1
           @fields[1..3].join(",")

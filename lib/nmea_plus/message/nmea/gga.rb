@@ -4,7 +4,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
-
+      # GGA - Global Positioning System Fix Data
       class GGA < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :fix_time, 1, :_utctime_hms
 

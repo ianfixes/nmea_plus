@@ -4,7 +4,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
-
+      # AAM - Waypoint Arrival Alarm
       class AAM < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :arrival_circle_entered?, 1, :_av_boolean
         field_reader :waypoint_passed?, 2, :_av_boolean

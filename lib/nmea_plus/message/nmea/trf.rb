@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # TRF - TRANSIT Fix Data
       class TRF < NMEAPlus::Message::NMEA::NMEAMessage
         # @!parse attr_reader :utc_time
         # @return [Time]

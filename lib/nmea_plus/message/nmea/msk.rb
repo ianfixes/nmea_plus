@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # MSK - Control for a Beacon Receiver
       class MSK < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :frequency, 1, :_integer
         field_reader :frequency_mode, 2, :_string
