@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "nmea_plus"
   spec.description   = %q{A pure-ruby parser and decoder toolkit for NMEA messages (GPS, AIS, and other similar formats)
                           that provides convenient access to all data fields.  Nearly all standard NMEA messages,
-                          the most common AIS messages, and some proprietary messages are supported.
+                          nearly all AIS messages, and some proprietary messages are supported.
                          }
   spec.version       = NMEAPlus::VERSION
   spec.licenses      = ['Apache 2.0']
