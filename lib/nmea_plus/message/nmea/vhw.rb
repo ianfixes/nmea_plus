@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # VHW - Water speed and heading
       class VHW < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :degrees_true, 1, :_float
         field_reader :degrees_magnetic, 3, :_float

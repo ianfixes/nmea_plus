@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # GLL - Geographic Position - Latitude/Longitude
       class GLL < NMEAPlus::Message::NMEA::NMEAMessage
 
         # @!parse attr_reader :latitude

@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # LCD - Loran-C Signal Data
       class LCD < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :gri_tenth_microseconds, 1, :_integer
         field_reader :master_relative_snr, 2, :_float

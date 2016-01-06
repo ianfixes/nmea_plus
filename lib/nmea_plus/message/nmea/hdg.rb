@@ -4,6 +4,7 @@ require_relative "hdm"
 module NMEAPlus
   module Message
     module NMEA
+      # HDG - Heading - Deviation & Variation
       class HDG < NMEAPlus::Message::NMEA::HDM
 
         # @!parse attr_reader :magnetic_deviation_degrees

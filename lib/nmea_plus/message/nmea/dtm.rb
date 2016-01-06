@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # DTM - Datum Reference
       class DTM < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :code, 1, :_string
         field_reader :subcode, 2, :_string

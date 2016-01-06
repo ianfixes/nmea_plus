@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # OSD - Own Ship Data
       class OSD < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :heading_degrees_true, 1, :_float
         field_reader :valid?, 2, :_av_boolean

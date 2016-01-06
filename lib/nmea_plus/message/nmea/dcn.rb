@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # DCN - Decca Position
       class DCN < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :decca_chain_id, 1, :_integer
         field_reader :red_zone_id, 2, :_string

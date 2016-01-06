@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # WPL - Waypoint Location
       class WPL < NMEAPlus::Message::NMEA::NMEAMessage
         # @!parse attr_reader :latitude
         # @return [Float]

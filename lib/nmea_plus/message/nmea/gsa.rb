@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # GSA - GPS DOP and active satellites
       class GSA < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :selection_mode, 1, :_string
         field_reader :mode, 2, :_integer

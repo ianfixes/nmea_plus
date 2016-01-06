@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # WNC - Distance - Waypoint to Waypoint
       class WNC < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :distance_nautical_miles, 1, :_float
         field_reader :distance_kilometers, 3, :_float

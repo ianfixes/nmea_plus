@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # BWR - Bearing and Distance to Waypoint - Rhumb Line
       class BWR < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :utc_time, 1, :_utctime_hms
 

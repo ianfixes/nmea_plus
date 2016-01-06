@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # FSI - Frequency Set Information
       class FSI < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :transmit_frequency, 1, :_float
         field_reader :receive_frequency, 2, :_float

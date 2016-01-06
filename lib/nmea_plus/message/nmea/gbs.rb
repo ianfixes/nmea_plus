@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # GBS - GPS Satellite Fault Detection
       class GBS < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :fix_time, 1, :_utctime_hms
         field_reader :expected_error_latitude_meters, 2, :_float

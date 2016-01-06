@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # RMA - Recommended Minimum Navigation Information
       class RMA < NMEAPlus::Message::NMEA::NMEAMessage
 
         field_reader :blink_warning, 1, :_av_boolean

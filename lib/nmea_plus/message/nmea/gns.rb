@@ -4,6 +4,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # GNS - Fix data
       class GNS < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :fix_time, 1, :_utctime_hms
 

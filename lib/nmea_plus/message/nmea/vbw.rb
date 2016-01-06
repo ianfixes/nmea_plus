@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # VBW - Dual Ground/Water Speed
       class VBW < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :longitudinal_water_speed, 1, :_float
         field_reader :transverse_water_speed, 2, :_float

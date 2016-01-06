@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # GXA - TRANSIT Position - Latitude/Longitude
       class GXA < NMEAPlus::Message::NMEA::NMEAMessage
 
         field_reader :fix_time, 1, :_utctime_hms

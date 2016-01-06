@@ -3,6 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
+      # XTE - Cross-Track Error, Measured
       class XTE < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :no_general_warning?, 1, :_av_boolean
         field_reader :no_cyclelock_warning?, 2, :_av_boolean
