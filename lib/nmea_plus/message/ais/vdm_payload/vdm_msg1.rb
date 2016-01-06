@@ -21,13 +21,13 @@ module NMEAPlus
           def rate_of_turn
             ret = _i(42, 8)
             return nil if ret == -128
-            (_I(42, 8, 3) / 4.733) ** 2
+            (_I(42, 8, 3) / 4.733)**2
           end
 
           payload_reader :speed_over_ground, 50, 10, :_U, 10
           payload_reader :position_10m_accuracy?, 60, 1, :_b
-          payload_reader :longitude, 61, 28, :_I, 60 * 10 ** 4, 181
-          payload_reader :latitude, 89, 27, :_I, 60 * 10 ** 4, 91
+          payload_reader :longitude, 61, 28, :_I, 60 * 10**4, 181
+          payload_reader :latitude, 89, 27, :_I, 60 * 10**4, 91
           payload_reader :course_over_ground, 116, 12, :_U, 10, 3600
           payload_reader :true_heading, 128, 9, :_u, 511
 

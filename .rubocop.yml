@@ -25,6 +25,10 @@ Metrics/MethodLength:
   Enabled: false
   Max: 50
 
+# Configuration parameters: CountKeywordArgs.
+Metrics/ParameterLists:
+  Max: 7
+
 Style/BlockComments:
   Enabled: false
 
