@@ -86,6 +86,8 @@ end
 
 ## Design documents
 
+### NMEA
+
 This gem was coded to accept the standard NMEA messages defined in the unoffical spec found here:
 http://www.catb.org/gpsd/NMEA.txt
 
@@ -93,18 +95,23 @@ Because the message types are standard, if no override is found for a particular
 
 > AAM, ALM, APA, APB, BOD, BWC, BWR, BWW, DBK, DBS, DBT, DCN, DPT, DTM, FSI, GBS, GGA, GLC, GLL, GNS, GRS, GSA, GST, GSV, GTD, GXA, HDG, HDM, HDT, HFB, HSC, ITS, LCD, MSK, MSS, MTW, MWV, OLN, OSD, R00, RMA, RMB, RMC, ROT, RPM, RSA, RSD, RTE, SFI, STN, TDS, TFI, TPC, TPR, TPT, TRF, TTM, VBW, VDR, VHW, VLW, VPW, VTG, VWR, WCV, WNC, WPL, XDR, XTE, XTR, ZDA, ZFO, ZTG
 
+Support for proprietary NMEA messages is also possible.  PASHR is included as proof-of-concept.
 
-Additionally, AIS message type definitions were implemented from the unofficial spec found here:
+### AIS
+
+AIS message type definitions were implemented from the unofficial spec found here:
 http://catb.org/gpsd/AIVDM.html
 
-> Currently AIVDM messages types 1, 2, 3, 4, 5, 8, 9, 12, 14, 18, 19, 20, 21, 24, and 27 are implemented.
+Currently, the following AIVDM message types are supported:
 
-Support for proprietary messages is also possible.  PASHR is included as proof-of-concept.
+> 1, 2, 3, 4, 5, 8, 9, 12, 14, 18, 19, 20, 21, 24, 27
+> Type 8 subtypes for DAC/FID: 1/31, 366/56, 366/57
+
 
 
 ## Disclaimer
 
-This module was written from information scraped together on the web, not from testing on actual devices.  Please don't entrust your life or the safety of your ship to this code without doing your own rigorous testing.
+This module was written from information scraped together on the web, not from testing on actual devices.  A lack of test cases -- especially for more obscure message types -- is a barrier to completeness.  Please don't entrust your life or the safety of a ship to this code without doing your own rigorous testing.
 
 
 ## Author
