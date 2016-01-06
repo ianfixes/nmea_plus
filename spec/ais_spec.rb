@@ -143,7 +143,69 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
     end
 
     context "when dealing with VDM payload data message type 8" do
-      it "properly decodes the armored payload" do
+      it "properly decodes the armored payload with subtype 1/31" do
+        input = "!AIVDM,1,1,1,B,8>h8nkP0Glr=<hFI0D6??wvlFR06EuOwgwl?wnSwe7wvlOw?sAwwnSGmwvh0,0*17"
+        parsed = @parser.parse(input)
+        now = Time.now
+
+        expect(parsed.ais.message_type).to eq(8)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(990000846)
+        expect(parsed.ais.designated_area_code).to eq(1)
+        expect(parsed.ais.functional_id).to eq(31)
+        expect(parsed.ais.dp.longitude).to be_within(epsilon).of(171.5985)
+        expect(parsed.ais.dp.latitude).to be_within(epsilon).of(12.228299999999999)
+        expect(parsed.ais.dp.position_10m_accuracy?).to eq(true)
+        expect(parsed.ais.dp.current_time).to eq(nil)
+        expect(parsed.ais.dp.wind_speed_average).to eq(nil)
+        expect(parsed.ais.dp.wind_speed_gust).to eq(nil)
+        expect(parsed.ais.dp.wind_direction).to eq(nil)
+        expect(parsed.ais.dp.wind_direction_gust).to eq(nil)
+
+        expect(parsed.ais.dp.air_temperature).to eq(nil)
+        expect(parsed.ais.dp.relative_humidity).to eq(nil)
+        expect(parsed.ais.dp.dew_point).to eq(nil)
+        expect(parsed.ais.dp.air_pressure_hpa).to eq(nil)
+        expect(parsed.ais.dp.air_pressure_tendency).to eq(nil)
+        expect(parsed.ais.dp.air_pressure_tendency_description).to eq(nil)
+
+        expect(parsed.ais.dp.visibility_greater_than).to eq(false)
+        expect(parsed.ais.dp.horizontal_visibility).to eq(nil)
+        expect(parsed.ais.dp.water_level).to eq(nil)
+        expect(parsed.ais.dp.water_level_tendency).to eq(nil)
+        expect(parsed.ais.dp.water_level_tendency_description).to eq(nil)
+
+        expect(parsed.ais.dp.water_current_speed1).to eq(nil)
+        expect(parsed.ais.dp.water_current_direction1).to eq(nil)
+        expect(parsed.ais.dp.water_current_depth1).to eq(0)
+
+        expect(parsed.ais.dp.water_current_speed2).to eq(nil)
+        expect(parsed.ais.dp.water_current_direction2).to eq(nil)
+        expect(parsed.ais.dp.water_current_depth2).to eq(nil)
+
+        expect(parsed.ais.dp.water_current_speed3).to eq(nil)
+        expect(parsed.ais.dp.water_current_direction3).to eq(nil)
+        expect(parsed.ais.dp.water_current_depth3).to eq(nil)
+
+        expect(parsed.ais.dp.wave_height).to eq(25.2)
+        expect(parsed.ais.dp.wave_period).to eq(nil)
+        expect(parsed.ais.dp.wave_direction).to eq(nil)
+        expect(parsed.ais.dp.swell_height).to eq(nil)
+        expect(parsed.ais.dp.swell_period).to eq(nil)
+        expect(parsed.ais.dp.swell_direction).to eq(nil)
+        expect(parsed.ais.dp.sea_state_beaufort).to eq(13)
+
+        expect(parsed.ais.dp.water_temperature).to eq(nil)
+        expect(parsed.ais.dp.precipitation_type).to eq(nil)
+        expect(parsed.ais.dp.precipitation_description).to eq(nil)
+        expect(parsed.ais.dp.salinity).to eq(nil)
+        expect(parsed.ais.dp.salinity_sensor_unavailable?).to eq(false)
+
+        expect(parsed.ais.dp.ice_code).to eq(nil)
+        expect(parsed.ais.dp.ice_description).to eq(nil)
+      end
+
+      it "properly decodes the armored payload with subtype 366/56" do
         input = "!AIVDM,1,1,,B,85PnJ9QKf3jT:tSC1W9fQuad7t?>rGW9>j?id9cbot:uO10c5Nj7,0*4A"
         parsed = @parser.parse(input)
         expect(parsed.ais.message_type).to eq(8)
@@ -151,8 +213,22 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.source_mmsi).to eq(369990182)
         expect(parsed.ais.designated_area_code).to eq(366)
         expect(parsed.ais.functional_id).to eq(56)
-        expect(parsed.ais.application_data_6b).to eq("OJP+2MLF\\&:G6&0_0<;)^\\$;H?F0&.+_0+5<DB,U;HG")
+        expect(parsed.ais.dp.encrypted_data_6b).to eq("OJP+2MLF\\&:G6&0_0<;)^\\$;H?F0&.+_0+5<DB,U;HG")
       end
+
+      it "properly decodes the armored payload with subtype 366/57" do
+        input1 = "!AIVDM,2,1,0,B,85Mwqd1KfLeoeN:JUWK=4p6a9n31S5KL4`RM98WgdAu`sNghBsVb8j8VW7Qd,0*72"
+        input2 = "!AIVDM,2,2,0,B,W9Oh5rccO@AqMf0P1HUiPLBP3Wbq0TN9j<t,2*60"
+        parsed = @parser.parse(input1)
+        parsed.add_message_part(@parser.parse(input2))
+        expect(parsed.ais.message_type).to eq(8)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(366999984)
+        expect(parsed.ais.designated_area_code).to eq(366)
+        expect(parsed.ais.functional_id).to eq(57)
+        expect(parsed.ais.dp.encrypted_data_6b).to eq("27^58)*V],4S Z$'XLFLU-0R\"I4$\"^>1G6#-:?AK.Z(#H\"Z\\^F2\\%?@W*.-=AG%68B@E\"WFA1J@N^+$BQ8'H3C")
+      end
+
     end
 
     context "when dealing with VDM payload data message type 14" do
