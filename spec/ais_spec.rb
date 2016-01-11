@@ -90,6 +90,21 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
           expect(m.mid).to eq(mid)
         end
       end
+
+      [[201, 8],
+       [351, 591],
+       [354, 591],
+       [370, 591],
+       [373, 591],
+       [366, 840],
+       [369, 840],
+      ].each do |mid, country|
+        it "properly determines the country code for MID #{mid}" do
+          m = TestMessage.new
+          m.source_mmsi = "#{mid}000000"
+          expect(m.mid_country).to eq(country)
+        end
+      end
     end
 
     context "when reading a multipart VDM message" do
