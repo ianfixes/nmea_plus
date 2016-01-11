@@ -121,7 +121,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
-    context "when dealing with VDM payload data message type 1,2,3" do
+    context "when dealing with VDM payload data message type 1" do
       it "properly decodes the armored payload" do
         input = "!AIVDM,1,1,,B,15NO=ndP01JrjhlH@0s;3?vD0L0e,0*77"
         parsed = @parser.parse(input)
@@ -222,6 +222,27 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.raim?).to eq(false)
       end
 
+    end
+
+    context "when dealing with VDM payload data message type 2" do
+      it "properly decodes the armored payload libais #13" do
+        input = "!AIVDM,1,1,,B,25Mw@DP000qR9bFA:6KI0AV@00S3,0*0A"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(2)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(366989394)
+        expect(parsed.ais.navigational_status).to eq(0)
+        expect(parsed.ais.rate_of_turn).to eq(0.0)
+        expect(parsed.ais.speed_over_ground).to eq(0.0)
+        expect(parsed.ais.position_10m_accuracy?).to eq(true)
+        expect(parsed.ais.longitude).to be_within(epsilon).of(-90.40670166666666)
+        expect(parsed.ais.latitude).to be_within(epsilon).of(29.985461666666666)
+        expect(parsed.ais.course_over_ground).to eq(230.5)
+        expect(parsed.ais.true_heading).to eq(51)
+        expect(parsed.ais.time_stamp).to eq(8)
+        expect(parsed.ais.special_manoeuvre).to eq(0)
+        expect(parsed.ais.raim?).to eq(false)
+      end
     end
 
     context "when reading a VDM message type 4" do
