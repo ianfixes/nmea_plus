@@ -65,27 +65,29 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
 
       [
-       [367447520, "Individual ship"],
-       [  9991000, "Coast station"], # leading zeros don't work here
-       [  9992000, "Harbor station"],
-       [  9993000, "Pilot station"],
-       [  9994000, "AIS repeater station"],
-       [111333000, "SAR aircraft"],
-       [111333100, "SAR fixed-wing aircraft"],
-       [111333500, "SAR helicopter"],
-       [811111111, "Handheld transceiver"],
-       [970111111, "AIS-SART"],
-       [972111111, "MOB (Man Overboard)"],
-       [974111111, "EPIRB"],
-       [981111111, "Auxiliary craft"],
-       [993331000, "Physical AIS AtoN"],
-       [993336000, "Virtual AIS AtoN"],
-       [993334000, "AIS Aid to Navigation"],
-      ].each do |code, description|
+       [367447520, 367, "Individual ship"],
+       [  5551123, 555, "Coast station"], # leading zeros don't work here
+       [  6662234, 666, "Harbor station"],
+       [  7773345, 777, "Pilot station"],
+       [  8884456, 888, "AIS repeater station"],
+       [111345000, 345, "SAR aircraft"],
+       [111456100, 456, "SAR fixed-wing aircraft"],
+       [111567500, 567, "SAR helicopter"],
+       [812111111, 121, "Handheld transceiver"],
+       [970131111, 131, "AIS-SART"],
+       [972141111, 141, "MOB (Man Overboard)"],
+       [974151111, 151, "EPIRB"],
+       [981611111, 161, "Auxiliary craft"],
+       [993231000, 323, "Physical AIS AtoN"],
+       [993436000, 343, "Virtual AIS AtoN"],
+       [993534000, 353, "AIS Aid to Navigation"],
+       [900000000, nil, "unknown_mmsi_category"],
+      ].each do |code, mid, description|
         it "properly determines the category of MMSI #{code}" do
           m = TestMessage.new
           m.source_mmsi = code
           expect(m.mmsi_category_description).to eq(description)
+          expect(m.mid).to eq(mid)
         end
       end
     end

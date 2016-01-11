@@ -34,10 +34,26 @@ module NMEAPlus
             when /99...1.../ then :aton_physical
             when /99...6.../ then :aton_virtual
             when /99......./ then :aton
-            when /9......../ then :free_form
             else
               :unknown_mmsi_category
             end
+          end
+
+          # The MMSI Maritime Identification Digits (MID)
+          # @!parse attr_reader :mid
+          # @return [Integer] the MID
+          def mid
+            range = case mmsi_category
+                    when :individual_ship then 0..2
+                    when :coast_station, :harbor_station, :pilot_station, :ais_repeater_station then 2..4
+                    when :sar_aircraft, :sar_aircraft_fixed, :sar_aircraft_helicopter then 3..5
+                    when :aton_physical, :aton_virtual, :aton then 2..4
+                    when :auxiliary_craft then 2..4
+                    when :handheld then 1..3
+                    when :sar_transmitter, :man_overboard, :epirb then 3..5
+                    end
+            return nil if range.nil?
+            source_mmsi.to_s.rjust(9, '0')[range].to_i
           end
 
           # The MMSI category as defined by ITU-R M.585-7
