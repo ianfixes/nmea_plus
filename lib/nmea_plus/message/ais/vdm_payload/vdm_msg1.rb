@@ -19,9 +19,10 @@ module NMEAPlus
           # @!parse attr_reader :rate_of_turn
           # @return [Float]
           def rate_of_turn
-            ret = _i(42, 8)
+            ret = _i(42, 8) # spec is wrong, we don't use I3
             return nil if ret == -128
-            (_I(42, 8, 3) / 4.733)**2
+            negative = ret < 0
+            (ret / 4.733)**2 * (negative ? -1 : 1)
           end
 
           payload_reader :speed_over_ground, 50, 10, :_U, 10

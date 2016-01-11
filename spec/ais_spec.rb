@@ -245,6 +245,66 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when dealing with VDM payload data message type 3" do
+      it "properly decodes the armored payload libais #16" do
+        input = "!AIVDM,1,1,,B,35MC>W@01EIAn5VA4l`N2;>0015@,0*01"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(3)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(366268061)
+        expect(parsed.ais.navigational_status).to eq(0)
+        expect(parsed.ais.rate_of_turn).to eq(0)
+        expect(parsed.ais.speed_over_ground).to eq(8.5)
+        expect(parsed.ais.position_10m_accuracy?).to eq(false)
+        expect(parsed.ais.longitude).to be_within(epsilon).of(-93.96876833333333)
+        expect(parsed.ais.latitude).to be_within(epsilon).of(29.841335)
+        expect(parsed.ais.course_over_ground).to eq(359.2)
+        expect(parsed.ais.true_heading).to eq(359)
+        expect(parsed.ais.time_stamp).to eq(0)
+        expect(parsed.ais.special_manoeuvre).to eq(0)
+        expect(parsed.ais.raim?).to eq(false)
+      end
+
+      it "properly decodes the armored payload libais #18" do
+        input = "!AIVDM,1,1,,A,35NBTh0Oh1G@Dt8EiccBuE3n00nQ,0*05"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(3)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(367305920)
+        expect(parsed.ais.navigational_status).to eq(0)
+        expect(parsed.ais.rate_of_turn).to eq(720.0032105295371)
+        expect(parsed.ais.speed_over_ground).to eq(0.1)
+        expect(parsed.ais.position_10m_accuracy?).to eq(false)
+        expect(parsed.ais.longitude).to be_within(epsilon).of(-122.26239333333334)
+        expect(parsed.ais.latitude).to be_within(epsilon).of(38.056821666666664)
+        expect(parsed.ais.course_over_ground).to eq(75.7)
+        expect(parsed.ais.true_heading).to eq(161)
+        expect(parsed.ais.time_stamp).to eq(59)
+        expect(parsed.ais.special_manoeuvre).to eq(0)
+        expect(parsed.ais.raim?).to eq(false)
+      end
+
+      it "properly decodes the armored payload libais #20" do
+        input = "!AIVDM,1,1,,B,35N0IFP016Jf9rVG8mSB?Acl0Pj0,0*4C"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(3)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(367008090)
+        expect(parsed.ais.navigational_status).to eq(0)
+        expect(parsed.ais.rate_of_turn).to eq(0)
+        expect(parsed.ais.speed_over_ground).to eq(7)
+        expect(parsed.ais.position_10m_accuracy?).to eq(false)
+        expect(parsed.ais.longitude).to be_within(epsilon).of(-73.80338166666667)
+        expect(parsed.ais.latitude).to be_within(epsilon).of(40.436715)
+        expect(parsed.ais.course_over_ground).to eq(57.3)
+        expect(parsed.ais.true_heading).to eq(53)
+        expect(parsed.ais.time_stamp).to eq(58)
+        expect(parsed.ais.special_manoeuvre).to eq(0)
+        expect(parsed.ais.raim?).to eq(false)
+      end
+
+    end
+
     context "when reading a VDM message type 4" do
       it "properly decodes the armored payload" do
         input = "!AIVDM,1,1,,B,403OK@Quw35W<rsg:hH:wK70087D,0*6E"
