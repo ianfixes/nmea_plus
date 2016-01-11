@@ -59,6 +59,35 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
           test_payload(m, 8, :_i, input, expected)
         end
       end
+
+      class TestMessage < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
+        attr_accessor :source_mmsi
+      end
+
+      [
+       [367447520, "Individual ship"],
+       [  9991000, "Coast station"], # leading zeros don't work here
+       [  9992000, "Harbor station"],
+       [  9993000, "Pilot station"],
+       [  9994000, "AIS repeater station"],
+       [111333000, "SAR aircraft"],
+       [111333100, "SAR fixed-wing aircraft"],
+       [111333500, "SAR helicopter"],
+       [811111111, "Handheld transceiver"],
+       [970111111, "AIS-SART"],
+       [972111111, "MOB (Man Overboard)"],
+       [974111111, "EPIRB"],
+       [981111111, "Auxiliary craft"],
+       [993331000, "Physical AIS AtoN"],
+       [993336000, "Virtual AIS AtoN"],
+       [993334000, "AIS Aid to Navigation"],
+      ].each do |code, description|
+        it "properly determines the category of MMSI #{code}" do
+          m = TestMessage.new
+          m.source_mmsi = code
+          expect(m.mmsi_category_description).to eq(description)
+        end
+      end
     end
 
     context "when reading a multipart VDM message" do

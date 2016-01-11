@@ -12,6 +12,60 @@ module NMEAPlus
           payload_reader :repeat_indicator, 6, 2, :_u
           payload_reader :source_mmsi, 8, 30, :_u
 
+          # The MMSI category as defined by ITU-R M.585-7
+          # @!parse attr_reader :mmsi_category
+          # @return [Symbol] The symbol for the MMSI category
+          def mmsi_category
+            case source_mmsi.to_s.rjust(9, '0') # formatted as 9 digit string with leading 0s
+            when /[2-7]......../ then :individual_ship
+            when /00...1.../ then :coast_station
+            when /00...2.../ then :harbor_station
+            when /00...3.../ then :pilot_station
+            when /00...4.../ then :ais_repeater_station
+            when /00......./ then :coast_station
+            when /111...1../ then :sar_aircraft_fixed
+            when /111...5../ then :sar_aircraft_helicopter
+            when /1......../ then :sar_aircraft
+            when /8......../ then :handheld
+            when /98......./ then :auxiliary_craft
+            when /970....../ then :sar_transmitter
+            when /972....../ then :man_overboard
+            when /974....../ then :epirb
+            when /99...1.../ then :aton_physical
+            when /99...6.../ then :aton_virtual
+            when /99......./ then :aton
+            when /9......../ then :free_form
+            else
+              :unknown_mmsi_category
+            end
+          end
+
+          # The MMSI category as defined by ITU-R M.585-7
+          # @!parse attr_reader :mmsi_category_description
+          # @return [String] the human-readable description the MMSI category
+          def mmsi_category_description
+            case mmsi_category
+            when :individual_ship then "Individual ship"
+            when :coast_station then "Coast station"
+            when :harbor_station then "Harbor station"
+            when :pilot_station then "Pilot station"
+            when :ais_repeater_station then "AIS repeater station"
+            when :sar_aircraft then "SAR aircraft"
+            when :sar_aircraft_fixed then "SAR fixed-wing aircraft"
+            when :sar_aircraft_helicopter then "SAR helicopter"
+            when :aton_physical then "Physical AIS AtoN"
+            when :aton_virtual then "Virtual AIS AtoN"
+            when :aton then "AIS Aid to Navigation"
+            when :auxiliary_craft then "Auxiliary craft"
+            when :handheld then "Handheld transceiver"
+            when :sar_transmitter then "AIS-SART"
+            when :man_overboard then "MOB (Man Overboard)"
+            when :epirb then "EPIRB"
+            else
+              mmsi_category.to_s
+            end
+          end
+
           # The ship cargo type description lookup table
           # @param code [Integer] The cargo type id
           # @return [String] Cargo type description
