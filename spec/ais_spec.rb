@@ -377,7 +377,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         parsed = @parser.parse(input1)
         parsed.add_message_part(@parser.parse(input2))
         now = Time.now
-
         expect(parsed.ais.message_type).to eq(5)
         expect(parsed.ais.repeat_indicator).to eq(0)
         expect(parsed.ais.source_mmsi).to eq(603916439)
@@ -386,6 +385,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.callsign.strip).to eq("ZA83R")
         expect(parsed.ais.name.strip).to eq("ARCO AVON")
         expect(parsed.ais.ship_cargo_type).to eq(69)
+        expect(parsed.ais.ship_cargo_type_description).to eq("Passenger, No additional information")
         expect(parsed.ais.ship_dimension_to_bow).to eq(113)
         expect(parsed.ais.ship_dimension_to_stern).to eq(31)
         expect(parsed.ais.ship_dimension_to_port).to eq(17)
@@ -394,6 +394,58 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.eta).to eq(Time.new(now.year, 3, 23, 19, 45, 0))
         expect(parsed.ais.static_draught).to eq(13.2)
         expect(parsed.ais.destination.strip).to eq("HOUSTON")
+        expect(parsed.ais.dte_ready?).to eq(true)
+      end
+
+      it "properly decodes the armored payload libais #30" do
+        input1 = "!AIVDM,2,1,3,B,55NBjP01mtGIL@CW;SM<D60P5Ld000000000000P0`<3557l0<50@kk@,0*66"
+        input2 = "!AIVDM,2,2,3,B,K5h@00000000000,2*72"
+        parsed = @parser.parse(input1)
+        parsed.add_message_part(@parser.parse(input2))
+        now = Time.now
+        expect(parsed.ais.message_type).to eq(5)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(367309440)
+        expect(parsed.ais.ais_version).to eq(0)
+        expect(parsed.ais.imo_number).to eq(7729526)
+        expect(parsed.ais.callsign.strip).to eq("WDD9287")
+        expect(parsed.ais.name.strip).to eq("SEA HAWK")
+        expect(parsed.ais.ship_cargo_type).to eq(32)
+        expect(parsed.ais.ship_cargo_type_description).to eq("Towing (large)")
+        expect(parsed.ais.ship_dimension_to_bow).to eq(5)
+        expect(parsed.ais.ship_dimension_to_stern).to eq(12)
+        expect(parsed.ais.ship_dimension_to_port).to eq(3)
+        expect(parsed.ais.ship_dimension_to_starboard).to eq(5)
+        expect(parsed.ais.epfd_type).to eq(1)
+        expect(parsed.ais.eta).to eq(Time.new(now.year, 4, 15, 20, 0, 0))
+        expect(parsed.ais.static_draught).to eq(4.8)
+        expect(parsed.ais.destination.strip).to eq("TACOMA,WA")
+        expect(parsed.ais.dte_ready?).to eq(true)
+      end
+
+      it "properly decodes the armored payload libais #32" do
+        input1 = "!AIVDM,2,1,1,A,55>u@H02;lGc<Ha;L0084i<7GR22222222222216:PE885AU0A4l13H13kBC,0*3D"
+        input2 = "!AIVDM,2,2,1,A,R@hC`4QD;`0,2*06"
+        parsed = @parser.parse(input1)
+        parsed.add_message_part(@parser.parse(input2))
+        now = Time.now
+        expect(parsed.ais.message_type).to eq(5)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(351228000)
+        expect(parsed.ais.ais_version).to eq(0)
+        expect(parsed.ais.imo_number).to eq(9163130)
+        expect(parsed.ais.callsign.strip).to eq("3FJR7")
+        expect(parsed.ais.name.strip).to eq("BALSA58")
+        expect(parsed.ais.ship_cargo_type).to eq(70)
+        expect(parsed.ais.ship_cargo_type_description).to eq("Cargo")
+        expect(parsed.ais.ship_dimension_to_bow).to eq(84)
+        expect(parsed.ais.ship_dimension_to_stern).to eq(21)
+        expect(parsed.ais.ship_dimension_to_port).to eq(8)
+        expect(parsed.ais.ship_dimension_to_starboard).to eq(8)
+        expect(parsed.ais.epfd_type).to eq(1)
+        expect(parsed.ais.eta).to eq(Time.new(now.year, 5, 3, 5, 0, 0))
+        expect(parsed.ais.static_draught).to eq(6.8)
+        expect(parsed.ais.destination.strip).to eq("SPDM DOMINICAN REP.")
         expect(parsed.ais.dte_ready?).to eq(true)
       end
     end
