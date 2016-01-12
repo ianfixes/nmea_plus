@@ -450,6 +450,39 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a mulipart VDM message type 6" do
+      it "properly decodes the armored payload with subtype 235/10" do
+        input = "!AIVDM,1,1,,A,6>h8nIT00000>d`vP000@00,2*53"
+        parsed = @parser.parse(input)
+
+        expect(parsed.ais.message_type).to eq(6)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(990000742)
+        expect(parsed.ais.sequence_number).to eq(1)
+        expect(parsed.ais.destination_mmsi).to eq(0)
+        expect(parsed.ais.retransmitted?).to eq(false)
+        expect(parsed.ais.designated_area_code).to eq(235)
+        expect(parsed.ais.functional_id).to eq(10)
+        expect(parsed.ais.dp.analog_internal).to eq(12.5)
+        expect(parsed.ais.dp.analog_external1).to eq(nil)
+        expect(parsed.ais.dp.analog_external2).to eq(nil)
+        expect(parsed.ais.dp.racon_status).to eq(0)
+        expect(parsed.ais.dp.racon_status_description).to eq("no RACON installed")
+        expect(parsed.ais.dp.racon_light_status).to eq(1)
+        expect(parsed.ais.dp.racon_light_status_description).to eq("ON")
+        expect(parsed.ais.dp.racon_alarm?).to eq(false)
+        expect(parsed.ais.dp.digital_input7?).to eq(false)
+        expect(parsed.ais.dp.digital_input6?).to eq(false)
+        expect(parsed.ais.dp.digital_input5?).to eq(false)
+        expect(parsed.ais.dp.digital_input4?).to eq(false)
+        expect(parsed.ais.dp.digital_input3?).to eq(false)
+        expect(parsed.ais.dp.digital_input2?).to eq(false)
+        expect(parsed.ais.dp.digital_input1?).to eq(false)
+        expect(parsed.ais.dp.digital_input0?).to eq(false)
+      end
+
+    end
+
     context "when dealing with VDM payload data message type 8" do
       it "properly decodes the armored payload with subtype 1/31" do
         input = "!AIVDM,1,1,1,B,8>h8nkP0Glr=<hFI0D6??wvlFR06EuOwgwl?wnSwe7wvlOw?sAwwnSGmwvh0,0*17"

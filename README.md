@@ -104,7 +104,10 @@ http://catb.org/gpsd/AIVDM.html
 
 Currently, the following AIVDM message types are supported:
 
-> 1, 2, 3, 4, 5, 8, 9, 12, 14, 18, 19, 20, 21, 24, 27
+> 1, 2, 3, 4, 5, 6, 8, 9, 12, 14, 18, 19, 20, 21, 24, 27
+
+> Type 6 subtypes for DAC/FID: 235/10
+
 > Type 8 subtypes for DAC/FID: 1/31, 366/56, 366/57
 
 
