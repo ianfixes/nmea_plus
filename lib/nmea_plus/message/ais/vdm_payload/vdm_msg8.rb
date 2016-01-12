@@ -41,13 +41,6 @@ module NMEAPlus
             _object_by_name("NMEAPlus::Message::AIS::VDMPayload::VDMMsg8Undefined") # generic
           end
 
-          # Return an object by its class name, or nil if it isn't defined
-          def _object_by_name(class_identifier)
-            Object::const_get(class_identifier).new
-          rescue ::NameError
-            nil
-          end
-
         end
 
         # Base class for dynamic payloads (subtypes) of AIS VDM message 8

@@ -33,6 +33,13 @@ module NMEAPlus
             self.class_eval("def #{name};#{formatter}(#{args.join(', ')});end")
           end
 
+          # Return an object by its class name, or nil if it isn't defined
+          def _object_by_name(class_identifier)
+            Object::const_get(class_identifier).new
+          rescue ::NameError
+            nil
+          end
+
           # Convert 6-bit ascii to a character, according to http://catb.org/gpsd/AIVDM.html#_ais_payload_data_types
           # @param ord [Integer] The 6-bit ascii code
           # @return [String] the character for that code
