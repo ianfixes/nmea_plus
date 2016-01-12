@@ -32,7 +32,7 @@ module NMEAPlus
 
           payload_reader :static_draught, 294, 8, :_U, 10
           payload_reader :destination, 302, 120, :_t
-          payload_reader :dte?, 422, 1, :_b
+          payload_reader :dte_ready?, 422, 1, :_nb
 
           # @!parse attr_reader :ship_cargo_type_description
           # @return [String] Cargo type description

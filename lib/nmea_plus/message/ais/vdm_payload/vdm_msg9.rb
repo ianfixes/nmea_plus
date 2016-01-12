@@ -15,7 +15,7 @@ module NMEAPlus
           payload_reader :latitude, 89, 27, :_I, 60 * 10**4, 91
           payload_reader :course_over_ground, 116, 12, :_U, 1
           payload_reader :time_stamp, 128, 6, :_u
-          payload_reader :dte?, 142, 1, :_b
+          payload_reader :dte_ready?, 142, 1, :_nb
 
           payload_reader :assigned?, 146, 1, :_b
           payload_reader :raim?, 147, 1, :_b

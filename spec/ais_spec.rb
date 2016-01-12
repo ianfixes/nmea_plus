@@ -388,7 +388,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.eta).to eq(Time.new(now.year, 3, 23, 19, 45, 0))
         expect(parsed.ais.static_draught).to eq(13.2)
         expect(parsed.ais.destination.strip).to eq("HOUSTON")
-        expect(parsed.ais.dte?).to eq(false)
+        expect(parsed.ais.dte_ready?).to eq(true)
       end
     end
 
@@ -543,7 +543,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.ship_dimension_to_starboard).to eq(3)
         expect(parsed.ais.epfd_type).to eq(1)
         expect(parsed.ais.raim?).to eq(false)
-        expect(parsed.ais.dte?).to eq(true)
+        expect(parsed.ais.dte_ready?).to eq(false)
         expect(parsed.ais.assigned?).to eq(false)
       end
     end

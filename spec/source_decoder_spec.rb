@@ -83,7 +83,7 @@ RSpec.describe NMEAPlus::SourceDecoder, "#parse" do
           expect(parsed.ais.eta).to eq(Time.new(now.year, 3, 23, 19, 45, 0))
           expect(parsed.ais.static_draught).to eq(13.2)
           expect(parsed.ais.destination.strip).to eq("HOUSTON")
-          expect(parsed.ais.dte?).to eq(false)
+          expect(parsed.ais.dte_ready?).to eq(true)
         end
 
         expect(called_once).to eq(true)

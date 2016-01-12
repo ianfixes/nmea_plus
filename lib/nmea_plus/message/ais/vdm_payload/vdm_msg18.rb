@@ -39,7 +39,7 @@ module NMEAPlus
           payload_reader :ship_dimension_to_starboard, 295, 6, :_u
           payload_reader :epfd_type, 301, 4, :_e
           payload_reader :raim?, 305, 1, :_b
-          payload_reader :dte?, 306, 1, :_b
+          payload_reader :dte_ready?, 306, 1, :_nb
           payload_reader :assigned?, 307, 1, :_b
 
           # @!parse attr_reader :ship_cargo_type_description

@@ -171,6 +171,14 @@ module NMEAPlus
             _access(start, 1) { |bits| bits.to_i == 1 }
           end
 
+          # Get the flipped value of a bit in the payload
+          # @param start [Integer] The index of the first bit in the payload field
+          # @param _ [Integer] Doesn't matter.  Here so signatures match; we hard-code 1 because it's 1 bit.
+          # @return [bool]
+          def _6b_negated_boolean(start, _)
+            !_6b_boolean(start, 1)
+          end
+
           # Return a string representing binary
           # @param start [Integer] The index of the first bit in the payload field
           # @param length [Integer] The number of bits in the payload field
@@ -185,6 +193,7 @@ module NMEAPlus
           alias_method :_i, :_6b_integer
           alias_method :_I, :_6b_integer_scaled
           alias_method :_b, :_6b_boolean
+          alias_method :_nb, :_6b_negated_boolean
           alias_method :_e, :_6b_unsigned_integer
           alias_method :_t, :_6b_string_nullterminated
           alias_method :_d, :_2b_data_string
