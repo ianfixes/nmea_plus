@@ -4,7 +4,7 @@ module NMEAPlus
   module Message
     module AIS
       module VDMPayload
-        # Type 9: Standard SAR Aircraft Position Report
+        # AIS Type 9: Standard SAR Aircraft Position Report
         class VDMMsg9 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
 
           payload_reader :altitude_meters, 38, 12, :_u

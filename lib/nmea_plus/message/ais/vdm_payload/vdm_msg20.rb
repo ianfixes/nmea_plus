@@ -4,7 +4,8 @@ module NMEAPlus
   module Message
     module AIS
       module VDMPayload
-        # Type 20 Data Link Management Message
+
+        # AIS Type 20 Data Link Management Message
         class VDMMsg20 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
           payload_reader :offset1, 40, 12, :_u
           payload_reader :reserved_slots1, 52, 4, :_u

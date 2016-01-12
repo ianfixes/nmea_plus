@@ -1,17 +1,22 @@
 
 module NMEAPlus
 
-  # The module containing all parsed message types.
-  # @see NMEAPlus::Message::Base
+  # This module contains all parsed NMEA message types, and their subtypes.
+  # @see NMEAPlus::Message::Base Base class for all NMEA-style messages
   module Message
 
-    # The base message type, from which all others inherit
+    # The base NMEA message type, from which all others inherit.  Messages have a prefix character,
+    # fields, and checksum.  This class provides convenience functions for accessing the fields as
+    # the appropriate data type, and logic for constructing multipart messages.
     # @abstract
     class Base
-      # make our own shortcut syntax for message attribute accessors
+      # Enable a shortcut syntax for message attribute accessors, in the style of `attr_accessor` metaprogramming.
+      # This is used to create a named field pointing to a specific indexed field in the payload, optionally applying
+      # a specific formatting function.
       # @param name [String] What the accessor will be called
       # @param field_num [Integer] The index of the field in the payload
       # @param formatter [Symbol] The symbol for the formatting function to apply to the field (optional)
+      # @return [void]
       # @macro [attach] field_reader
       #   @!attribute [r] $1
       #   @return field $2 of the payload, formatted with the function {#$3}
@@ -41,6 +46,7 @@ module NMEAPlus
       # @return [NMEAPlus::Message] The next part of a multipart message, if available
       attr_accessor :next_part
 
+      # @return [String] The NMEA data type of this message
       field_reader :data_type, 0, nil
 
       # @!parse attr_reader :original
@@ -137,7 +143,7 @@ module NMEAPlus
         _nsew_signed_float(raw, sign_letter)
       end
 
-      # Use cardinal directions to assign positive or negative to mixed_val.
+      # Use cardinal directions to assign positive or negative to mixed_val
       # Of possible directions NSEW (sign_letter) treat N/E as + and S/W as -
       # @param mixed_val [String] input value, can be string or float
       # @param sign_letter [String] can be N,S,E,W, or empty
@@ -148,7 +154,8 @@ module NMEAPlus
         value
       end
 
-      # integer or nil
+      # integer or nil.
+      # This function is meant to be passed as a formatter to {field_reader}.
       # @param field [String] the value in the field to be checked
       # @return [Integer] The value in the field or nil
       def _integer(field)
@@ -156,7 +163,8 @@ module NMEAPlus
         field.to_i
       end
 
-      # float or nil
+      # float or nil.
+      # This function is meant to be passed as a formatter to {field_reader}.
       # @param field [String] the value in the field to be checked
       # @return [Float] The value in the field or nil
       def _float(field)
@@ -164,7 +172,8 @@ module NMEAPlus
         field.to_f
       end
 
-      # string or nil
+      # string or nil.
+      # This function is meant to be passed as a formatter to {field_reader}.
       # @param field [String] the value in the field to be checked
       # @return [String] The value in the field or nil
       def _string(field)
@@ -172,7 +181,8 @@ module NMEAPlus
         field
       end
 
-      # hex to int or nil
+      # hex to int or nil.
+      # This function is meant to be passed as a formatter to {field_reader}.
       # @param field [String] the value in the field to be checked
       # @return [Integer] The value in the field or nil
       def _hex_to_integer(field)
@@ -180,7 +190,8 @@ module NMEAPlus
         field.hex
       end
 
-      # utc time or nil (HHMMSS or HHMMSS.SS)
+      # utc time or nil (HHMMSS or HHMMSS.SS).
+      # This function is meant to be passed as a formatter to {field_reader}.
       # @param field [String] the value in the field to be checked
       # @return [Time] The value in the field or nil
       def _utctime_hms(field)
@@ -195,7 +206,8 @@ module NMEAPlus
         end
       end
 
-      # time interval or nil (HHMMSS or HHMMSS.SS)
+      # time interval or nil (HHMMSS or HHMMSS.SS).
+      # This function is meant to be passed as a formatter to {field_reader}.
       # @param field [String] the value in the field to be checked
       # @return [Time] The value in the field or nil
       def _interval_hms(field)
@@ -209,6 +221,7 @@ module NMEAPlus
         end
       end
 
+      # Create a Time object from a date and time field
       # @param d_field [String] the date value in the field to be checked
       # @param t_field [String] the time value in the field to be checked
       # @return [Time] The value in the fields, or nil if either is not provided

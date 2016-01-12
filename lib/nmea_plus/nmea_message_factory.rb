@@ -95,7 +95,9 @@ module NMEAPlus
 end
 =end
 
-  # Defines a factory for NMEA messages, which will all use {NMEAPlus::Message::NMEA::NMEAMessage} as their base
+  # Defines a factory for NMEA messages, which will all use {NMEAPlus::Message::NMEA::NMEAMessage} as their base.
+  # The factory extracts the NMEA data type (prefixed by a 2-character "talker ID"), and looks for a class with
+  # that name within the NMEA message namespace.
   class NMEAMessageFactory < MessageFactory
 
     # @return [String] The name of the parent module: NMEA

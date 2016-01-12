@@ -5,7 +5,9 @@ require_relative 'message/ais/vdm'
 
 module NMEAPlus
 
-  # Defines a factory for AIS messages, which will all use {NMEAPlus::Message::AIS::AISMessage} as their base
+  # Defines a factory for AIS messages, which will all use {NMEAPlus::Message::AIS::AISMessage} as their base.
+  # The factory extracts the NMEA data type (prefixed by a 2-character "talker ID"), and looks for a class with
+  # that name within the NMEA message namespace.
   class AISMessageFactory < MessageFactory
     # @return [String] The name of the parent module: AIS
     def self.parent_module

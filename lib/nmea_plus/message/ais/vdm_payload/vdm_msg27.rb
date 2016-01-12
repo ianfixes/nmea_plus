@@ -4,7 +4,8 @@ module NMEAPlus
   module Message
     module AIS
       module VDMPayload
-        # Type 27: Long Range AIS Broadcast message
+
+        # AIS Type 27: Long Range AIS Broadcast message
         class VDMMsg27 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
 
           payload_reader :position_10m_accuracy?, 38, 1, :_b

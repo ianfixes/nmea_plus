@@ -1,4 +1,4 @@
-# NMEA Ruby Gem (nmea_plus)
+# NMEA (GPS) and AIS Parser / Decoder for Ruby (nmea_plus)
 
 [![Gem Version](https://badge.fury.io/rb/nmea_plus.svg)](https://rubygems.org/gems/nmea_plus)
 [![Build Status](https://travis-ci.org/ifreecarve/nmea_plus.svg)](https://travis-ci.org/ifreecarve/nmea_plus)
@@ -84,9 +84,7 @@ end
 
 ```
 
-## Design documents
-
-### NMEA
+## NMEA (GPS) Parsing
 
 This gem was coded to accept the standard NMEA messages defined in the unoffical spec found here:
 http://www.catb.org/gpsd/NMEA.txt
@@ -97,19 +95,19 @@ Because the message types are standard, if no override is found for a particular
 
 Support for proprietary NMEA messages is also possible.  PASHR is included as proof-of-concept.
 
-### AIS
+
+## AIS Decoding
 
 AIS message type definitions were implemented from the unofficial spec found here:
 http://catb.org/gpsd/AIVDM.html
 
-Currently, the following AIVDM message types are supported:
+The AIS payload can be found in the AIVDM message's payload field.  Currently, the following AIS message types are supported:
 
 > 1, 2, 3, 4, 5, 6, 8, 9, 12, 14, 18, 19, 20, 21, 24, 27
 
 > Type 6 subtypes for DAC/FID: 235/10
 
 > Type 8 subtypes for DAC/FID: 1/31, 366/56, 366/57
-
 
 
 ## Disclaimer

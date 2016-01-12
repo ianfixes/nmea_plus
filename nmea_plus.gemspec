@@ -6,15 +6,15 @@ require 'nmea_plus/version'
 Gem::Specification.new do |spec|
   spec.name          = "nmea_plus"
   spec.description   = %q{A pure-ruby parser and decoder toolkit for NMEA messages (GPS, AIS, and other similar formats)
-                          that provides convenient access to all data fields.  Nearly all standard NMEA messages,
-                          nearly all AIS messages, and some proprietary messages are supported.
+                          that provides convenient access to all data fields.  All standard NMEA messages,
+                          nearly all AIS messages, and some proprietary NMEA messages are supported.
                          }
   spec.version       = NMEAPlus::VERSION
   spec.licenses      = ['Apache 2.0']
   spec.authors       = ["Ian Katz"]
   spec.email         = ["ifreecarve@gmail.com"]
 
-  spec.summary       = %q{Tools for decoding NMEA-style (GPS) messages}
+  spec.summary       = %q{Parse and decode NMEA (GPS) and AIS messages}
   spec.homepage      = "http://github.com/ifreecarve/nmea_plus"
 
   spec.files         =  ['README.md', '.yardopts'] + Dir['lib/**/*.*'].reject { |f| f.match(%r{^(test|spec|features)/}) }

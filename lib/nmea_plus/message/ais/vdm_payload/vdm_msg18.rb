@@ -6,6 +6,8 @@ module NMEAPlus
       module VDMPayload
 
         # Base class for "Class B CS Position Report" messages (18 and 19)
+        # @see NMEAPlus::Message::AIS::VDMPayload::VDMMsg18
+        # @see NMEAPlus::Message::AIS::VDMPayload::VDMMsg19
         class VDMMsgClassBCSPosition < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
 
           payload_reader :speed_over_ground, 46, 10, :_U, 10
@@ -18,7 +20,7 @@ module NMEAPlus
 
         end
 
-        # Type 18: Standard Class B CS Position Report
+        # AIS Type 18: Standard Class B CS Position Report
         class VDMMsg18 < VDMMsgClassBCSPosition
           payload_reader :cs_unit?, 141, 1, :_b
           payload_reader :display?, 142, 1, :_b
@@ -29,7 +31,7 @@ module NMEAPlus
           payload_reader :raim?, 147, 1, :_b
         end
 
-        # Type 19: Extended Class B CS Position Report
+        # AIS Type 19: Extended Class B CS Position Report
         class VDMMsg19 < VDMMsgClassBCSPosition
           payload_reader :name, 143, 120, :_t
           payload_reader :ship_cargo_type, 263, 8, :_e

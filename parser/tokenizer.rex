@@ -1,6 +1,6 @@
 
 module NMEAPlus
-class Decoder < Parser  # This file is in .rex format, so no indenting.  And yard docs are impossible.
+class Decoder < Parser  # The source file is in .rex format -- indentation and most yard documentation is impossible.  The class does a very basic parse of an input line, calling {NMEAPlus::MessageFactory.create} on the result.  In parser.y, this is currently defined to be a {NMEAPlus::NMEAMessageFactory} if the line begins with `$` and {NMEAPlus::AISMessageFactory} if the line begins with `!`
 
 macro
   csum      \*[0-9A-F]{2}

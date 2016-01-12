@@ -6,7 +6,7 @@ module NMEAPlus
     module AIS
       module VDMPayload
 
-        # Type 6: Binary Addressed Message
+        # AIS Type 6: Binary Addressed Message
         class VDMMsg6 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
 
           payload_reader :sequence_number, 38, 2, :_u

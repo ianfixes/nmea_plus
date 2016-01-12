@@ -3,7 +3,9 @@ module NMEAPlus
   module Message
     module AIS
       module VDMPayload
-        # Basic tools for interpreting the armored payload encoding
+        # Basic tools for interpreting the armored (binary) payload encoding of AIS.
+        # This class provides convenience functions for accessing the fields as the appropriate data type,
+        # as well as logic for AIS bit-level formats
         class Payload
 
           def initialize; end
@@ -14,7 +16,9 @@ module NMEAPlus
           # @return [Integer] The number of padding characters required to bring the payload to a 6 bit boundary
           attr_accessor :fill_bits
 
-          # make our own shortcut syntax for payload attributes
+          # Enable a shortcut syntax for AIS payload attributes, in the style of `attr_accessor` metaprogramming.
+          # This is used to create a named field pointing to a specific bit range in the payload, applying
+          # a specific formatting function with up to 3 arguments as necessary
           # @param name [String] What the accessor will be called
           # @param start_bit [Integer] The index of first bit of this field in the payload
           # @param length [Integer] The number of bits in this field
@@ -22,6 +26,7 @@ module NMEAPlus
           # @param fmt_arg Any argument necessary for the formatting function
           # @param fmt_arg2 Any other argument necessary for the formatting function
           # @param fmt_arg3 Any other argument necessary for the formatting function
+          # @return [void]
           # @macro [attach] payload_reader
           #   @!attribute [r] $1
           #   @return The field defined by the $3 bits starting at payload bit $2, formatted with the function {#$4}($5, $6, $7)
@@ -47,8 +52,8 @@ module NMEAPlus
             '@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_ !"#$%&\'()*+,-./0123456789:;<=>?'[ord]
           end
 
-          # Access part of the payload.  If there aren't bytes, there, return nil
-          # else execute a block
+          # Access part of the payload.
+          # If there aren't bytes, there, return nil.  Else, execute a block
           # @param start [Integer] The index of the first bit in the payload field
           # @param length [Integer] The number of bits in the payload field
           # @return Nil or whatever is yielded by the block
@@ -60,6 +65,7 @@ module NMEAPlus
           end
 
           # pull out 6b chunks from the payload, then convert those to their more familar characters
+          # This function is meant to be passed as a formatter to {payload_reader}.
           # @param start [Integer] The index of the first bit in the payload field
           # @param length [Integer] The number of bits in the payload field
           # @return [String]
@@ -67,7 +73,8 @@ module NMEAPlus
             _bit_slices(start, length, 6).to_a.map(&:join).map { |x| _6b_ascii(x.to_i(2)) }.join
           end
 
-          # pull out 8b chunks from the payload, then convert those to their more familar characters
+          # pull out 8b chunks from the payload, then convert those to their more familar characters.
+          # This function is meant to be passed as a formatter to {payload_reader}.
           # @param start [Integer] The index of the first bit in the payload field
           # @param length [Integer] The number of bits in the payload field
           # @return [String]
@@ -75,7 +82,8 @@ module NMEAPlus
             _bit_slices(start, length, 8).to_a.map(&:join).map { |x| x.to_i(2).chr }.join
           end
 
-          # Slice a part of the payload into binary chunks of a given size
+          # Slice a part of the payload into binary chunks of a given size.
+          # This function is meant to be passed as a formatter to {payload_reader}.
           # @param start [Integer] The index of the first bit in the payload field
           # @param length [Integer] The number of bits in the payload field
           # @return [Array<String>] Strings representing binary ("01010101" etc) for each slice
@@ -83,7 +91,8 @@ module NMEAPlus
             _access(start, length) { |bits| bits.chars.each_slice(chunk_size) }
           end
 
-          # convert a 6b string but trim off the 0s ('@')
+          # convert a 6b string but trim off the 0s ('@').
+          # This function is meant to be passed as a formatter to {payload_reader}.
           # @param start [Integer] The index of the first bit in the payload field
           # @param length [Integer] The number of bits in the payload field
           # @return [String]
@@ -91,7 +100,8 @@ module NMEAPlus
             _6b_string(start, length).split("@", 2)[0]
           end
 
-          # directly convert a string to a binary number as you'd read it
+          # directly convert a string to a binary number as you'd read it.
+          # This function is meant to be passed as a formatter to {payload_reader}.
           # @param start [Integer] The index of the first bit in the payload field
           # @param length [Integer] The number of bits in the payload field
           # @param equiv_nil [Integer] If applicable, the value for this field that would indicate nil
@@ -102,7 +112,8 @@ module NMEAPlus
             ret
           end
 
-          # perform a twos complement operation on part of the payload
+          # perform a twos complement operation on part of the payload.
+          # This function is meant to be passed as a formatter to {payload_reader}.
           # @param start [Integer] The index of the first bit in the payload field
           # @param length [Integer] The number of bits in the payload field
           # @param equiv_nil [Integer] If applicable, the value for this field that would indicate nil
@@ -120,7 +131,8 @@ module NMEAPlus
             end
           end
 
-          # scale an integer by dividing it by a denominator
+          # scale an integer by dividing it by a denominator.
+          # This function is meant to be passed as a formatter to {payload_reader}.
           # @param start [Integer] The index of the first bit in the payload field
           # @param length [Integer] The number of bits in the payload field
           # @param denominator [Integer] The divisor to use in scaling down the result
@@ -132,7 +144,8 @@ module NMEAPlus
             ret.to_f / denominator
           end
 
-          # scale an unsigned integer by dividing it by a denominator
+          # scale an unsigned integer by dividing it by a denominator.
+          # This function is meant to be passed as a formatter to {payload_reader}.
           # @param start [Integer] The index of the first bit in the payload field
           # @param length [Integer] The number of bits in the payload field
           # @param denominator [Integer] The divisor to use in scaling down the result
@@ -144,7 +157,8 @@ module NMEAPlus
             ret.to_f / denominator
           end
 
-          # scale an integer by dividing it by a denominator
+          # scale an integer by dividing it by a denominator.
+          # This function is meant to be passed as a formatter to {payload_reader}.
           # @param start [Integer] The index of the first bit in the payload field
           # @param length [Integer] The number of bits in the payload field
           # @param denominator [Integer] The divisor to use in scaling down the result
@@ -157,7 +171,8 @@ module NMEAPlus
             ret + shift
           end
 
-          # scale an unsigned integer by dividing it by a denominator
+          # scale an unsigned integer by dividing it by a denominator.
+          # This function is meant to be passed as a formatter to {payload_reader}.
           # @param start [Integer] The index of the first bit in the payload field
           # @param length [Integer] The number of bits in the payload field
           # @param denominator [Integer] The divisor to use in scaling down the result
@@ -170,7 +185,8 @@ module NMEAPlus
             ret + shift
           end
 
-          # Get the value of a bit in the payload
+          # Get the value of a bit in the payload.
+          # This function is meant to be passed as a formatter to {payload_reader}.
           # @param start [Integer] The index of the first bit in the payload field
           # @param _ [Integer] Doesn't matter.  Here so signatures match; we hard-code 1 because it's 1 bit.
           # @return [bool]
@@ -178,7 +194,8 @@ module NMEAPlus
             _access(start, 1) { |bits| bits.to_i == 1 }
           end
 
-          # Get the flipped value of a bit in the payload
+          # Get the flipped value of a bit in the payload.
+          # This function is meant to be passed as a formatter to {payload_reader}.
           # @param start [Integer] The index of the first bit in the payload field
           # @param _ [Integer] Doesn't matter.  Here so signatures match; we hard-code 1 because it's 1 bit.
           # @return [bool]
@@ -186,7 +203,8 @@ module NMEAPlus
             !_6b_boolean(start, 1)
           end
 
-          # Return a string representing binary
+          # Return a string representing binary digits.
+          # This function is meant to be passed as a formatter to {payload_reader}.
           # @param start [Integer] The index of the first bit in the payload field
           # @param length [Integer] The number of bits in the payload field
           # @return [String] e.g. "0101010101011000"

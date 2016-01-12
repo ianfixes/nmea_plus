@@ -4,7 +4,7 @@ module NMEAPlus
   module Message
     module AIS
       module VDMPayload
-        # Type 14: Safety-Related Broadcast Message
+        # AIS Type 14: Safety-Related Broadcast Message
         class VDMMsg14 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
 
           # Safety message

@@ -34,6 +34,10 @@ require_relative "vdm_payload/vdm_msg27"
 module NMEAPlus
   module Message
     module AIS
+
+      # VDM - Vessel Data Message
+      # This message type thinly wraps AIS payloads.
+      # @see NMEAPlus::Message::AIS::VDMPayload::VDMMsg
       class VDM < NMEAPlus::Message::AIS::AISMessage
         field_reader :total_messages, 1, :_integer
         field_reader :message_number, 2, :_integer
@@ -42,7 +46,7 @@ module NMEAPlus
         field_reader :raw_ais_payload, 5, :_string
         field_reader :ais_payload_fill_bits, 6, :_integer
 
-        # factory method: find the appropriate message type class and instantiate it
+        # factory method: find the appropriate class for this AIS message type and instantiate it
         # @!parse attr_reader :ais
         # @return [VDMPayload::VDMMsg]
         def ais

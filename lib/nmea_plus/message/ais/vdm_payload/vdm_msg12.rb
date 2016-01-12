@@ -4,7 +4,7 @@ module NMEAPlus
   module Message
     module AIS
       module VDMPayload
-        # Type 12: Addressed Safety-Related Message
+        # AIS Type 12: Addressed Safety-Related Message
         class VDMMsg12 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
 
           payload_reader :sequence_number, 38, 2, :_u

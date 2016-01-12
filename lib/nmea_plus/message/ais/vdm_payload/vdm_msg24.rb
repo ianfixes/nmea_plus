@@ -4,7 +4,8 @@ module NMEAPlus
   module Message
     module AIS
       module VDMPayload
-        # Type 24: Static Data Report
+
+        # AIS Type 24: Static Data Report
         class VDMMsg24 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
 
           payload_reader :part_number, 38, 2, :_u

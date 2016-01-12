@@ -7,7 +7,7 @@ module NMEAPlus
     module AIS
       module VDMPayload
 
-        # Type 8: Binary Broadcast Message
+        # AIS Type 8: Binary Broadcast Message
         class VDMMsg8 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
 
           payload_reader :designated_area_code, 40, 10, :_u
@@ -43,7 +43,7 @@ module NMEAPlus
 
         end
 
-        # Base class for dynamic payloads (subtypes) of AIS VDM message 8
+        # Base class for {VDMMsg8#dp dynamic payload}s (subtypes) of {VDMMsg8 AIS VDM message 8}
         class VDMMsg8DynamicPayload < NMEAPlus::Message::AIS::VDMPayload::Payload; end
 
         # Placeholder for undefined message 8 payload subtypes

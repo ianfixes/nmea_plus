@@ -4,7 +4,8 @@ module NMEAPlus
   module Message
     module AIS
       module VDMPayload
-        # Type 21: Aid-to-Navigation Report
+
+        # AIS Type 21: Aid-to-Navigation Report
         class VDMMsg21 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
 
           # TODO: Navaid type descriptions (there are 32 of them)
