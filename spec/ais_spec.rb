@@ -309,7 +309,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly decodes the armored payload" do
         input = "!AIVDM,1,1,,B,403OK@Quw35W<rsg:hH:wK70087D,0*6E"
         parsed = @parser.parse(input)
-
         expect(parsed.ais.message_type).to eq(4)
         expect(parsed.ais.repeat_indicator).to eq(0)
         expect(parsed.ais.source_mmsi).to eq("003660610".to_i)
@@ -320,6 +319,49 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.epfd_type).to eq(7)
         expect(parsed.ais.raim?).to eq(false)
       end
+
+      it "properly decodes the armored payload libais #25" do
+        input = "!AIVDM,1,1,,A,402u=TiuaA000r5UJ`H4`?7000S:,0*75"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(4)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq("003100051".to_i)
+        expect(parsed.ais.current_time).to eq(Time.new(2010, 5, 2, 0, 0, 0))
+        expect(parsed.ais.position_10m_accuracy?).to eq(true)
+        expect(parsed.ais.longitude).to be_within(epsilon).of(-82.6661)
+        expect(parsed.ais.latitude).to be_within(epsilon).of(42.069433333333336)
+        expect(parsed.ais.epfd_type).to eq(7)
+        expect(parsed.ais.raim?).to eq(false)
+      end
+
+      it "properly decodes the armored payload libais #26" do
+        input = "!AIVDM,1,1,,A,403OweAuaAGssGWDABBdKBA006sd,0*07"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(4)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq("003669941".to_i)
+        expect(parsed.ais.current_time).to eq(Time.new(2010, 5, 2, 23, 59, 59))
+        expect(parsed.ais.position_10m_accuracy?).to eq(false)
+        expect(parsed.ais.longitude).to be_within(epsilon).of(-117.24025166666667)
+        expect(parsed.ais.latitude).to be_within(epsilon).of(32.670415)
+        expect(parsed.ais.epfd_type).to eq(1)
+        expect(parsed.ais.raim?).to eq(false)
+      end
+
+      it "properly decodes the armored payload libais #27" do
+        input = "!AIVDM,1,1,,B,4h3OvjAuaAGsro=cf0Knevo00`S8,0*7E"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(4)
+        expect(parsed.ais.repeat_indicator).to eq(3)
+        expect(parsed.ais.source_mmsi).to eq("003669705".to_i)
+        expect(parsed.ais.current_time).to eq(Time.new(2010, 5, 2, 23, 59, 58))
+        expect(parsed.ais.position_10m_accuracy?).to eq(true)
+        expect(parsed.ais.longitude).to be_within(epsilon).of(-122.84)
+        expect(parsed.ais.latitude).to be_within(epsilon).of(48.68009833333333)
+        expect(parsed.ais.epfd_type).to eq(7)
+        expect(parsed.ais.raim?).to eq(false)
+      end
+
     end
 
     context "when reading a multipart VDM message type 5" do
