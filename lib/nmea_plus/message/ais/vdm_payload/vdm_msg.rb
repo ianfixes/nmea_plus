@@ -449,7 +449,7 @@ module NMEAPlus
 
           # An MMSI is associated with an auxiliary craft when it is of the form 98XXXYYYY
           def auxiliary_craft?
-            980_000_000 < source_mmsi && source_mmsi < 990_000_000
+            mmsi_category == :auxiliary_craft
           end
 
           # @param code [Integer] The navigational status id
