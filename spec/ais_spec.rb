@@ -8,6 +8,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
 
     epsilon = 0.0000001
 
+    # some test cases from https://github.com/schwehr/libais/blob/master/test/data/test.aivdm
     # validated against http://www.maritec.co.za/tools/aisvdmvdodecoding/
 
     context "when reading an AIS message" do
@@ -46,6 +47,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(calculated).to eq(expected)
       end
 
+      # Unsigned integers: x == x ?
       [0, 1, 2, 127, 128, 129, 254, 255].each do |input|
         it "properly decodes 8-bit #{input.to_s(2).rjust(8, "0")} as an unsigned integer" do
           m = NMEAPlus::Message::AIS::VDMPayload::VDMMsg.new
@@ -53,6 +55,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         end
       end
 
+      # signed integers: x == y ?
       [[0, 0], [1, 1], [2, 2], [127, 127], [128, -128], [129, -127], [254, -2], [255, -1]].each do |input, expected|
         it "properly decodes 8-bit #{input.to_s(2).rjust(8, "0")} as a signed integer" do
           m = NMEAPlus::Message::AIS::VDMPayload::VDMMsg.new
@@ -60,10 +63,12 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         end
       end
 
+      # allow us to just mangle the MMSI for testing
       class TestMessage < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
         attr_accessor :source_mmsi
       end
 
+      # MMSI, expected MID, and description
       [
        [367447520, 367, "Individual ship"],
        [  5551123, 555, "Coast station"], # leading zeros don't work here
@@ -91,6 +96,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         end
       end
 
+      # MMSI/MID region, ISO country code
       [[201, 8],
        [351, 591],
        [354, 591],
