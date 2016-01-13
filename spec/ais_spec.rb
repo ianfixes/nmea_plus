@@ -572,6 +572,104 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
 
     end
 
+    context "when dealing with VDM payload data message type 7" do
+      it "properly decodes the armored payload libais #48" do
+        input = "!AIVDM,1,1,,A,75Mu6d0P17IP?PfGSC29WOvb0<14,0*61"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(7)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(366954160)
+        expect(parsed.ais.ack1_mmsi).to eq(134290840)
+        expect(parsed.ais.ack1_sequence_number).to eq(0)
+        expect(parsed.ais.ack2_mmsi).to eq(260236771)
+        expect(parsed.ais.ack2_sequence_number).to eq(1)
+        expect(parsed.ais.ack3_mmsi).to eq(203581311)
+        expect(parsed.ais.ack3_sequence_number).to eq(3)
+        expect(parsed.ais.ack4_mmsi).to eq(713043985)
+        expect(parsed.ais.ack4_sequence_number).to eq(0)
+      end
+
+      it "properly decodes the armored payload libais #49" do
+        input = "!AIVDM,1,1,,A,7CtgNN000000,0*41"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(7)
+        expect(parsed.ais.repeat_indicator).to eq(1)
+        expect(parsed.ais.source_mmsi).to eq(265019000)
+        expect(parsed.ais.ack1_mmsi).to eq(0)
+        expect(parsed.ais.ack1_sequence_number).to eq(0)
+        expect(parsed.ais.ack2_mmsi).to eq(nil)
+        expect(parsed.ais.ack2_sequence_number).to eq(nil)
+        expect(parsed.ais.ack3_mmsi).to eq(nil)
+        expect(parsed.ais.ack3_sequence_number).to eq(nil)
+        expect(parsed.ais.ack4_mmsi).to eq(nil)
+        expect(parsed.ais.ack4_sequence_number).to eq(nil)
+      end
+
+      it "properly decodes the armored payload libais #50" do
+        input = "!AIVDM,1,1,,A,7CtgNN000000,0*41"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(7)
+        expect(parsed.ais.repeat_indicator).to eq(1)
+        expect(parsed.ais.source_mmsi).to eq(265019000)
+        expect(parsed.ais.ack1_mmsi).to eq(0)
+        expect(parsed.ais.ack1_sequence_number).to eq(0)
+        expect(parsed.ais.ack2_mmsi).to eq(nil)
+        expect(parsed.ais.ack2_sequence_number).to eq(nil)
+        expect(parsed.ais.ack3_mmsi).to eq(nil)
+        expect(parsed.ais.ack3_sequence_number).to eq(nil)
+        expect(parsed.ais.ack4_mmsi).to eq(nil)
+        expect(parsed.ais.ack4_sequence_number).to eq(nil)
+      end
+
+      it "properly decodes the armored payload libais #51" do
+        input = "!AIVDM,1,1,,B,70C<HvRftSLBTtwN4oTg8261,0*02"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(7)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(20125946)
+        expect(parsed.ais.ack1_mmsi).to eq(733777348)
+        expect(parsed.ais.ack1_sequence_number).to eq(2)
+        expect(parsed.ais.ack2_mmsi).to eq(619968388)
+        expect(parsed.ais.ack2_sequence_number).to eq(3)
+        expect(parsed.ais.ack3_mmsi).to eq(508282888)
+        expect(parsed.ais.ack3_sequence_number).to eq(1)
+        expect(parsed.ais.ack4_mmsi).to eq(129) # TODO: WHA???
+        expect(parsed.ais.ack4_sequence_number).to eq(nil)
+      end
+
+      it "properly decodes the armored payload libais #52" do
+        input = "!AIVDM,1,1,,A,74eGSe@0owtf,0*4B"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(7)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(316007349)
+        expect(parsed.ais.ack1_mmsi).to eq(3669963)
+        expect(parsed.ais.ack1_sequence_number).to eq(2)
+        expect(parsed.ais.ack2_mmsi).to eq(nil)
+        expect(parsed.ais.ack2_sequence_number).to eq(nil)
+        expect(parsed.ais.ack3_mmsi).to eq(nil)
+        expect(parsed.ais.ack3_sequence_number).to eq(nil)
+        expect(parsed.ais.ack4_mmsi).to eq(nil)
+        expect(parsed.ais.ack4_sequence_number).to eq(nil)
+      end
+
+      it "properly decodes the armored payload libais #53" do
+        input = "!AIVDM,1,1,,A,74eG>;h0h=w0,0*48"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(7)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(316001839)
+        expect(parsed.ais.ack1_mmsi).to eq(3160048)
+        expect(parsed.ais.ack1_sequence_number).to eq(0)
+        expect(parsed.ais.ack2_mmsi).to eq(nil)
+        expect(parsed.ais.ack2_sequence_number).to eq(nil)
+        expect(parsed.ais.ack3_mmsi).to eq(nil)
+        expect(parsed.ais.ack3_sequence_number).to eq(nil)
+        expect(parsed.ais.ack4_mmsi).to eq(nil)
+        expect(parsed.ais.ack4_sequence_number).to eq(nil)
+      end
+    end
+
     context "when dealing with VDM payload data message type 8" do
       it "properly decodes the armored payload with subtype 1/31" do
         input = "!AIVDM,1,1,1,B,8>h8nkP0Glr=<hFI0D6??wvlFR06EuOwgwl?wnSwe7wvlOw?sAwwnSGmwvh0,0*17"
