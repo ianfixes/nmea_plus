@@ -759,6 +759,116 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
 
     end
 
+    context "when dealing with VDM payload data message type 9" do
+      it "properly decodes the armored payload libais #88" do
+        input = "!AIVDM,1,1,,A,90003uhWAcIJe8B;5>rk1D@200Sk,0*7E"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(9)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq("000001015".to_i)
+        expect(parsed.ais.altitude_meters).to eq(157)
+        expect(parsed.ais.speed_over_ground).to eq(107)
+        expect(parsed.ais.position_10m_accuracy?).to eq(false)
+        expect(parsed.ais.longitude).to eq(-92.033265)
+        expect(parsed.ais.latitude).to eq(19.366791666666668)
+        expect(parsed.ais.course_over_ground).to eq(77.3)
+        expect(parsed.ais.time_stamp).to eq(17)
+        expect(parsed.ais.dte_ready?).to eq(false)
+        expect(parsed.ais.assigned?).to eq(false)
+        expect(parsed.ais.raim?).to eq(false)
+      end
+
+      it "properly decodes the armored payload libais #89" do
+        input = "!AIVDM,1,1,,B,900fK5?wh0IJcT>;6GB004h00408,0*76"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(9)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq("000760596".to_i)
+        expect(parsed.ais.altitude_meters).to eq(nil)
+        expect(parsed.ais.speed_over_ground).to eq(0)
+        expect(parsed.ais.position_10m_accuracy?).to eq(false)
+        expect(parsed.ais.longitude).to eq(-92.03860166666666)
+        expect(parsed.ais.latitude).to eq(19.397666666666666)
+        expect(parsed.ais.course_over_ground).to eq(0)
+        expect(parsed.ais.time_stamp).to eq(19)
+        expect(parsed.ais.dte_ready?).to eq(true)
+        expect(parsed.ais.assigned?).to eq(false)
+        expect(parsed.ais.raim?).to eq(false)
+      end
+
+      it "properly decodes the armored payload libais #90" do
+        input = "!AIVDM,1,1,,B,90003t0=00IId12;<O:nrUP20@=h,0*7D"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(9)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq("000001008".to_i)
+        expect(parsed.ais.altitude_meters).to eq(52)
+        expect(parsed.ais.speed_over_ground).to eq(0)
+        expect(parsed.ais.position_10m_accuracy?).to eq(false)
+        expect(parsed.ais.longitude).to eq(-92.25551833333333)
+        expect(parsed.ais.latitude).to eq(19.564871666666665)
+        expect(parsed.ais.course_over_ground).to eq(177)
+        expect(parsed.ais.time_stamp).to eq(22)
+        expect(parsed.ais.dte_ready?).to eq(false)
+        expect(parsed.ais.assigned?).to eq(false)
+        expect(parsed.ais.raim?).to eq(false)
+      end
+
+      it "properly decodes the armored payload libais #91" do
+        input = "!AIVDM,1,1,,A,9002=micijIJhK0;5t5m@V0000S4,0*37"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(9)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(36311)
+        expect(parsed.ais.altitude_meters).to eq(431)
+        expect(parsed.ais.speed_over_ground).to eq(114)
+        expect(parsed.ais.position_10m_accuracy?).to eq(false)
+        expect(parsed.ais.longitude).to eq(-92.02202666666666)
+        expect(parsed.ais.latitude).to eq(19.386065)
+        expect(parsed.ais.course_over_ground).to eq(134.6)
+        expect(parsed.ais.time_stamp).to eq(24)
+        expect(parsed.ais.dte_ready?).to eq(true)
+        expect(parsed.ais.assigned?).to eq(false)
+        expect(parsed.ais.raim?).to eq(false)
+      end
+
+      it "properly decodes the armored payload libais #92" do
+        input = "!AIVDM,1,1,,B,900fK5?wh0IJcT>;6GB009h000S7,0*13"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(9)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(760596)
+        expect(parsed.ais.altitude_meters).to eq(nil)
+        expect(parsed.ais.speed_over_ground).to eq(0)
+        expect(parsed.ais.position_10m_accuracy?).to eq(false)
+        expect(parsed.ais.longitude).to eq(-92.03860166666666)
+        expect(parsed.ais.latitude).to eq(19.397666666666666)
+        expect(parsed.ais.course_over_ground).to eq(0)
+        expect(parsed.ais.time_stamp).to eq(39)
+        expect(parsed.ais.dte_ready?).to eq(true)
+        expect(parsed.ais.assigned?).to eq(false)
+        expect(parsed.ais.raim?).to eq(false)
+      end
+
+      it "properly decodes the armored payload libais #93" do
+        input = "!AIVDM,1,1,,A,9018lEPPwwIJdp<;6nk55:h00D3w,0*7E"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(9)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(1193046)
+        expect(parsed.ais.altitude_meters).to eq(131)
+        expect(parsed.ais.speed_over_ground).to eq(nil)
+        expect(parsed.ais.position_10m_accuracy?).to eq(false)
+        expect(parsed.ais.longitude).to eq(-92.03412333333333)
+        expect(parsed.ais.latitude).to eq(19.411113333333333)
+        expect(parsed.ais.course_over_ground).to eq(130)
+        expect(parsed.ais.time_stamp).to eq(43)
+        expect(parsed.ais.dte_ready?).to eq(true)
+        expect(parsed.ais.assigned?).to eq(false)
+        expect(parsed.ais.raim?).to eq(false)
+      end
+    end
+
     context "when dealing with VDM payload data message type 14" do
       it "properly decodes the armored payload" do
         input = "!AIVDM,1,1,,B,>>M4fWA<59B1@E=@,0*17"
