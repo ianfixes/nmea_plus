@@ -5,8 +5,10 @@ module NMEAPlus
     module AIS
       module VDMPayload
 
-        # AIS Type 4: Base Station Report
-        class VDMMsg4 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
+        # Base class for station reports
+        # @see {VDMMsg4}
+        # @see {VDMMsg11}
+        class VDMMsgStationReport < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
 
           # @!parse attr_reader :current_time
           # @return [Time] current time
@@ -26,6 +28,10 @@ module NMEAPlus
           payload_reader :raim?, 148, 1, :_b
 
         end
+
+        # AIS Type 4: Base Station Report
+        class VDMMsg4 < VDMMsgStationReport; end
+
       end
     end
   end

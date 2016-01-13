@@ -24,6 +24,7 @@ require_relative "vdm_payload/vdm_msg6"
 require_relative "vdm_payload/vdm_msg7"
 require_relative "vdm_payload/vdm_msg8"
 require_relative "vdm_payload/vdm_msg9"
+require_relative "vdm_payload/vdm_msg11"
 require_relative "vdm_payload/vdm_msg12"
 require_relative "vdm_payload/vdm_msg14"
 require_relative "vdm_payload/vdm_msg18" # also includes 19
