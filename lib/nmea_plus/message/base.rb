@@ -135,12 +135,12 @@ module NMEAPlus
       # @param dm_string [String] An angular measurement in the form DDMM.MMM
       # @param sign_letter [String] can be N,S,E,W
       # @return [Float] A signed latitude or longitude
-      def _degrees_minutes_to_decimal(dm_string, sign_letter = "")
+      def self.degrees_minutes_to_decimal(dm_string, sign_letter = "")
         return nil if dm_string.nil? || dm_string.empty?
         r = /(\d+)(\d{2}\.\d+)/  # (some number of digits) (2 digits for minutes).(decimal minutes)
         m = r.match(dm_string)
         raw = m.values_at(1)[0].to_f + (m.values_at(2)[0].to_f / 60)
-        _nsew_signed_float(raw, sign_letter)
+        nsew_signed_float(raw, sign_letter)
       end
 
       # Use cardinal directions to assign positive or negative to mixed_val
@@ -148,7 +148,7 @@ module NMEAPlus
       # @param mixed_val [String] input value, can be string or float
       # @param sign_letter [String] can be N,S,E,W, or empty
       # @return [Float] The input value signed as per the sign letter.
-      def _nsew_signed_float(mixed_val, sign_letter = "")
+      def self.nsew_signed_float(mixed_val, sign_letter = "")
         value = mixed_val.to_f
         value *= -1 if !sign_letter.empty? && "SW".include?(sign_letter.upcase)
         value

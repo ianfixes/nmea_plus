@@ -14,13 +14,13 @@ module NMEAPlus
         # @!parse attr_reader :latitude
         # @return [Float]
         def latitude
-          _degrees_minutes_to_decimal(@fields[3], @fields[4])
+          self.class.degrees_minutes_to_decimal(@fields[3], @fields[4])
         end
 
         # @!parse attr_reader :longitude
         # @return [Float]
         def longitude
-          _degrees_minutes_to_decimal(@fields[5], @fields[6])
+          self.class.degrees_minutes_to_decimal(@fields[5], @fields[6])
         end
 
         field_reader :elevation_angle, 7, :_float

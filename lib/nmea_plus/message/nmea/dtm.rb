@@ -11,13 +11,13 @@ module NMEAPlus
         # @!parse attr_reader :latitude_offset
         # @return [Float]
         def latitude_offset
-          _nsew_signed_float(@fields[3], @fields[4])
+          self.class.nsew_signed_float(@fields[3], @fields[4])
         end
 
         # @!parse attr_reader :longitude_offset
         # @return [Float]
         def longitude_offset
-          _nsew_signed_float(@fields[5], @fields[6])
+          self.class.nsew_signed_float(@fields[5], @fields[6])
         end
 
         field_reader :altitude_meters, 7, :_float

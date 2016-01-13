@@ -17,13 +17,13 @@ module NMEAPlus
         # @!parse attr_reader :latitude
         # @return [Float]
         def latitude
-          _degrees_minutes_to_decimal(@fields[3], @fields[4])
+          self.class.degrees_minutes_to_decimal(@fields[3], @fields[4])
         end
 
         # @!parse attr_reader :longitude
         # @return [Float]
         def longitude
-          _degrees_minutes_to_decimal(@fields[5], @fields[6])
+          self.class.degrees_minutes_to_decimal(@fields[5], @fields[6])
         end
 
         field_reader :speed_over_ground_knots, 7, :_float
@@ -32,7 +32,7 @@ module NMEAPlus
         # @!parse attr_reader :magnetic_variation_degrees
         # @return [Float]
         def magnetic_variation_degrees
-          _nsew_signed_float(@fields[10], @fields[11])
+          self.class.nsew_signed_float(@fields[10], @fields[11])
         end
 
         field_reader :faa_mode, 12, :_string
