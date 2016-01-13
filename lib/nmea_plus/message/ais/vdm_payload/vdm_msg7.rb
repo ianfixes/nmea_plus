@@ -5,8 +5,8 @@ module NMEAPlus
     module AIS
       module VDMPayload
 
-        # AIS Type 7: Binary Acknowledge
-        class VDMMsg7 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
+        # Base class for binary acknowledgement messages
+        class VDMMsgBinaryAcknowledgement < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
 
           payload_reader :ack1_mmsi, 40, 30, :_u
           payload_reader :ack1_sequence_number, 70, 2, :_u
@@ -18,6 +18,14 @@ module NMEAPlus
           payload_reader :ack4_sequence_number, 166, 2, :_u
 
         end
+
+        # AIS Type 7: Binary Acknowledge
+        class VDMMsg7 < VDMMsgBinaryAcknowledgement; end
+
+        # AIS Type 13: Safety-Related Acknowledgement
+        # According to the unoffical spec: "The message layout is identical to a type 7 Binary Acknowledge."
+        class VDMMsg13 < VDMMsgBinaryAcknowledgement; end
+
       end
     end
   end
