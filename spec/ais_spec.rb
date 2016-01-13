@@ -481,6 +481,95 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.dp.digital_input0?).to eq(false)
       end
 
+      it "properly decodes the armored payload with subtype 235/10 again" do
+        input = "!AIVDM,1,1,4,B,6>jR0600V:C0>da4P106P00,2*02"
+        parsed = @parser.parse(input)
+
+        expect(parsed.ais.message_type).to eq(6)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(992509976)
+        expect(parsed.ais.sequence_number).to eq(0)
+        expect(parsed.ais.destination_mmsi).to eq(2500912)
+        expect(parsed.ais.retransmitted?).to eq(false)
+        expect(parsed.ais.designated_area_code).to eq(235)
+        expect(parsed.ais.functional_id).to eq(10)
+        expect(parsed.ais.dp.analog_internal).to eq(13.7)
+        expect(parsed.ais.dp.analog_external1).to eq(0.05)
+        expect(parsed.ais.dp.analog_external2).to eq(0.05)
+        expect(parsed.ais.dp.racon_status).to eq(2)
+        expect(parsed.ais.dp.racon_status_description).to eq("RACON operational")
+        expect(parsed.ais.dp.racon_light_status).to eq(2)
+        expect(parsed.ais.dp.racon_light_status_description).to eq("OFF")
+        expect(parsed.ais.dp.racon_alarm?).to eq(false)
+        expect(parsed.ais.dp.digital_input7?).to eq(false)
+        expect(parsed.ais.dp.digital_input6?).to eq(false)
+        expect(parsed.ais.dp.digital_input5?).to eq(false)
+        expect(parsed.ais.dp.digital_input4?).to eq(false)
+        expect(parsed.ais.dp.digital_input3?).to eq(false)
+        expect(parsed.ais.dp.digital_input2?).to eq(false)
+        expect(parsed.ais.dp.digital_input1?).to eq(false)
+        expect(parsed.ais.dp.digital_input0?).to eq(false)
+      end
+
+      it "properly decodes the armored payload with subtype 1022/61 (Sealite)" do
+        input1 = "!AIVDM,2,1,9,B,61c2;qLPH1m@wsm6ARhp<ji6ATHd<C8f=Bhk>34k;S8i=3To,0*2C"
+        input2 = "!AIVDM,2,2,9,B,Djhi=3Di<2pp=34k>4D,2*03"
+        parsed = @parser.parse(input1)
+        parsed.add_message_part(@parser.parse(input2))
+        expect(parsed.ais.message_type).to eq(6)
+        expect(parsed.ais.source_mmsi).to eq(112233445)
+        expect(parsed.ais.destination_mmsi).to eq(135792468)
+        expect(parsed.ais.retransmitted?).to eq(false)
+        expect(parsed.ais.designated_area_code).to eq(1022)
+        expect(parsed.ais.functional_id).to eq(61)
+        expect(parsed.ais.dp.application_data).to eq("FF,83,FFF,12.5,3813.21497S,14510.84138E")
+        expect(parsed.ais.dp.supply_fail?).to eq(true)
+        expect(parsed.ais.dp.gps_off_station?).to eq(true)
+        expect(parsed.ais.dp.light_sensor_dark?).to eq(true)
+        expect(parsed.ais.dp.gps_sync_valid?).to eq(true)
+        expect(parsed.ais.dp.gps_valid?).to eq(true)
+        expect(parsed.ais.dp.temperature_sensor_hot?).to eq(true)
+        expect(parsed.ais.dp.battery_flat?).to eq(true)
+        expect(parsed.ais.dp.battery_low?).to eq(true)
+        expect(parsed.ais.dp.operation_mode).to eq(2)
+        expect(parsed.ais.dp.operation_mode_description).to eq("Always on")
+        expect(parsed.ais.dp.intensity_percent).to eq(6.25)
+        expect(parsed.ais.dp.flash_code).to eq("FFF".hex)
+        expect(parsed.ais.dp.battery_voltage).to eq(12.5)
+        expect(parsed.ais.dp.latitude).to be_within(epsilon).of(-38.2202495)
+        expect(parsed.ais.dp.longitude).to be_within(epsilon).of(145.18068966666667)
+      end
+
+      it "properly decodes the armored payload with subtype 1022/61 (Sealite) again" do
+        input1 = "!AIVDM,2,1,1,B,61c2;qLPH1m@wslh>2hm<BhhATHd<CTf=jhk>34k;S8i=3UC,0*65"
+        input2 = "!AIVDM,2,2,1,B,;34l=C4h;SPl<C=5,0*47"
+        parsed = @parser.parse(input1)
+        parsed.add_message_part(@parser.parse(input2))
+        expect(parsed.ais.message_type).to eq(6)
+        expect(parsed.ais.source_mmsi).to eq(112233445)
+        expect(parsed.ais.destination_mmsi).to eq(135792468)
+        expect(parsed.ais.retransmitted?).to eq(false)
+        expect(parsed.ais.designated_area_code).to eq(1022)
+        expect(parsed.ais.functional_id).to eq(61)
+        expect(parsed.ais.dp.application_data).to eq("08,51,0FF,19.7,3813.2149S,14510.8413E")
+        expect(parsed.ais.dp.supply_fail?).to eq(false)
+        expect(parsed.ais.dp.gps_off_station?).to eq(false)
+        expect(parsed.ais.dp.light_sensor_dark?).to eq(false)
+        expect(parsed.ais.dp.gps_sync_valid?).to eq(false)
+        expect(parsed.ais.dp.gps_valid?).to eq(true)
+        expect(parsed.ais.dp.temperature_sensor_hot?).to eq(false)
+        expect(parsed.ais.dp.battery_flat?).to eq(false)
+        expect(parsed.ais.dp.battery_low?).to eq(false)
+        expect(parsed.ais.dp.operation_mode).to eq(1)
+        expect(parsed.ais.dp.operation_mode_description).to eq("Standby")
+        expect(parsed.ais.dp.intensity_percent).to eq(28.125)
+        expect(parsed.ais.dp.flash_code).to eq("0FF".hex)
+        expect(parsed.ais.dp.battery_voltage).to eq(19.7)
+        expect(parsed.ais.dp.latitude).to be_within(epsilon).of(-38.22024833333333)
+        expect(parsed.ais.dp.longitude).to be_within(epsilon).of(145.18068833333334)
+      end
+
+
     end
 
     context "when dealing with VDM payload data message type 8" do

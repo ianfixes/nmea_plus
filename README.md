@@ -105,7 +105,7 @@ The AIS payload can be found in the AIVDM message's payload field.  Currently, t
 
 > 1, 2, 3, 4, 5, 6, 8, 9, 12, 14, 18, 19, 20, 21, 24, 27
 
-> Type 6 subtypes for DAC/FID: 235/10
+> Type 6 subtypes for DAC/FID: 235/10, 1022/61
 
 > Type 8 subtypes for DAC/FID: 1/31, 366/56, 366/57
 

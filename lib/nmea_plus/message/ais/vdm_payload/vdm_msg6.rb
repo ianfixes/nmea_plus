@@ -1,5 +1,6 @@
 require_relative 'vdm_msg'
 require_relative 'vdm_msg6d235f10'
+require_relative 'vdm_msg6d1022f61'
 
 module NMEAPlus
   module Message
