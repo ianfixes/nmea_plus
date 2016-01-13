@@ -6,8 +6,8 @@ module NMEAPlus
       module VDMPayload
 
         # Base class for station reports
-        # @see {VDMMsg4}
-        # @see {VDMMsg11}
+        # @see VDMMsg4
+        # @see VDMMsg11
         class VDMMsgStationReport < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
 
           # @!parse attr_reader :current_time
@@ -30,10 +30,12 @@ module NMEAPlus
         end
 
         # AIS Type 4: Base Station Report
+        # @see VDMMsgStationReport
         class VDMMsg4 < VDMMsgStationReport; end
 
         # AIS Type 11: UTC/Date Response
         # According to the unoffical spec: "Identical to message 4, with the semantics of a response to inquiry."
+        # @see VDMMsgStationReport
         class VDMMsg11 < VDMMsgStationReport; end
 
       end
