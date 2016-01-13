@@ -11,8 +11,11 @@ module NMEAPlus
           payload_reader :destination_mmsi, 40, 30, :_u
           payload_reader :retransmit?, 70, 1, :_b
 
-          # Safety message
+          # Safety message as a null-terminated string
           payload_reader :text, 72, 936, :_t
+
+          # Safety message as data
+          payload_reader :data, 72, 936, :_tt
         end
       end
     end

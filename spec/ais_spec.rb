@@ -885,6 +885,97 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when dealing with VDM payload data message type 12" do
+      it "properly decodes the armored payload libais #114" do
+        input = "!AIVDM,1,1,,A,<5MwpVn0AAup=C7P6B?=Pknnqqqoho0,2*17"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(12)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(366999707)
+        expect(parsed.ais.destination_mmsi).to eq(538003422)
+        expect(parsed.ais.retransmit?).to eq(false)
+        expect(parsed.ais.text).to eq("MSG FROM 366999707")
+      end
+
+      it "properly decodes the armored payload libais #117" do
+        input = "!AIVDM,1,1,,B,<qnd>q7>IAiurJuMTIgfsid,2*50"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(12)
+        expect(parsed.ais.repeat_indicator).to eq(3)
+        expect(parsed.ais.source_mmsi).to eq(661327588)
+        expect(parsed.ais.destination_mmsi).to eq(865683231)
+        expect(parsed.ais.retransmit?).to eq(false)
+        expect(parsed.ais.data).to eq(":Z=]$Y/.;1K") # TODO ????
+      end
+
+      it "properly decodes the armored payload libais #118" do
+        input = "!AIVDM,1,1,,A,<sk:rC7oh;wCNw@,2*4D"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(12)
+        expect(parsed.ais.repeat_indicator).to eq(3)
+        expect(parsed.ais.source_mmsi).to eq(791853644)
+        expect(parsed.ais.destination_mmsi).to eq(1039151092) # ????? TODO THIS IS 10 DIGITS
+        expect(parsed.ais.retransmit?).to eq(true)
+        expect(parsed.ais.data).to eq("^?D") # TODO ???
+      end
+
+      it "properly decodes the armored payload libais #119" do
+        input = "!AIVDM,1,1,,B,<?f1OrCbuesc6w5BCUh,2*27"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(12)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(1054892009) # TODO: ?????? 10 digits
+        expect(parsed.ais.destination_mmsi).to eq(985511866)
+        expect(parsed.ais.retransmit?).to eq(true)
+        expect(parsed.ais.data).to eq("F?ERS%L")  # TODO ???
+      end
+
+      it "properly decodes the armored payload libais #120" do
+        input = "!AIVDM,1,1,,B,<rOwUArW>mATsl8mEu6cvWeww1gsMlTPAh,4*62"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(12)
+        expect(parsed.ais.repeat_indicator).to eq(3)
+        expect(parsed.ais.source_mmsi).to eq(704636231)
+        expect(parsed.ais.destination_mmsi).to eq(701420825)
+        expect(parsed.ais.retransmit?).to eq(false)
+        expect(parsed.ais.data).to eq(";4H5U=F+>'-??A/;]4$ QC")
+      end
+
+      it "properly decodes the armored payload libais #121" do
+        input = "!AIVDM,1,1,,B,<wLRpfsG8c`kvsl,2*69"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(12)
+        expect(parsed.ais.repeat_indicator).to eq(3)
+        expect(parsed.ais.source_mmsi).to eq(1036564667) # TODO: 10 digits???
+        expect(parsed.ais.destination_mmsi).to eq(902344332)
+        expect(parsed.ais.retransmit?).to eq(true)
+        expect(parsed.ais.data).to eq(">;M") # TODO: ??
+      end
+
+      it "properly decodes the armored payload libais #122" do
+        input = "!AIVDM,1,1,2,A,<JCD;TFOAJ<sK5BUEtSnr3sGw7JL0n9iGcAcWDfh3@adi0=M;0g8735w@:Jwbh=N1ha0p4gaJlK1tFukvbolGN`05J1q?CPi7Se:R8prFvIddB3Tspje?n4P,1*4E"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(12)
+        expect(parsed.ais.repeat_indicator).to eq(1)
+        expect(parsed.ais.source_mmsi).to eq(691342225)
+        expect(parsed.ais.destination_mmsi).to eq(668035278)
+        expect(parsed.ais.retransmit?).to eq(true)
+        expect(parsed.ais.data).to eq("[ER%U<#6:C;W?GZ\\@6I1W+Q+'T.0CP),1@M]K@/HGCE?PJZ?*0M^A0)@8D/)Z4[A<V=3>*74W^(@EZA9OS 1G#-J\"H8:V>Y,,RC$;82-O6DP")
+      end
+
+      it "properly decodes the armored payload libais #123" do
+        input = "!AIVDM,1,1,0,A,<urwHv=la=:;A;j228:KwcgPM4N9qFDHwpLb;fO4Vj9w`Vq@?>;wBBs:,0*59"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(12)
+        expect(parsed.ais.repeat_indicator).to eq(3)
+        expect(parsed.ais.source_mmsi).to eq(934271224)
+        expect(parsed.ais.destination_mmsi).to eq(489239714)
+        expect(parsed.ais.retransmit?).to eq(true)
+        expect(parsed.ais.text).to eq("QK2BBHJ[?+/ ]D^I9VTX?8\\*K._D&2I?(&9PONK?RR;J") # TODO: ???
+      end
+
+    end
+
     context "when dealing with VDM payload data message type 14" do
       it "properly decodes the armored payload" do
         input = "!AIVDM,1,1,,B,>>M4fWA<59B1@E=@,0*17"
