@@ -2,7 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/nmea_plus.svg)](https://rubygems.org/gems/nmea_plus)
 [![Build Status](https://travis-ci.org/ifreecarve/nmea_plus.svg)](https://travis-ci.org/ifreecarve/nmea_plus)
-[![Documentation](http://img.shields.io/badge/docs-rdoc.info-blue.svg)](http://www.rubydoc.info/gems/nmea_plus/1.0.8)
+[![Documentation](http://img.shields.io/badge/docs-rdoc.info-blue.svg)](http://www.rubydoc.info/gems/nmea_plus/1.0.9)
 
 [NMEA Plus](https://github.com/ifreecarve/nmea_plus) is a Ruby gem for parsing and decoding "GPS" messages: NMEA, AIS, and any other similar formats of short messaging typically used by marine equipment.  It provides convenient access (by name) to the fields of each message type, and a stream reader designed for use with Ruby Blocks.
 
