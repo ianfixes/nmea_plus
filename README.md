@@ -112,7 +112,7 @@ The AIS payload can be found in the AIVDM message's payload field.  Currently, t
 
 ## Disclaimer
 
-This module was written from information scraped together on the web, not from testing on actual devices.  A lack of test cases -- especially for more obscure message types -- is a barrier to completeness.  Please don't entrust your life or the safety of a ship to this code without doing your own rigorous testing.
+This module was written primarily from information scraped together on the web, with minimal testing on an actual device (an SR161 AIS receiver).  A lack of test cases -- especially for more obscure message types -- is a barrier to completeness.  Please don't entrust your life or the safety of a ship to this code without doing your own rigorous testing.
 
 
 ## Author
