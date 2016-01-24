@@ -671,6 +671,54 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
     end
 
     context "when dealing with VDM payload data message type 8" do
+
+      it "properly decodes the armored payload with subtype 1/22" do
+        input1 = "!AIVDM,3,1,4,A,81mg=5@0EP:4R40807P>0<D1>MNt00000f>FNVfnw7>6>FNU=?B5PD5HDPD8,0*26"
+        input2 = "!AIVDM,3,2,4,A,1Dd2J09jL08JArJH5P=E<D9@<5P<9>0`bMl42Q0d2Pc2T59CPCE@@?C54PD?,0*60"
+        input3 = "!AIVDM,3,3,4,A,d0@d0IqhH:Pah:U54PD?75D85Bf00,0*03"
+        parsed = @parser.parse(input1)
+        parsed.add_message_part(@parser.parse(input2))
+        parsed.add_message_part(@parser.parse(input3))
+        now = Time.now
+
+        expect(parsed.ais.message_type).to eq(8)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(123456789)
+        expect(parsed.ais.designated_area_code).to eq(1)
+        expect(parsed.ais.functional_id).to eq(22)
+        expect(parsed.ais.dp.linkage_id).to eq(10)
+        expect(parsed.ais.dp.notice_id).to eq(9)
+        expect(parsed.ais.dp.notice_description).to eq("Caution Area: Marine event")
+        expect(parsed.ais.dp.utc_time).to eq(Time.new(now.year, 1, 1, 0, 1, 0))
+        expect(parsed.ais.dp.duration).to eq(60)
+        expect(parsed.ais.dp.sub_areas.length).to eq(9)
+        expect(parsed.ais.dp.sub_areas[0].shape_id).to eq(0)
+        expect(parsed.ais.dp.sub_areas[0].shape_description).to eq("Circle or point")
+        expect(parsed.ais.dp.sub_areas[0].longitude).to be_within(epsilon).of(-69.8)
+        expect(parsed.ais.dp.sub_areas[0].latitude).to be_within(epsilon).of(42.849983333333334)
+        expect(parsed.ais.dp.sub_areas[0].precision).to eq(4)
+        expect(parsed.ais.dp.sub_areas[0].radius).to eq(0)
+        expect(parsed.ais.dp.sub_areas[0].radius_meters).to eq(0)
+        expect(parsed.ais.dp.sub_areas[1].shape_id).to eq(5)
+        expect(parsed.ais.dp.sub_areas[1].shape_description).to eq("Associated text")
+        expect(parsed.ais.dp.sub_areas[1].text).to eq("12345678901234")
+        expect(parsed.ais.dp.sub_areas[2].shape_id).to eq(5)
+        expect(parsed.ais.dp.sub_areas[2].text).to eq("MORE TEXT THAT")
+        expect(parsed.ais.dp.sub_areas[3].shape_id).to eq(5)
+        expect(parsed.ais.dp.sub_areas[3].text).to eq(" SPANS ACROSS")
+        expect(parsed.ais.dp.sub_areas[4].shape_id).to eq(5)
+        expect(parsed.ais.dp.sub_areas[4].text).to eq(" MULTIPLE LIN")
+        expect(parsed.ais.dp.sub_areas[5].shape_id).to eq(5)
+        expect(parsed.ais.dp.sub_areas[5].text).to eq("ES.  THE TEXT ")
+        expect(parsed.ais.dp.sub_areas[6].shape_id).to eq(5)
+        expect(parsed.ais.dp.sub_areas[6].text).to eq("IS SUPPOSED TO")
+        expect(parsed.ais.dp.sub_areas[7].shape_id).to eq(5)
+        expect(parsed.ais.dp.sub_areas[7].text).to eq(" BE CONCATENAT")
+        expect(parsed.ais.dp.sub_areas[8].shape_id).to eq(5)
+        expect(parsed.ais.dp.sub_areas[8].text).to eq("ED TOGETHER.")
+        expect(parsed.ais.dp.sub_area_text).to eq("12345678901234MORE TEXT THAT SPANS ACROSS MULTIPLE LINES.  THE TEXT IS SUPPOSED TO BE CONCATENATED TOGETHER.")
+      end
+
       it "properly decodes the armored payload with subtype 1/31" do
         input = "!AIVDM,1,1,1,B,8>h8nkP0Glr=<hFI0D6??wvlFR06EuOwgwl?wnSwe7wvlOw?sAwwnSGmwvh0,0*17"
         parsed = @parser.parse(input)
