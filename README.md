@@ -89,7 +89,7 @@ end
 This gem was coded to accept the standard NMEA messages defined in the unoffical spec found here:
 http://www.catb.org/gpsd/NMEA.txt
 
-Because the message types are standard, if no override is found for a particular talker ID then the message will parse according to the command (the last 3 characters) of the data type.  In other words, $GPGLL will use the general GLL message type.  Currently, the following standard message types are supported:
+Because the message types are standard, if no override is found for a particular talker ID then the message will parse according to the command (the last 3 characters) of the data type.  In other words, `$GPGLL` will use the general `GLL` message type.  Currently, the following standard message types are supported:
 
 > AAM, ALM, APA, APB, BOD, BWC, BWR, BWW, DBK, DBS, DBT, DCN, DPT, DTM, FSI, GBS, GGA, GLC, GLL, GNS, GRS, GSA, GST, GSV, GTD, GXA, HDG, HDM, HDT, HFB, HSC, ITS, LCD, MSK, MSS, MTW, MWV, OLN, OSD, R00, RMA, RMB, RMC, ROT, RPM, RSA, RSD, RTE, SFI, STN, TDS, TFI, TPC, TPR, TPT, TRF, TTM, VBW, VDR, VHW, VLW, VPW, VTG, VWR, WCV, WNC, WPL, XDR, XTE, XTR, ZDA, ZFO, ZTG
 
@@ -101,7 +101,7 @@ Support for proprietary NMEA messages is also possible.  PASHR is included as pr
 AIS message type definitions were implemented from the unofficial spec found here:
 http://catb.org/gpsd/AIVDM.html
 
-The AIS payload can be found in the AIVDM message's payload field.  Currently, the following AIS message types are supported:
+The AIS payload can be found in the payload field of a `VDM` message (aka `!AIVDM`, `!ABVDM`, `!SAVDM`).  Currently, the following AIS message types are supported:
 
 > 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 18, 19, 20, 21, 24, 27
 
