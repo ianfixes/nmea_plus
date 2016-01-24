@@ -674,7 +674,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly decodes the armored payload with subtype 1/31" do
         input = "!AIVDM,1,1,1,B,8>h8nkP0Glr=<hFI0D6??wvlFR06EuOwgwl?wnSwe7wvlOw?sAwwnSGmwvh0,0*17"
         parsed = @parser.parse(input)
-        now = Time.now
 
         expect(parsed.ais.message_type).to eq(8)
         expect(parsed.ais.repeat_indicator).to eq(0)

@@ -26,6 +26,7 @@ module NMEAPlus
 
           # Dynamically calculate what message subtype to use
           # which depends on the designated_area_code and functional_id
+          # @private
           def _dynamic_payload_container
             class_identifier = "NMEAPlus::Message::AIS::VDMPayload::VDMMsg8d#{designated_area_code}f#{functional_id}"
             ret = _object_by_name(class_identifier)
