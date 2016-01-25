@@ -1,4 +1,4 @@
-require_relative 'vdm_msg'
+require_relative 'vdm_msg6_dynamic_payload'
 
 module NMEAPlus
   module Message
@@ -7,7 +7,7 @@ module NMEAPlus
 
         # Type 6: Binary Addressed Message Subtype: Sealite SL125 Lantern or 155 Apollo Lantern
         # This message has an ascii CSV payload wrapped in an armored AIS payload, wrapped in the NMEA CSV payload.
-        class VDMMsg6d1022f61 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
+        class VDMMsg6d1022f61 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg6DynamicPayload
 
           def initialize
             super

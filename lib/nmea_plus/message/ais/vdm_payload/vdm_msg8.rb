@@ -17,7 +17,7 @@ module NMEAPlus
           # Dynamic Payload containing fields for the appropriate message 8 subtype.
           # This is a factory method for the container class
           # @!parse attr_reader :dp
-          # @return [VDMPayload::VDMMsg::VDMMsg8DynamicPayload]
+          # @return [VDMMsg8DynamicPayload]
           def dp
             ret = _dynamic_payload_container
             ret.payload_bitstring = payload_bitstring
@@ -44,17 +44,6 @@ module NMEAPlus
           end
 
         end
-
-        # Base class for {VDMMsg8#dp dynamic payload}s (subtypes) of {VDMMsg8 AIS VDM message 8}
-        class VDMMsg8DynamicPayload < NMEAPlus::Message::AIS::VDMPayload::Payload; end
-
-        # Placeholder for undefined message 8 payload subtypes
-        class VDMMsg8Undefined < NMEAPlus::Message::AIS::VDMPayload::VDMMsg8DynamicPayload
-          payload_reader :application_data_2b, 56, 952, :_d
-          payload_reader :application_data_6b, 56, 952, :_6b_string
-          payload_reader :application_data_8b, 56, 952, :_8b_data_string
-        end
-
       end
     end
   end

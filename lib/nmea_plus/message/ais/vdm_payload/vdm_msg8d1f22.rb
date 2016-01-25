@@ -1,4 +1,4 @@
-require_relative 'vdm_msg'
+require_relative 'vdm_msg8_dynamic_payload'
 require_relative 'sub_area'
 
 module NMEAPlus
@@ -6,7 +6,7 @@ module NMEAPlus
     module AIS
       module VDMPayload
         # Type 8: Binary Broadcast Message Subtype: Area Notice (addressed)
-        class VDMMsg8d1f22 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
+        class VDMMsg8d1f22 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg8DynamicPayload
 
           def initialize
             super

@@ -1,11 +1,11 @@
-require_relative 'vdm_msg'
+require_relative 'vdm_msg8_dynamic_payload'
 
 module NMEAPlus
   module Message
     module AIS
       module VDMPayload
         # Type 8: Binary Broadcast Message Subtype: Meteorological and Hydrological Data (IMO289)
-        class VDMMsg8d1f31 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
+        class VDMMsg8d1f31 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg8DynamicPayload
 
           payload_reader :longitude, 56, 25, :_I, 60 * 10**3, 181
           payload_reader :latitude, 81, 24, :_I, 60 * 10**3, 91

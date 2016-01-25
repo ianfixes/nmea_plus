@@ -1,4 +1,4 @@
-require_relative 'vdm_msg'
+require_relative 'vdm_msg6_dynamic_payload'
 
 module NMEAPlus
   module Message
@@ -6,7 +6,7 @@ module NMEAPlus
       module VDMPayload
 
         # Type 6: Binary Addressed Message Subtype: GLA Aid to Navigation Monitoring Data
-        class VDMMsg6d235f10 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
+        class VDMMsg6d235f10 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg6DynamicPayload
 
           payload_reader :analog_internal, 88, 10, :_U, 20, 0
           payload_reader :analog_external1, 98, 10, :_U, 20, 0
