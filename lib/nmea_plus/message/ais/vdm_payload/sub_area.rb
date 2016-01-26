@@ -82,7 +82,6 @@ module NMEAPlus
           payload_reader :boundary_left, 69, 9, :_u
           payload_reader :boundary_right, 78, 9, :_u
 
-
           # @!parse attr_reader :radius_meters
           # @return [Integer] Radius in meters, according to scale factor
           def radius_meters

@@ -26,7 +26,6 @@ module NMEAPlus
             end
           end
 
-
           # Dynamically calculate what subarea type to use
           # which depends on the designated_area_code and functional_id
           # @private
@@ -37,7 +36,6 @@ module NMEAPlus
 
             _object_by_name("NMEAPlus::Message::AIS::VDMPayload::SubAreaUndefined") # generic
           end
-
 
           payload_reader :linkage_id, 56, 10, :_u
           payload_reader :notice_id, 66, 7, :_u
@@ -177,7 +175,6 @@ module NMEAPlus
             end
           end
 
-
           # @!parse attr_reader :utc_time
           # @return [Time] utc time
           def utc_time
@@ -192,7 +189,7 @@ module NMEAPlus
             Time.new(now.year, month, day, hour, minute, 0)
           end
 
-          payload_reader :duration, 93, 18, :_u, 262143
+          payload_reader :duration, 93, 18, :_u, 262_143
 
           # Sub-areas defined by this message
           # @return [Array] An array of {SubArea} objects
@@ -201,9 +198,9 @@ module NMEAPlus
           # @!parse attr_reader :sub_area_text
           # @return [String] The concatenated text of all subarea texts
           def sub_area_text
-            texts = sub_areas.select {|a| a.shape_id == 5}
+            texts = sub_areas.select { |a| a.shape_id == 5 }
             return nil if texts.empty?
-            texts.collect {|a| a.text}.join
+            texts.collect(&:text).join
           end
 
         end
