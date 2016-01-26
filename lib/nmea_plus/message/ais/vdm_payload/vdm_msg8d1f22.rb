@@ -194,6 +194,8 @@ module NMEAPlus
 
           payload_reader :duration, 93, 18, :_u, 262143
 
+          # Sub-areas defined by this message
+          # @return [Array] An array of {SubArea} objects
           attr_accessor :sub_areas
 
           # @!parse attr_reader :sub_area_text

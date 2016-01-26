@@ -2,6 +2,9 @@
 module NMEAPlus
   module Message
     module AIS
+
+      # This module contains all the VDM payload types and subtypes.
+      # @see VDMMsg
       module VDMPayload
         # Basic tools for interpreting the armored (binary) payload encoding of AIS.
         # This class provides convenience functions for accessing the fields as the appropriate data type,

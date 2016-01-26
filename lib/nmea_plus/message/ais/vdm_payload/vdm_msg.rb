@@ -3,8 +3,6 @@ require_relative "payload"
 module NMEAPlus
   module Message
     module AIS
-      # This module contains all the VDM payload types and subtypes.
-      # @see {VDMMsg}
       module VDMPayload
 
         # The base class for the {NMEAPlus::Message::AIS::VDM#ais AIS payload}, which uses its own encoding for its own subtypes
