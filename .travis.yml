@@ -7,6 +7,7 @@ rvm:
  - rbx
 
 script:
+   - bundle exec rubocop --version
    - bundle exec rubocop -D .
    - pushd parser
    - bundle exec rake
