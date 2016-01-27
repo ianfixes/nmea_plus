@@ -102,14 +102,21 @@ module NMEAPlus
           payload_reader :bearing4, 65, 10, :_u, 720
           payload_reader :distance4, 75, 10, :_u
 
+          # Container for bearing / distance
           class ShapePoint
             attr_accessor :bearing
             attr_accessor :distance
-            attr_accessor :distance_meters
+            attr_accessor :scale_factor
+
+            # @!parse attr_reader :distance_meters
+            # @return [Integer] The scaled distance in meters
+            def distance_meters
+              distance * (10**scale_factor)
+            end
           end
 
           # @!parse attr_reader :points
-          # @return [Array] Array of points
+          # @return [Array] Array of {ShapePoint} objects
           def points
             ret = []
 
@@ -119,7 +126,7 @@ module NMEAPlus
               sp = ShapePoint.new
               sp.bearing = send("bearing#{i}")
               sp.distance = d
-              sp.distance_meters = d * scale_meters
+              sp.scale_factor = scale_Factor
               ret << sp
             end
             ret
