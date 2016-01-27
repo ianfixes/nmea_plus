@@ -1,6 +1,6 @@
 # NMEA (GPS) and AIS Parser / Decoder for Ruby (nmea_plus)
 
-[![Gem Version](https://badge.fury.io/rb/nmea_plus.svg)](https://rubygems.org/gems/nmea_plus)
+[![Gem Version](https://badge.fury.io/rb/nmea_plus.png)](https://rubygems.org/gems/nmea_plus)
 [![Build Status](https://travis-ci.org/ifreecarve/nmea_plus.svg)](https://travis-ci.org/ifreecarve/nmea_plus)
 [![Documentation](http://img.shields.io/badge/docs-rdoc.info-blue.svg)](http://www.rubydoc.info/gems/nmea_plus/1.0.10)
 
