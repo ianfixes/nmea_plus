@@ -216,19 +216,19 @@ module NMEAPlus
           end
 
           # use shorthand for data types as defined in http://catb.org/gpsd/AIVDM.html
-          alias_method :_u,  :_6b_unsigned_integer
-          alias_method :_U,  :_6b_unsigned_integer_scaled
-          alias_method :_i,  :_6b_integer
-          alias_method :_I,  :_6b_integer_scaled
-          alias_method :_b,  :_6b_boolean
-          alias_method :_nb, :_6b_negated_boolean
-          alias_method :_e,  :_6b_unsigned_integer
-          alias_method :_t,  :_6b_string_nullterminated
-          alias_method :_tt, :_6b_string
-          alias_method :_T,  :_8b_data_string
-          alias_method :_d,  :_2b_data_string
-          alias_method :_UU, :_6b_unsigned_integer_scaled_shifted
-          alias_method :_II, :_6b_integer_scaled_shifted
+          alias _u  _6b_unsigned_integer
+          alias _U  _6b_unsigned_integer_scaled
+          alias _i  _6b_integer
+          alias _I  _6b_integer_scaled
+          alias _b  _6b_boolean
+          alias _nb _6b_negated_boolean
+          alias _e  _6b_unsigned_integer
+          alias _t  _6b_string_nullterminated
+          alias _tt _6b_string
+          alias _T  _8b_data_string
+          alias _d  _2b_data_string
+          alias _UU _6b_unsigned_integer_scaled_shifted
+          alias _II _6b_integer_scaled_shifted
 
         end
       end

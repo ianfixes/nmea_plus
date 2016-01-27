@@ -105,11 +105,7 @@ module NMEAPlus
         # @return [String] a binary encoded string
         def _dearmor6b(c, len = 6)
           val = c.ord
-          if val >= 96
-            ret = val - 56
-          else
-            ret = val - 48
-          end
+          ret = val - (val >= 96 ? 56 : 48)  # Mapped to 2 separate contiguous blocks of ascii, so choose which
           ret.to_s(2).rjust(6, "0")[0..(len - 1)]
         end
 

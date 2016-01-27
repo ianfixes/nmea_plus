@@ -54,20 +54,17 @@ module NMEAPlus
     # @yield [NMEAPlus::Message] A parsed message that may contain subsequent parts
     # @return [void]
     def each_complete_message
-      partials = {}
+      partials = {}  # hash of message type to message-chain-in-progress
       each_message do |msg|
-        slot = msg.data_type
+        slot = msg.data_type   # the slot in the hash
 
-        if partials[slot].nil?
+        if partials[slot].nil?                                           # no message in there
           partials[slot] = msg
-        else
-          # the message was already in there
-          if 1 != (msg.message_number - partials[slot].message_number)
-            # error! just overwrite what was there
-            partials[slot] = msg
-          else
-            partials[slot].add_message_part(msg)
-          end
+        elsif 1 != (msg.message_number - partials[slot].message_number)  # broken sequence
+          # error! just overwrite what was there
+          partials[slot] = msg
+        else                                                             # chain on to what's there
+          partials[slot].add_message_part(msg)
         end
 
         # take action if we've completed the chain
