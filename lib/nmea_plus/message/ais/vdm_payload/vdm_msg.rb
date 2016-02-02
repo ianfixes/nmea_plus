@@ -173,6 +173,9 @@ module NMEAPlus
             when 352 then 591
             when 353 then 591
             when 354 then 591
+            when 355 then 591
+            when 356 then 591
+            when 357 then 591
             when 358 then 630
             when 359 then 222
             when 361 then 666
