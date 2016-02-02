@@ -66,8 +66,9 @@ module NMEAPlus
           ptr = self
           ret = ""
           loop do
+            break if ptr.raw_ais_payload.nil?  # guard against rare instances of message corruption
             ret << ptr.raw_ais_payload
-            break if ptr.next_part.nil?
+            break if ptr.next_part.nil?        # stop when we run out of messages in the chain
             ptr = ptr.next_part
           end
           ret
