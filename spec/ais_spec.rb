@@ -91,8 +91,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         it "properly determines the category of MMSI #{code}" do
           m = TestMessage.new
           m.source_mmsi = code
-          expect(m.mmsi_category_description).to eq(description)
-          expect(m.mid).to eq(mid)
+          expect(m.source_mmsi_info.category_description).to eq(description)
+          expect(m.source_mmsi_info.mid).to eq(mid)
         end
       end
 
@@ -104,11 +104,11 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
        [373, 591],
        [366, 840],
        [369, 840],
-      ].each do |mid, country|
+      ].each do |mid, country_id|
         it "properly determines the country code for MID #{mid}" do
           m = TestMessage.new
           m.source_mmsi = "#{mid}000000"
-          expect(m.mid_country).to eq(country)
+          expect(m.source_mmsi_info.country_id).to eq(country_id)
         end
       end
     end
