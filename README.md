@@ -101,11 +101,14 @@ Support for proprietary NMEA messages is also possible.  PASHR is included as pr
 AIS message type definitions were implemented from the unofficial spec found here:
 http://catb.org/gpsd/AIVDM.html
 
+And some binary subtypes from the ITU spec found here:
+https://www.itu.int/dms_pubrec/itu-r/rec/m/R-REC-M.1371-4-201004-S!!PDF-E.pdf
+
 The AIS payload can be found in the payload field of a `VDM` message (aka `!AIVDM`, `!ABVDM`, `!SAVDM`).  Currently, the following AIS message types are supported:
 
 > 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 18, 19, 20, 21, 24, 27
 
-> Type 6 subtypes for DAC/FID: 1/0, 235/10, 1022/61
+> Type 6 subtypes for DAC/FID: 1/0, 1/2, 1/3, 1/4, 1/5, 235/10, 1022/61
 
 > Type 8 subtypes for DAC/FID: 1/0, 1/22, 1/31, 366/56, 366/57
 
