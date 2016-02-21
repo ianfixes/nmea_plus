@@ -4,7 +4,8 @@ module NMEAPlus
     module AIS
       module VDMPayload
 
-        # A container for MMSI information, all of which can be assumed from the MMSI value itself
+        # A container for MMSI (Maritime Mobile Service Identity) information,
+        # all of which is indicated from the MMSI integer value itself.
         class MMSIInfo
 
           # The MMSI
@@ -17,7 +18,7 @@ module NMEAPlus
           end
 
           # The MMSI category as defined by ITU-R M.585-7
-          # @!parse attr_reader :mmsi_category
+          # @!parse attr_reader :category
           # @return [Symbol] The symbol for the MMSI category
           def category
             case id.to_s.rjust(9, '0') # formatted as 9 digit string with leading 0s
@@ -69,7 +70,8 @@ module NMEAPlus
             end
           end
 
-          # The MMSI Maritime Identification Digits (MID)
+          # The MMSI Maritime Identification Digits (MID), indicating country codes as specified by the ITU.
+          # http://www.itu.int/online/mms/glad/cga_mids.sh
           # @!parse attr_reader :mid
           # @return [Integer] the MID
           def mid
@@ -86,7 +88,7 @@ module NMEAPlus
             id.to_s.rjust(9, '0')[range].to_i
           end
 
-          # The ISO 3166-1 indicated by the MMSI Maritime Identification Digits (MID)
+          # The ISO 3166-1 country ID indicated by the MMSI Maritime Identification Digits (MID)
           # @!parse attr_reader :country_id
           # @return [Integer] the MID
           def country_id
