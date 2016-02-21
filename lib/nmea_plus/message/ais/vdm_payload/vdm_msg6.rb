@@ -1,4 +1,5 @@
 require_relative 'vdm_msg'
+require_relative 'vdm_msg6d1f0'
 require_relative 'vdm_msg6d235f10'
 require_relative 'vdm_msg6d1022f61'
 
