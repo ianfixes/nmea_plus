@@ -77,8 +77,14 @@ module NMEAPlus
     def each_complete_message
       partials = {}  # hash of message type to message-chain-in-progress
       each_message do |msg|
-        slot = msg.data_type   # the slot in the hash
+        # don't clutter things up if the message arrives already complete
+        if msg.all_messages_received?
+          yield msg
+          next
+        end
 
+        # put message into partials slot (merge if necessary) based on its data type
+        slot = msg.data_type
         if partials[slot].nil?                                           # no message in there
           partials[slot] = msg
         elsif 1 != (msg.message_number - partials[slot].message_number)  # broken sequence
