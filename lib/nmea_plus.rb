@@ -18,10 +18,6 @@ module NMEAPlus
     # @return [bool] whether to throw an exception on lines that don't properly parse
     attr_accessor :throw_on_parse_fail
 
-    # False by default. Typically for development.
-    # @return [bool] whether to throw an exception on message types that aren't supported
-    attr_accessor :throw_on_unrecognized_type
-
     # @param line_reader [IO] The source stream for messages
     def initialize(line_reader)
       unless line_reader.respond_to? :each_line
