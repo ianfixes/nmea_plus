@@ -25,7 +25,7 @@ module NMEAPlus
     # @param line_reader [IO] The source stream for messages
     def initialize(line_reader)
       unless line_reader.respond_to? :each_line
-        fail ArgumentError, "line_reader must inherit from type IO (or implement each_line)"
+        raise ArgumentError, "line_reader must inherit from type IO (or implement each_line)"
       end
       @throw_on_parse_fail = false
       @source = line_reader
