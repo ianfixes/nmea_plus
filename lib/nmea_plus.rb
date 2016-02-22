@@ -14,7 +14,7 @@ module NMEAPlus
   # to {#each_message} and/or {#each_complete_message},
   # which yield {NMEAPlus::Message} objects representing the parsed data.
   class SourceDecoder
-    # False by default.
+    # Whether to raise an exception when lines don't parse.  False by default -- ignore such errors.
     # @return [bool] whether to throw an exception on lines that don't properly parse
     attr_accessor :throw_on_parse_fail
 
@@ -59,6 +59,8 @@ module NMEAPlus
     end
 
     # Attempts to group multipart NMEA messages into chains, and executes the block once for every complete chain.
+    # To limit memory use (and be realistic about our ability to match up messages), only 1 message of chain of
+    # each NMEA message type can be in progress at any one time.
     #
     # @yield [NMEAPlus::Message] A parsed message that may contain subsequent parts
     # @return [void]
