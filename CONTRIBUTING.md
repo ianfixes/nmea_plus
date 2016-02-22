@@ -27,11 +27,11 @@ Message classes are given the message prefix (e.g. "$"), payload (string of comm
 A similar pattern applies to the parsing of AIS message payloads.
 
 
-### Adding a new data type
+### Adding a new NMEA data type
 
-Let's say we've defined a new NMEA message called MYMSG and want our decoder to properly parse it.
+Let's say we've defined a new NMEA message called MYMSG and want our parser to properly parse it.
 
-1. Edit `gem/lib/nmea_plus/message/nmea/mymsg.rb`
+1. Edit `lib/nmea_plus/message/nmea/mymsg.rb`
 2. Stub it out as follows:
 
 ```ruby
@@ -47,7 +47,7 @@ module NMEAPlus
 end
 ```
 
-3. Add `require_relative "message/nmea/mymsg"` to `gem/lib/nmea_plus/nmea_message_factory.rb`
+3. Add `require_relative "message/nmea/mymsg"` to `lib/nmea_plus/nmea_message_factory.rb`
 4. Add tests in `spec/parser_spec.rb`
 5. Add accessor methods in NMEAPlus::Message::NMEA::MYMSG, and appropriate tests.
 
@@ -64,8 +64,80 @@ def my_field
 end
 ```
 
+### Adding a new AIS VDM message type
+
+Let's say we've defined a new AIS VDM message type 28 and want our decoder to properly decode it.
+
+1. Edit `lib/nmea_plus/message/ais/vdm_payload/vdm_msg28.rb`
+2. Stub it out as follows:
+
+```ruby
+require_relative 'vdm_msg'
+
+module NMEAPlus
+  module Message
+    module AIS
+      module VDMPayload
+        class VDMMsg28 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
+        end
+      end
+    end
+  end
+end
+```
+
+3. Add `require_relative "vdm_payload/vdm_msg28.rb"` to `lib/nmea_plus/message/ais/vdm.rb`
+4. Add tests in `spec/ais_spec.rb`
+
+The following metaprogramming feature has been added to facilitate this:
+
+```ruby
+
+payload_reader :my_field, 11, 22, :_I, 33, 44
+
+# this is equivalent to the following:
+def my_field
+  # let v = the 22 bits starting from field 11
+  # format v using _I() with arguments 33 and 44
+  # based on our convention, this means that if 44 == _I(args), return nil
+end
+```
+
+
+### Adding a new binary subtype to an AIS VDM message
+
+Let's say we've defined a new binary payload type for AIS VDM message type 6 and want our decoder to properly decode it.
+This message type uses DAC 333 and FID 444
+
+1. Edit `lib/nmea_plus/message/ais/vdm_payload/vdm_msg6d333f444.rb`
+2. Stub it out as follows:
+
+```ruby
+require_relative 'vdm_msg6_dynamic_payload'  # or msg8 as appropriate
+
+module NMEAPlus
+  module Message
+    module AIS
+      module VDMPayload
+        class VDMMsg6d333f444 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg6DynamicPayload
+        end
+      end
+    end
+  end
+end
+```
+
+3. Add `require_relative 'vdm_msg6d235f10'` to `lib/nmea_plus/message/ais/vdm_msg6.rb`
+4. Add tests in `spec/ais_spec.rb`
+
+The same metaprogramming feature (`payload_reader`) is available, and the bit offsets still work from the beginning of the message.
+
 
 ## Packaging the Gem
 
 * `rake -f parser/Rakefile`
+* Bump the version in lib/nmea_plus/version.rb and change it in README.md (since rubydoc.info doesn't always redirect to the latest version)
+* Commit and `git tag -a vVERSION -m "Released version VERSION"`
 * `gem build nmea_plus.gemspec`
+* `gem push nmea_plus-VERSION.gem`
+* `git push upstream --tags`
