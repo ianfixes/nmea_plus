@@ -186,7 +186,7 @@ module NMEAPlus
             return nil if 0 == month
             return nil if 24 == hour
             return nil if 60 == minute
-            Time.new(now.year, month, day, hour, minute, 0)
+            Time.new(now.year, month, day, hour, minute, 0, "+00:00")
           end
 
           payload_reader :duration, 93, 18, :_u, 262_143

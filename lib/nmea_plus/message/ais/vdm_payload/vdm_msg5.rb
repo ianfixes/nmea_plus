@@ -20,7 +20,7 @@ module NMEAPlus
           payload_reader :epfd_type, 270, 4, :_e
 
           # @!parse attr_reader :eta
-          # @return [Time] ETA
+          # @return [Time] Estimated Time of Arrival, in UTC
           def eta
             now = Time.now
             Time.new(now.year,
@@ -28,7 +28,8 @@ module NMEAPlus
                      _u(278, 5),
                      _u(283, 5),
                      _u(288, 6),
-                     0)
+                     0,
+                     '+00:00')
           end
 
           payload_reader :static_draught, 294, 8, :_U, 10

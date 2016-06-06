@@ -12,7 +12,7 @@ module NMEAPlus
           payload_reader :position_10m_accuracy?, 105, 1, :_b
 
           # @!parse attr_reader :current_time
-          # @return [Time] current time
+          # @return [Time] current time, assumed to be in UTC
           def current_time
             now = Time.now
             day = _u(106, 5)
@@ -21,7 +21,7 @@ module NMEAPlus
             return nil if 0 == day
             return nil if 24 == hour
             return nil if 60 == minute
-            Time.new(now.year, now.month, day, hour, minute, 0)
+            Time.new(now.year, now.month, day, hour, minute, 0, "+00:00")
           end
 
           payload_reader :wind_speed_average, 122, 7, :_u, 127

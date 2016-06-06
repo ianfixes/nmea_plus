@@ -5,20 +5,21 @@ module NMEAPlus
     module AIS
       module VDMPayload
 
-        # Base class for station reports
+        # Base class for "base station reports"
         # @see VDMMsg4
         # @see VDMMsg11
         class VDMMsgStationReport < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
 
           # @!parse attr_reader :current_time
-          # @return [Time] current time
+          # @return [Time] current time in UTC
           def current_time
             Time.new(_u(38, 14),
                      _u(52, 4),
                      _u(56, 5),
                      _u(61, 5),
                      _u(66, 6),
-                     _u(72, 6))
+                     _u(72, 6),
+                     '+00:00')
           end
 
           payload_reader :position_10m_accuracy?, 78, 1, :_b
