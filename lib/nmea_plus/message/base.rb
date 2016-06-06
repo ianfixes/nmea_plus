@@ -200,7 +200,7 @@ module NMEAPlus
         now = Time.now
         begin
           hms = re_format.match(field)
-          Time.new(now.year, now.month, now.day, hms[1].to_i, hms[2].to_i, hms[3].to_f)
+          Time.new(now.year, now.month, now.day, hms[1].to_i, hms[2].to_i, hms[3].to_f, '+00:00')
         rescue
           nil
         end
@@ -215,7 +215,7 @@ module NMEAPlus
         re_format = /(\d{2})(\d{2})(\d{2}(\.\d+)?)/
         begin
           hms = re_format.match(field)
-          Time.new(0, 0, 0, hms[1].to_i, hms[2].to_i, hms[3].to_f)
+          Time.new(0, 0, 0, hms[1].to_i, hms[2].to_i, hms[3].to_f, '+00:00')
         rescue
           nil
         end
@@ -237,7 +237,7 @@ module NMEAPlus
         begin
           dmy = date_format.match(d_field)
           hms = time_format.match(t_field)
-          Time.new(2000 + dmy[3].to_i, dmy[2].to_i, dmy[1].to_i, hms[1].to_i, hms[2].to_i, hms[3].to_f)
+          Time.new(2000 + dmy[3].to_i, dmy[2].to_i, dmy[1].to_i, hms[1].to_i, hms[2].to_i, hms[3].to_f, '+00:00')
         rescue
           nil
         end
