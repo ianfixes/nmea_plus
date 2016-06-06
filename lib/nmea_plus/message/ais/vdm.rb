@@ -17,16 +17,21 @@ end
 
 =end
 
-require_relative "vdm_payload/vdm_msg1" # also incldues 2 and 3
-require_relative "vdm_payload/vdm_msg4" # also includes 11
+require_relative "vdm_payload/vdm_msg1"
+require_relative "vdm_payload/vdm_msg2"
+require_relative "vdm_payload/vdm_msg3"
+require_relative "vdm_payload/vdm_msg4"
 require_relative "vdm_payload/vdm_msg5"
 require_relative "vdm_payload/vdm_msg6"
-require_relative "vdm_payload/vdm_msg7" # also includes 13
+require_relative "vdm_payload/vdm_msg7"
 require_relative "vdm_payload/vdm_msg8"
 require_relative "vdm_payload/vdm_msg9"
+require_relative "vdm_payload/vdm_msg11"
 require_relative "vdm_payload/vdm_msg12"
+require_relative "vdm_payload/vdm_msg13"
 require_relative "vdm_payload/vdm_msg14"
-require_relative "vdm_payload/vdm_msg18" # also includes 19
+require_relative "vdm_payload/vdm_msg18"
+require_relative "vdm_payload/vdm_msg19"
 require_relative "vdm_payload/vdm_msg20"
 require_relative "vdm_payload/vdm_msg21"
 require_relative "vdm_payload/vdm_msg24"

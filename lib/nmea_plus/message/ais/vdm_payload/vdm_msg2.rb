@@ -4,8 +4,8 @@ module NMEAPlus
   module Message
     module AIS
       module VDMPayload
-        # AIS Type 1: Position report class A, which is really {VDMMsgCNB}
-        class VDMMsg1 < VDMMsgCNB; end
+        # AIS Type 2: Position report class A, which is really {VDMMsgCNB}
+        class VDMMsg2 < VDMMsgCNB; end
       end
     end
   end
