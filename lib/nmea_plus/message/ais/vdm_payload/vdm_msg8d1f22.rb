@@ -178,15 +178,11 @@ module NMEAPlus
           # @!parse attr_reader :utc_time
           # @return [Time] utc time
           def utc_time
-            now = Time.now
-            month = _u(73, 4)
-            day = _u(77, 5)
-            hour = _u(82, 5)
+            month  = _u(73, 4)
+            day    = _u(77, 5)
+            hour   = _u(82, 5)
             minute = _u(87, 6)
-            return nil if 0 == month
-            return nil if 24 == hour
-            return nil if 60 == minute
-            Time.new(now.year, month, day, hour, minute, 0, "+00:00")
+            _get_date_mdhm(month, day, hour, minute)
           end
 
           payload_reader :duration, 93, 18, :_u, 262_143

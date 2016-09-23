@@ -230,6 +230,29 @@ module NMEAPlus
           alias _UU _6b_unsigned_integer_scaled_shifted
           alias _II _6b_integer_scaled_shifted
 
+          # Get the date value of a month/day/hour/minute package
+          # This function is meant to be used for commonly-found date operations
+          # in which year, seconds, and timezone are not specified.
+          # @param month [Integer] the month number, 1-indexed, optional
+          # @param day [Integer] the day number, 1-indexed
+          # @param hour [Integer] the hour number, 0-indexed
+          # @param minute [Integer] the minute number, 0-indexed
+          def _get_date_mdhm(month, day, hour, minute)
+            now = Time.now
+            month = now.month if month.nil?
+
+            return nil if month.zero?
+            return nil if day.zero?
+            return nil if hour == 24
+            return nil if minute == 60
+
+            # try to be smart about picking a year
+            rollover = 0
+            rollover = 1 if now.month > month
+            rollover = -1 if now.month == 1 && month == 12
+            Time.new(now.year + rollover, month, day, hour, minute, 0, '+00:00')
+          end
+
         end
       end
     end

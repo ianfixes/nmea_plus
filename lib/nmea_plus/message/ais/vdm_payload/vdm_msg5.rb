@@ -22,14 +22,11 @@ module NMEAPlus
           # @!parse attr_reader :eta
           # @return [Time] Estimated Time of Arrival, in UTC
           def eta
-            now = Time.now
-            Time.new(now.year,
-                     _u(274, 4),
-                     _u(278, 5),
-                     _u(283, 5),
-                     _u(288, 6),
-                     0,
-                     '+00:00')
+            month  = _u(274, 4)
+            day    = _u(278, 5)
+            hour   = _u(283, 5)
+            minute = _u(288, 6)
+            _get_date_mdhm(month, day, hour, minute)
           end
 
           payload_reader :static_draught, 294, 8, :_U, 10

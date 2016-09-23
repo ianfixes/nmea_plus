@@ -80,7 +80,8 @@ RSpec.describe NMEAPlus::SourceDecoder, "#parse" do
           expect(parsed.ais.ship_dimension_to_port).to eq(17)
           expect(parsed.ais.ship_dimension_to_starboard).to eq(11)
           expect(parsed.ais.epfd_type).to eq(0)
-          expect(parsed.ais.eta).to eq(Time.new(now.year, 3, 23, 19, 45, 0, "+00:00"))
+          offset = now.month > 3 ? 1 : 0
+          expect(parsed.ais.eta).to eq(Time.new(now.year + offset, 3, 23, 19, 45, 0, "+00:00"))
           expect(parsed.ais.static_draught).to eq(13.2)
           expect(parsed.ais.destination.strip).to eq("HOUSTON")
           expect(parsed.ais.dte_ready?).to eq(true)
