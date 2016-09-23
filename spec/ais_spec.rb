@@ -391,10 +391,26 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.ship_dimension_to_port).to eq(17)
         expect(parsed.ais.ship_dimension_to_starboard).to eq(11)
         expect(parsed.ais.epfd_type).to eq(0)
-        expect(parsed.ais.eta).to eq(Time.new(now.year, 3, 23, 19, 45, 0, "+00:00"))
+        offset = now.month > 3 ? 1 : 0
+        expect(parsed.ais.eta).to eq(Time.new(now.year + offset, 3, 23, 19, 45, 0, "+00:00"))
         expect(parsed.ais.static_draught).to eq(13.2)
         expect(parsed.ais.destination.strip).to eq("HOUSTON")
         expect(parsed.ais.dte_ready?).to eq(true)
+      end
+
+      it "properly decodes a nil ETA" do
+        [["!AIVDM,2,1,6,A,539`vQ400000@SGKGP0P4q<D5@000000000000150@@23t0Ht0B0C@UDQh00,0*6B",
+          "!AIVDM,2,2,6,A,00000000000,2*22"],
+         # eta is 0, 0, 24, 60
+         ["!AIVDM,2,1,8,A,539I@g400000@;W3;B0@EA@lE:1@4pf3G5v0001I9P963t000011@TUL<><<,0*0B",
+          "!AIVDM,2,2,8,A,13hjn<<<==@,2*0E"],
+         # eta is 0, 0, 0, 0
+        ].each do |input1, input2|
+          parsed = @parser.parse(input1)
+          parsed.add_message_part(@parser.parse(input2))
+          now = Time.now
+          expect(parsed.ais.eta).to eq(nil)
+        end
       end
 
       it "properly decodes the armored payload libais #30" do
@@ -417,7 +433,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.ship_dimension_to_port).to eq(3)
         expect(parsed.ais.ship_dimension_to_starboard).to eq(5)
         expect(parsed.ais.epfd_type).to eq(1)
-        expect(parsed.ais.eta).to eq(Time.new(now.year, 4, 15, 20, 0, 0, "+00:00"))
+        offset = now.month > 4 ? 1 : 0
+        expect(parsed.ais.eta).to eq(Time.new(now.year + offset, 4, 15, 20, 0, 0, "+00:00"))
         expect(parsed.ais.static_draught).to eq(4.8)
         expect(parsed.ais.destination.strip).to eq("TACOMA,WA")
         expect(parsed.ais.dte_ready?).to eq(true)
@@ -443,7 +460,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.ship_dimension_to_port).to eq(8)
         expect(parsed.ais.ship_dimension_to_starboard).to eq(8)
         expect(parsed.ais.epfd_type).to eq(1)
-        expect(parsed.ais.eta).to eq(Time.new(now.year, 5, 3, 5, 0, 0, "+00:00"))
+        offset = now.month > 5 ? 1 : 0
+        expect(parsed.ais.eta).to eq(Time.new(now.year + offset, 5, 3, 5, 0, 0, "+00:00"))
         expect(parsed.ais.static_draught).to eq(6.8)
         expect(parsed.ais.destination.strip).to eq("SPDM DOMINICAN REP.")
         expect(parsed.ais.dte_ready?).to eq(true)
@@ -689,7 +707,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.dp.linkage_id).to eq(10)
         expect(parsed.ais.dp.notice_id).to eq(9)
         expect(parsed.ais.dp.notice_description).to eq("Caution Area: Marine event")
-        expect(parsed.ais.dp.utc_time).to eq(Time.new(now.year, 1, 1, 0, 1, 0, "+00:00"))
+        offset = now.month > 1 ? 1 : 0
+        expect(parsed.ais.dp.utc_time).to eq(Time.new(now.year + offset, 1, 1, 0, 1, 0, "+00:00"))
         expect(parsed.ais.dp.duration).to eq(60)
         expect(parsed.ais.dp.sub_areas.length).to eq(9)
         expect(parsed.ais.dp.sub_areas[0].shape_id).to eq(0)
