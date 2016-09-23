@@ -63,7 +63,7 @@ module NMEAPlus
 
       # @return [bool] Whether the checksum calculated from the payload matches the checksum given in the message
       def checksum_ok?
-        0 == calculated_checksum.casecmp(checksum)
+        calculated_checksum.casecmp(checksum).zero?
       end
 
       # return [bool] Whether the checksums for all available message parts are OK
