@@ -114,7 +114,6 @@ module NMEAPlus
               "Not defined"
             end
           end
-
         end
 
         # We haven't defined all the {NMEAPlus::Message::AIS::VDM#ais AIS payload} types, so this is a catch-all

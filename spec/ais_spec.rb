@@ -799,6 +799,29 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.dp.ice_description).to eq(nil)
       end
 
+      it "properly decodes the armored payload with subtype 200/10" do
+        input = "!AIVDM,1,1,,A,839eg5Pj2d=<<Muut0chS@UE50P0,0*16"
+        parsed = @parser.parse(input)
+        expect(parsed.ais.message_type).to eq(8)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(211513110)
+        expect(parsed.ais.designated_area_code).to eq(200)
+        expect(parsed.ais.functional_id).to eq(10)
+        expect(parsed.ais.dp.european_vessel_id).to eq("04017770")
+        expect(parsed.ais.dp.dimension_length).to eq(35.0)
+        expect(parsed.ais.dp.dimension_beam).to eq(7.0)
+        expect(parsed.ais.dp.ship_type).to eq(8490)
+        expect(parsed.ais.dp.ship_type_description).to eq("Bunkership")
+        expect(parsed.ais.dp.dimension_draught).to eq(1.6)
+        expect(parsed.ais.dp.hazardous_cargo).to eq(5)
+        expect(parsed.ais.dp.hazardous_cargo_description).to eq("Unknown")
+        expect(parsed.ais.dp.load_status).to eq(1)
+        expect(parsed.ais.dp.load_status_description).to eq("Unloaded")
+        expect(parsed.ais.dp.speed_quality).to eq(false)
+        expect(parsed.ais.dp.course_quality).to eq(false)
+        expect(parsed.ais.dp.heading_quality).to eq(false)
+      end
+
       it "properly decodes the armored payload with subtype 366/56" do
         input = "!AIVDM,1,1,,B,85PnJ9QKf3jT:tSC1W9fQuad7t?>rGW9>j?id9cbot:uO10c5Nj7,0*4A"
         parsed = @parser.parse(input)
