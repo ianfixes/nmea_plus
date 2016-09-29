@@ -2,6 +2,7 @@ require_relative 'vdm_msg'
 require_relative 'vdm_msg8d1f0'
 require_relative 'vdm_msg8d1f22'
 require_relative 'vdm_msg8d1f31'
+require_relative 'vdm_msg8d200f10'
 require_relative 'vdm_msg8d366f56'
 
 module NMEAPlus
