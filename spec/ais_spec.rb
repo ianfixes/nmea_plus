@@ -1112,6 +1112,23 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when dealing with VDM payload data message type 16" do
+      it "properly decodes the payload for a 1-mmsi assignment mode command" do
+        input = "!AIVDM,1,1,,B,@5C36I00H;:s@T8000,4*7D"
+        parsed = @parser.parse(input)
+        expect(parsed.checksum_ok?).to eq(true)
+        expect(parsed.ais.message_type).to eq(16)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(355518052)
+        expect(parsed.ais.destination1_mmsi).to eq(1584302) # this can't be right. 7 digits?
+        expect(parsed.ais.destination1_offset).to eq(3337)
+        expect(parsed.ais.destination1_increment).to eq(32)
+        expect(parsed.ais.destination2_mmsi).to eq(nil)
+        expect(parsed.ais.destination2_offset).to eq(nil)
+        expect(parsed.ais.destination2_increment).to eq(nil)
+      end
+    end
+
     context "when dealing with VDM payload data message type 18" do
       it "properly decodes the armored payload" do
         input = "!AIVDM,1,1,,B,B5NLCa000>fdwc63f?aBKwPUoP06,0*15"
