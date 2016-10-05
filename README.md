@@ -2,7 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/nmea_plus.svg)](https://rubygems.org/gems/nmea_plus)
 [![Build Status](https://travis-ci.org/ifreecarve/nmea_plus.svg)](https://travis-ci.org/ifreecarve/nmea_plus)
-[![Documentation](http://img.shields.io/badge/docs-rdoc.info-blue.svg)](http://www.rubydoc.info/gems/nmea_plus/1.0.16)
+[![Documentation](http://img.shields.io/badge/docs-rdoc.info-blue.svg)](http://www.rubydoc.info/gems/nmea_plus/1.0.17)
 
 [NMEA Plus](https://github.com/ifreecarve/nmea_plus) is a Ruby gem for parsing and decoding "GPS" messages: NMEA, AIS, and any other similar formats of short messaging typically used by marine equipment.  It provides convenient access (by name) to the fields of each message type, and a stream reader designed for use with Ruby Blocks.
 
@@ -106,7 +106,7 @@ https://www.itu.int/dms_pubrec/itu-r/rec/m/R-REC-M.1371-4-201004-S!!PDF-E.pdf
 
 The AIS payload can be found in the payload field of a `VDM` message (aka `!AIVDM`, `!ABVDM`, `!SAVDM`).  Currently, the following AIS message types are supported:
 
-> 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 24, 27
+> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 24, 27
 
 > Type 6 subtypes for DAC/FID: 1/0, 1/2, 1/3, 1/4, 1/5, 235/10, 1022/61
 
