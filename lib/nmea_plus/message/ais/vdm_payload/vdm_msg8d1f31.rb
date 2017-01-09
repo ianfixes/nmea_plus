@@ -90,6 +90,7 @@ module NMEAPlus
             when 6 then return "Reserved"
               # 7 is nil
             end
+            nil
           end
 
           # @!parse attr_reader :salinity
@@ -115,6 +116,7 @@ module NMEAPlus
             when 1 then return "Yes"
             when 2 then return "(reserved)"
             end
+            nil
           end
 
           # trend description
@@ -126,6 +128,7 @@ module NMEAPlus
             when 1 then return "decreasing"
             when 2 then return "increasing"
             end
+            nil
           end
 
         end
