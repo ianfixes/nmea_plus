@@ -102,7 +102,7 @@ module NMEAPlus
             when 55 then "(reserved for future use)"
             when 56 then "Security Alert - Level 1"
             when 57 then "Security Alert - Level 2"
-            when 57 then "Security Alert - Level 3"
+            when 58 then "Security Alert - Level 3"
             when 59 then "(reserved for future use)"
             when 60 then "(reserved for future use)"
             when 61 then "(reserved for future use)"
