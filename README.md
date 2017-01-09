@@ -104,7 +104,7 @@ http://catb.org/gpsd/AIVDM.html
 And some binary subtypes from the ITU spec found here:
 https://www.itu.int/dms_pubrec/itu-r/rec/m/R-REC-M.1371-4-201004-S!!PDF-E.pdf
 
-The AIS payload can be found in the payload field of a `VDM` message (aka `!AIVDM`, `!ABVDM`, `!SAVDM`).  Currently, the following AIS message types are supported:
+The AIS payload can be found in the payload field of a `VDM` message (aka `!AIVDM`, `!ABVDM`, `!SAVDM`) or `VDO` message (aka `!AIVDO`).  Currently, the following AIS message types are supported:
 
 > 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 24, 27
 

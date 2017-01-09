@@ -19,7 +19,19 @@ RSpec.describe NMEAPlus::NMEAMessageFactory, "#create" do
 
     context "by itself" do
       it "has basic functions" do
-        expect(NMEAPlus::NMEAMessageFactory.alternate_data_type("GPAAM")).to eq("AAM")
+        expect(NMEAPlus::NMEAMessageFactory.alternate_data_type("GPAAM")).to eq(["AAM"])
+      end
+    end
+
+  end
+end
+
+RSpec.describe NMEAPlus::AISMessageFactory, "#create" do
+  describe "testing the message factory" do
+
+    context "by itself" do
+      it "has basic functions" do
+        expect(NMEAPlus::AISMessageFactory.alternate_data_type("AIVDO")).to eq(["VDO", "VDM"])
       end
     end
 
