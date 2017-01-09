@@ -21,9 +21,9 @@ module NMEAPlus
     # alternate type (like GPAAM) or a generic type (like AAM).  This is where we put that logic.
     # @abstract
     # @param data_type [String] The data_type of the NMEA message (e.g. the GPGLL of "$GPGLL,12,3,,4,5*00")
-    # @return [String] The data_type that we will attempt to use in decoding the message
+    # @return [Array] Array of data_type strings that we will attempt to use in decoding the message
     def self.alternate_data_type(data_type)
-      data_type # in basic implementation, there is no alternative.
+      [data_type] # in basic implementation, there is no alternative.
     end
 
     # Check whether a given object exists.  this will work for all consts but shhhhhhhhh
@@ -49,7 +49,10 @@ module NMEAPlus
     # @return [String] The fully qualified message class name
     def self.best_match_for_data_type(data_type)
       return data_type if self.message_class_exists?(self.message_class_name(data_type))
-      self.alternate_data_type(data_type)
+      self.alternate_data_type(data_type).each do |alternate_type|
+        return alternate_type if self.message_class_exists?(self.message_class_name(alternate_type))
+      end
+      data_type
     end
 
     # Get a message class through reflection

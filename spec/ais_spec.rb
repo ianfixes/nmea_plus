@@ -29,6 +29,16 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a VDO message" do
+      it "properly detects the armored payload" do
+        input = "!AIVDO,1,1,,,B3P9=>h007vPUK7Amc@03wlUsP06,0*49"
+        parsed = @parser.parse(input)
+        expect(parsed.full_armored_ais_payload).to eq("B3P9=>h007vPUK7Amc@03wlUsP06")
+        expect(parsed.ais.message_type).to eq(18)
+        expect(parsed.ais.time_stamp).to eq(41)
+      end
+    end
+
     context "when dealing with VDM payload data" do
       it "properly decodes the armored payload" do
         input = "!AIVDM,1,1,,B,15NO=ndP01JrjhlH@0s;3?vD0L0e,0*77"

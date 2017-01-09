@@ -29,8 +29,8 @@ module NMEAPlus
             when 2 then return "2 blue cones/lights"
             when 3 then return "3 blue cones/lights"
             when 4 then return "B-Flag"
-            else return "Unknown"
             end
+            "Unknown"
           end
 
           payload_reader :dimension_draught, 144, 11, :_U, 100, 0
@@ -43,6 +43,7 @@ module NMEAPlus
             when 1 then return "Unloaded"
             when 2 then return "Loaded"
             end
+            nil
           end
 
           payload_reader :speed_quality, 157, 1, :_b
