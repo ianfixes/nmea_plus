@@ -88,6 +88,36 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a BEC message" do
+      it "properly reports various fields" do
+        input = "$GPBEC,220516,5130.02,N,00046.34,W,213.8,T,218.0,M,0004.6,N,EGLM*11"
+        parsed = @parser.parse(input)
+        now = Time.now
+        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, '+00:00'))
+        expect(parsed.waypoint_latitude).to eq(51.50033333333333)
+        expect(parsed.waypoint_longitude).to eq(-0.7723333333333334)
+        expect(parsed.bearing_true).to eq(213.8)
+        expect(parsed.bearing_magnetic).to eq(218.0)
+        expect(parsed.nautical_miles).to eq(4.6)
+        expect(parsed.waypoint_id).to eq("EGLM")
+      end
+    end
+
+    context "when reading a BER message" do
+      it "properly reports various fields" do
+        input = "$GPBER,220516,5130.02,N,00046.34,W,213.8,T,218.0,M,0004.6,N,EGLM*11"
+        parsed = @parser.parse(input)
+        now = Time.now
+        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, '+00:00'))
+        expect(parsed.waypoint_latitude).to eq(51.50033333333333)
+        expect(parsed.waypoint_longitude).to eq(-0.7723333333333334)
+        expect(parsed.bearing_true).to eq(213.8)
+        expect(parsed.bearing_magnetic).to eq(218.0)
+        expect(parsed.nautical_miles).to eq(4.6)
+        expect(parsed.waypoint_id).to eq("EGLM")
+      end
+    end
+
     context "when reading a BOD message" do
       it "properly reports various fields" do
         input = "$GPBOD,099.3,T,105.6,M,POINTB,*01"
@@ -96,6 +126,21 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.bearing_magnetic).to eq(105.6)
         expect(parsed.waypoint_to).to eq("POINTB")
         expect(parsed.waypoint_from).to eq(nil)
+      end
+    end
+
+    context "when reading a BPI message" do
+      it "properly reports various fields" do
+        input = "$GPBPI,220516,5130.02,N,00046.34,W,213.8,T,218.0,M,0004.6,N,EGLM*11"
+        parsed = @parser.parse(input)
+        now = Time.now
+        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, '+00:00'))
+        expect(parsed.waypoint_latitude).to eq(51.50033333333333)
+        expect(parsed.waypoint_longitude).to eq(-0.7723333333333334)
+        expect(parsed.bearing_true).to eq(213.8)
+        expect(parsed.bearing_magnetic).to eq(218.0)
+        expect(parsed.nautical_miles).to eq(4.6)
+        expect(parsed.waypoint_id).to eq("EGLM")
       end
     end
 
