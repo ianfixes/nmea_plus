@@ -301,6 +301,20 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a GDA message" do
+      it "properly reports various fields" do
+        input = "$GPGDA,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
+        parsed = @parser.parse(input)
+        now = Time.now
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.latitude).to eq(48.1173)
+        expect(parsed.longitude).to eq(-11.516666666666666666)
+        expect(parsed.waypoint_id).to eq(1)
+        expect(parsed.satellite).to eq(8)
+
+      end
+    end
+
     context "when reading a GGA message" do
       it "properly reports various fields" do
         input = "$GPGGA,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*4b"
@@ -319,6 +333,20 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.seconds_since_last_update).to eq(2.2)
         expect(parsed.dgps_station_id).to eq(123)
         expect(parsed.checksum_ok?).to eq(true)
+      end
+    end
+
+    context "when reading a GLA message" do
+      it "properly reports various fields" do
+        input = "$GPGLA,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
+        parsed = @parser.parse(input)
+        now = Time.now
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.latitude).to eq(48.1173)
+        expect(parsed.longitude).to eq(-11.516666666666666666)
+        expect(parsed.waypoint_id).to eq(1)
+        expect(parsed.satellite).to eq(8)
+
       end
     end
 
@@ -370,6 +398,20 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.geoidal_separation).to eq(34.5)
         expect(parsed.data_age).to eq(45.6)
         expect(parsed.differential_reference_station_id).to eq(99)
+      end
+    end
+
+    context "when reading a GOA message" do
+      it "properly reports various fields" do
+        input = "$GPGOA,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
+        parsed = @parser.parse(input)
+        now = Time.now
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.latitude).to eq(48.1173)
+        expect(parsed.longitude).to eq(-11.516666666666666666)
+        expect(parsed.waypoint_id).to eq(1)
+        expect(parsed.satellite).to eq(8)
+
       end
     end
 
