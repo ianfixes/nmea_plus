@@ -1,11 +1,11 @@
-require_relative "gxa"
+require_relative "gda"
 
 module NMEAPlus
   module Message
     module NMEA
       # GOA - OMEGA Positions
-      # Same fields as GXA
-      class GOA < NMEAPlus::Message::NMEA::GXA
+      # Same fields as GDA
+      class GOA < NMEAPlus::Message::NMEA::GDA
       end
     end
   end

@@ -1,11 +1,11 @@
-require_relative "gxa"
+require_relative "gda"
 
 module NMEAPlus
   module Message
     module NMEA
       # GLA - Loran-C Positions
-      # Same fields as GXA
-      class GLA < NMEAPlus::Message::NMEA::GXA
+      # Same fields as GDA
+      class GLA < NMEAPlus::Message::NMEA::GDA
       end
     end
   end

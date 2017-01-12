@@ -310,8 +310,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
         expect(parsed.waypoint_id).to eq(1)
-        expect(parsed.satellite).to eq(8)
-
       end
     end
 
@@ -345,8 +343,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
         expect(parsed.waypoint_id).to eq(1)
-        expect(parsed.satellite).to eq(8)
-
       end
     end
 
@@ -410,8 +406,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
         expect(parsed.waypoint_id).to eq(1)
-        expect(parsed.satellite).to eq(8)
-
       end
     end
 
