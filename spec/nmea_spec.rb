@@ -236,6 +236,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.position_uncertainty).to eq(8.9)
         expect(parsed.position_uncertainty_units).to eq('N')
         expect(parsed.fix_data_basis).to eq(3)
+        expect(parsed.fix_data_basis_description).to eq('Lane identification transmissions')
       end
     end
 

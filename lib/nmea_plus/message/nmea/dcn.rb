@@ -3,7 +3,7 @@ require_relative "base_nmea"
 module NMEAPlus
   module Message
     module NMEA
-      # DCN - Decca Position
+      # DCN - DECCA Position
       class DCN < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :decca_chain_id, 1, :_integer
         field_reader :red_zone_id, 2, :_string
@@ -21,6 +21,17 @@ module NMEAPlus
         field_reader :position_uncertainty, 14, :_float
         field_reader :position_uncertainty_units, 15, :_string
         field_reader :fix_data_basis, 16, :_integer
+
+        # @!parse attr_reader :fix_data_basis_description
+        # @return [String]
+        def fix_data_basis_description
+          case fix_data_basis
+          when 1 then return "Normal pattern"
+          when 2 then return "Lane identification pattern"
+          when 3 then return "Lane identification transmissions"
+          end
+          nil
+        end
       end
     end
   end
