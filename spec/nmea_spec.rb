@@ -313,6 +313,30 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a GDF message" do
+      it "properly reports various fields" do
+        input = "$GPGDF,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
+        parsed = @parser.parse(input)
+        now = Time.now
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.latitude).to eq(48.1173)
+        expect(parsed.longitude).to eq(-11.516666666666666666)
+        expect(parsed.waypoint_id).to eq(1)
+      end
+    end
+
+    context "when reading a GDP message" do
+      it "properly reports various fields" do
+        input = "$GPGDP,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
+        parsed = @parser.parse(input)
+        now = Time.now
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.latitude).to eq(48.1173)
+        expect(parsed.longitude).to eq(-11.516666666666666666)
+        expect(parsed.waypoint_id).to eq(1)
+      end
+    end
+
     context "when reading a GGA message" do
       it "properly reports various fields" do
         input = "$GPGGA,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*4b"
@@ -366,6 +390,18 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a GLF message" do
+      it "properly reports various fields" do
+        input = "$GPGLF,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
+        parsed = @parser.parse(input)
+        now = Time.now
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.latitude).to eq(48.1173)
+        expect(parsed.longitude).to eq(-11.516666666666666666)
+        expect(parsed.waypoint_id).to eq(1)
+      end
+    end
+
     context "when reading a GLL message" do
       it "properly reports various fields" do
         now = Time.now
@@ -376,6 +412,18 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 22, 54, 44, '+00:00'))
         expect(parsed.valid?).to eq(true)
         expect(parsed.faa_mode).to eq(nil)
+      end
+    end
+
+    context "when reading a GLP message" do
+      it "properly reports various fields" do
+        input = "$GPGLP,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
+        parsed = @parser.parse(input)
+        now = Time.now
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.latitude).to eq(48.1173)
+        expect(parsed.longitude).to eq(-11.516666666666666666)
+        expect(parsed.waypoint_id).to eq(1)
       end
     end
 
@@ -400,6 +448,30 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
     context "when reading a GOA message" do
       it "properly reports various fields" do
         input = "$GPGOA,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
+        parsed = @parser.parse(input)
+        now = Time.now
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.latitude).to eq(48.1173)
+        expect(parsed.longitude).to eq(-11.516666666666666666)
+        expect(parsed.waypoint_id).to eq(1)
+      end
+    end
+
+    context "when reading a GOF message" do
+      it "properly reports various fields" do
+        input = "$GPGOF,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
+        parsed = @parser.parse(input)
+        now = Time.now
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.latitude).to eq(48.1173)
+        expect(parsed.longitude).to eq(-11.516666666666666666)
+        expect(parsed.waypoint_id).to eq(1)
+      end
+    end
+
+    context "when reading a GOP message" do
+      it "properly reports various fields" do
+        input = "$GPGOP,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
         parsed = @parser.parse(input)
         now = Time.now
         expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
@@ -512,6 +584,34 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
     context "when reading a GXA message" do
       it "properly reports various fields" do
         input = "$GPGXA,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
+        parsed = @parser.parse(input)
+        now = Time.now
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.latitude).to eq(48.1173)
+        expect(parsed.longitude).to eq(-11.516666666666666666)
+        expect(parsed.waypoint_id).to eq(1)
+        expect(parsed.satellite).to eq(8)
+
+      end
+    end
+
+    context "when reading a GXF message" do
+      it "properly reports various fields" do
+        input = "$GPGXF,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
+        parsed = @parser.parse(input)
+        now = Time.now
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.latitude).to eq(48.1173)
+        expect(parsed.longitude).to eq(-11.516666666666666666)
+        expect(parsed.waypoint_id).to eq(1)
+        expect(parsed.satellite).to eq(8)
+
+      end
+    end
+
+    context "when reading a GXP message" do
+      it "properly reports various fields" do
+        input = "$GPGXP,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
         parsed = @parser.parse(input)
         now = Time.now
         expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
