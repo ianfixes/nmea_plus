@@ -249,6 +249,18 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a DRU message" do
+      it "properly reports various fields" do
+        input = "$GPDRU,1.2,A,-23.4,A,5.6*00"
+        parsed = @parser.parse(input)
+        expect(parsed.depth_meters).to eq(1.2)
+        expect(parsed.depth_valid?).to eq(true)
+        expect(parsed.rate_of_turn_starboard_degrees_per_minute).to eq(-23.4)
+        expect(parsed.rate_of_turn_valid?).to eq(true)
+        expect(parsed.rotation_percentage).to eq(5.6)
+      end
+    end
+
     context "when reading a DTM message" do
       it "properly reports various fields" do
         input = "$GPDTM,ab,1,1234,S,5678,W,2.3,dname*00"
