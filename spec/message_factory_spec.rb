@@ -31,7 +31,7 @@ RSpec.describe NMEAPlus::AISMessageFactory, "#create" do
 
     context "by itself" do
       it "has basic functions" do
-        expect(NMEAPlus::AISMessageFactory.alternate_data_type("AIVDO")).to eq(["VDO", "VDM"])
+        expect(NMEAPlus::AISMessageFactory.alternate_data_type("AIVDO")).to eq(["VDO"])
       end
     end
 
