@@ -875,6 +875,15 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading an OLW message" do
+      it "properly reports various fields" do
+        input = "$GPOLW,1.1,N,333,M*00"
+        parsed = @parser.parse(input)
+        expect(parsed.width_nautical_miles).to eq(1.1)
+        expect(parsed.width_meters).to eq(333)
+      end
+    end
+
     context "when reading an OSD message" do
       it "properly reports various fields" do
         input = "$GPOSD,1.2,A,2.3,cref,4.5,sref,5.6,6.7,unit*00"
