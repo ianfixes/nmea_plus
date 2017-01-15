@@ -751,6 +751,24 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a MDA message" do
+      it "properly reports various fields" do
+        input = "$GPMDA,1.2,I,2.3,B,3.4,C,4.5,C,5.6,6.7,7.8,C,8.9,T,9.1,M,1.3,N,2.4,M*00"
+        parsed = @parser.parse(input)
+        expect(parsed.barometric_pressure_inches).to eq(1.2)
+        expect(parsed.barometric_pressure_bars).to eq(2.3)
+        expect(parsed.air_temperature_celsius).to eq(3.4)
+        expect(parsed.water_temperature_celsius).to eq(4.5)
+        expect(parsed.relative_humidity_percent).to eq(5.6)
+        expect(parsed.absolute_humidity_percent).to eq(6.7)
+        expect(parsed.dew_point_celsius).to eq(7.8)
+        expect(parsed.wind_true_direction_degrees).to eq(8.9)
+        expect(parsed.wind_magnetic_direction_degrees).to eq(9.1)
+        expect(parsed.wind_speed_knots).to eq(1.3)
+        expect(parsed.wind_speed_ms).to eq(2.4)
+      end
+    end
+
     context "when reading a MSK message" do
       it "properly reports various fields" do
         input = "$GPMSK,123,A,234,M,333*00"

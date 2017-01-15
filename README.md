@@ -86,8 +86,10 @@ end
 
 ## NMEA (GPS) Parsing
 
-This gem was coded to accept the standard NMEA messages defined in the unoffical spec found here:
-http://www.catb.org/gpsd/NMEA.txt
+This gem was coded to accept the standard NMEA messages defined in the official and unoffical specs found here:
+
+* http://www.catb.org/gpsd/NMEA.txt
+* http://www.nmea.org/Assets/100108_nmea_0183_sentences_not_recommended_for_new_designs.pdf
 
 Because the message types are standard, if no override is found for a particular talker ID then the message will parse according to the command (the last 3 characters) of the data type.  In other words, `$GPGLL` will use the general `GLL` message type.  Currently, the following standard message types are supported:
 
@@ -99,7 +101,7 @@ Because the message types are standard, if no override is found for a particular
 > HCC, HCD, HDG, HDM, HDT, HFB, HSC, HTC, HVD, HVM,
 > IMA, ITS,
 > LCD,
-> MSK, MSS, MTW, MWV,
+> MDA, MSK, MSS, MTW, MWV,
 > OLN, OSD,
 > R00, RMA, RMB, RMC, ROT, RPM, RSA, RSD, RTE,
 > SFI, STN,
