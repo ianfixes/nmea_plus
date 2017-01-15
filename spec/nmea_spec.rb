@@ -685,6 +685,14 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a HTC message" do
+      it "properly reports various fields" do
+        input = "$GPHTC,1.2,M*00"
+        parsed = @parser.parse(input)
+        expect(parsed.true_heading_degrees).to eq(1.2)
+      end
+    end
+
     context "when reading an ITS message" do
       it "properly reports various fields" do
         input = "$GPITS,2.3,M*00"
