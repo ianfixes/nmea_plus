@@ -829,6 +829,24 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a MWH message" do
+      it "properly reports various fields" do
+        input = "$GPMWH,45.4,f,3.4,M,A*00"
+        parsed = @parser.parse(input)
+        expect(parsed.wave_height_feet).to eq(45.4)
+        expect(parsed.wave_height_meters).to eq(3.4)
+      end
+    end
+
+    context "when reading a MWS message" do
+      it "properly reports various fields" do
+        input = "$GPMWS,11,22*00"
+        parsed = @parser.parse(input)
+        expect(parsed.beaufort_sea_state).to eq(11)
+        expect(parsed.beaufort_wind_force).to eq(22)
+      end
+    end
+
     context "when reading a MWV message" do
       it "properly reports various fields" do
         input = "$GPMWV,45.4,R,3.4,M,A*00"

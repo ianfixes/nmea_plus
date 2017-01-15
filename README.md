@@ -101,7 +101,7 @@ Because the message types are standard, if no override is found for a particular
 > HCC, HCD, HDG, HDM, HDT, HFB, HSC, HTC, HVD, HVM,
 > IMA, ITS,
 > LCD,
-> MDA, MHU, MMB, MSK, MSS, MTA, MTW, MWV,
+> MDA, MHU, MMB, MSK, MSS, MTA, MTW, MWH, MWS, MWV,
 > OLN, OSD,
 > R00, RMA, RMB, RMC, ROT, RPM, RSA, RSD, RTE,
 > SFI, STN,
