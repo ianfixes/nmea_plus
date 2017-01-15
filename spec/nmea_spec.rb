@@ -861,11 +861,17 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
 
     context "when reading an OLN message" do
       it "properly reports various fields" do
-        input = "$GPOLN,a,b,c,d,e,f,g,h,i*00"
+        input = "$GPOLN,a,1,2,b,3,4,c,5,6*00"
         parsed = @parser.parse(input)
-        expect(parsed.omega_pair1).to eq('a,b,c')
-        expect(parsed.omega_pair2).to eq('d,e,f')
-        expect(parsed.omega_pair3).to eq('g,h,i')
+        expect(parsed.omega_pair1.label).to eq('a')
+        expect(parsed.omega_pair1.first).to eq(1)
+        expect(parsed.omega_pair1.second).to eq(2)
+        expect(parsed.omega_pair2.label).to eq('b')
+        expect(parsed.omega_pair2.first).to eq(3)
+        expect(parsed.omega_pair2.second).to eq(4)
+        expect(parsed.omega_pair3.label).to eq('c')
+        expect(parsed.omega_pair3.first).to eq(5)
+        expect(parsed.omega_pair3.second).to eq(6)
       end
     end
 
