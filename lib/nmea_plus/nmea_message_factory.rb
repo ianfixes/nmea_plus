@@ -95,7 +95,7 @@ require_relative 'message/nmea/zfo'
 require_relative 'message/nmea/ztg'
 
 # proprietary
-require_relative 'message/nmea/pashr'
+require_relative 'message/nmea/proprietary/pashr'
 
 module NMEAPlus
 
