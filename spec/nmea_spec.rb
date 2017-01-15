@@ -769,6 +769,25 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a MHU message" do
+      it "properly reports various fields" do
+        input = "$GPMHU,5.6,6.7,7.8,C*00"
+        parsed = @parser.parse(input)
+        expect(parsed.relative_humidity_percent).to eq(5.6)
+        expect(parsed.absolute_humidity_percent).to eq(6.7)
+        expect(parsed.dew_point_celsius).to eq(7.8)
+      end
+    end
+
+    context "when reading a MMB message" do
+      it "properly reports various fields" do
+        input = "$GPMMB,1.2,I,2.3,B*00"
+        parsed = @parser.parse(input)
+        expect(parsed.barometric_pressure_inches).to eq(1.2)
+        expect(parsed.barometric_pressure_bars).to eq(2.3)
+      end
+    end
+
     context "when reading a MSK message" do
       it "properly reports various fields" do
         input = "$GPMSK,123,A,234,M,333*00"
@@ -790,6 +809,14 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.beacon_frequency_khz).to eq(56.7)
         expect(parsed.beacon_data_rate_bps).to eq(89)
         expect(parsed.unknown_field).to eq(111)
+      end
+    end
+
+    context "when reading a MTA message" do
+      it "properly reports various fields" do
+        input = "$GPMTA,2.3,C*00"
+        parsed = @parser.parse(input)
+        expect(parsed.temperature_celsius).to eq(2.3)
       end
     end
 
