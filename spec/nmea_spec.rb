@@ -709,6 +709,20 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading an IMA message" do
+      it "properly reports various fields" do
+        input = "$GPIMA,abcdefghijkl,mnopqrs,4807.038,N,01131.000,W,1.2,T,3.4,M,5.6,N*00"
+        parsed = @parser.parse(input)
+        expect(parsed.vessel_name).to eq('abcdefghijkl')
+        expect(parsed.call_sign).to eq('mnopqrs')
+        expect(parsed.latitude).to eq(48.1173)
+        expect(parsed.longitude).to eq(-11.516666666666667)
+        expect(parsed.true_heading_degrees).to eq(1.2)
+        expect(parsed.magnetic_heading_degrees).to eq(3.4)
+        expect(parsed.speed_knots).to eq(5.6)
+      end
+    end
+
     context "when reading an ITS message" do
       it "properly reports various fields" do
         input = "$GPITS,2.3,M*00"
