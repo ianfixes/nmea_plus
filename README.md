@@ -91,7 +91,7 @@ http://www.catb.org/gpsd/NMEA.txt
 
 Because the message types are standard, if no override is found for a particular talker ID then the message will parse according to the command (the last 3 characters) of the data type.  In other words, `$GPGLL` will use the general `GLL` message type.  Currently, the following standard message types are supported:
 
-> AAM, ALM, APA, APB, BEC, BER, BOD, BPI, BWC, BWR, BWW, DBK, DBS, DBT, DCN, DPT, DRU, DTM, FSI, GBS, GDA, GDF, GDP, GGA, GLA, GLC, GLF, GLL, GLP, GOA, GOF, GOP, GNS, GRS, GSA, GST, GSV, GTD, GXA, GXF, GXP, HDG, HDM, HDT, HFB, HSC, ITS, LCD, MSK, MSS, MTW, MWV, OLN, OSD, R00, RMA, RMB, RMC, ROT, RPM, RSA, RSD, RTE, SFI, STN, TDS, TFI, TPC, TPR, TPT, TRF, TTM, VBW, VDR, VHW, VLW, VPW, VTG, VWR, WCV, WNC, WPL, XDR, XTE, XTR, ZDA, ZFO, ZTG
+> AAM, ALM, APA, APB, BEC, BER, BOD, BPI, BWC, BWR, BWW, DBK, DBS, DBT, DCN, DPT, DRU, DTM, FSI, GBS, GDA, GDF, GDP, GGA, GLA, GLC, GLF, GLL, GLP, GOA, GOF, GOP, GNS, GRS, GSA, GST, GSV, GTD, GXA, GXF, GXP, HCC, HCD, HDG, HDM, HDT, HFB, HSC, ITS, LCD, MSK, MSS, MTW, MWV, OLN, OSD, R00, RMA, RMB, RMC, ROT, RPM, RSA, RSD, RTE, SFI, STN, TDS, TFI, TPC, TPR, TPT, TRF, TTM, VBW, VDR, VHW, VLW, VPW, VTG, VWR, WCV, WNC, WPL, XDR, XTE, XTR, ZDA, ZFO, ZTG
 
 Support for proprietary NMEA messages is also possible.  PASHR is included as proof-of-concept.
 
