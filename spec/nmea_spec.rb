@@ -693,6 +693,22 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a HVD message" do
+      it "properly reports various fields" do
+        input = "$GPHVD,1.2,W*00"
+        parsed = @parser.parse(input)
+        expect(parsed.magnetic_variation_degrees).to eq(-1.2)
+      end
+    end
+
+    context "when reading a HVM message" do
+      it "properly reports various fields" do
+        input = "$GPHVM,1.2,W*00"
+        parsed = @parser.parse(input)
+        expect(parsed.magnetic_variation_degrees).to eq(-1.2)
+      end
+    end
+
     context "when reading an ITS message" do
       it "properly reports various fields" do
         input = "$GPITS,2.3,M*00"

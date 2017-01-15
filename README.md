@@ -96,7 +96,7 @@ Because the message types are standard, if no override is found for a particular
 > DBK, DBS, DBT, DCN, DPT, DRU, DTM,
 > FSI,
 > GBS, GDA, GDF, GDP, GGA, GLA, GLC, GLF, GLL, GLP, GOA, GOF, GOP, GNS, GRS, GSA, GST, GSV, GTD, GXA, GXF, GXP,
-> HCC, HCD, HDG, HDM, HDT, HFB, HSC, HTC,
+> HCC, HCD, HDG, HDM, HDT, HFB, HSC, HTC, HVD, HVM,
 > ITS,
 > LCD,
 > MSK, MSS, MTW, MWV,
