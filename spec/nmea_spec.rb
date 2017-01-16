@@ -884,6 +884,16 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading an OMP message" do
+      it "properly reports various fields" do
+        input = "$GPOMP,1,aa,2,bb,3,cc*00"
+        parsed = @parser.parse(input)
+        expect(parsed.pair1).to eq('aa')
+        expect(parsed.pair2).to eq('bb')
+        expect(parsed.pair3).to eq('cc')
+      end
+    end
+
     context "when reading an OSD message" do
       it "properly reports various fields" do
         input = "$GPOSD,1.2,A,2.3,cref,4.5,sref,5.6,6.7,unit*00"
