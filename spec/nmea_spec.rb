@@ -975,6 +975,15 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a RNN message" do
+      it "properly reports various fields" do
+        input = "$GPRNN,99,14,13,12,11,10,9,8,7,6,5,4,3,2,1*00"
+        parsed = @parser.parse(input)
+        expect(parsed.route_number).to eq(99)
+        expect(parsed.waypoints).to eq((1..14).to_a.reverse)
+      end
+    end
+
     context "when reading a ROT message" do
       it "properly reports various fields" do
         input = "$GPROT,-23.4,A*00"
