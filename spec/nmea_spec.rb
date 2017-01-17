@@ -1040,6 +1040,22 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a SBK message" do
+      it "properly reports various fields" do
+        input = "$GPSBK,A*00"
+        parsed = @parser.parse(input)
+        expect(parsed.blink_flag?).to eq(true)
+      end
+    end
+
+    context "when reading a SCY message" do
+      it "properly reports various fields" do
+        input = "$GPSCY,V*00"
+        parsed = @parser.parse(input)
+        expect(parsed.cycle_lock_flag?).to eq(false)
+      end
+    end
+
     context "when reading a SFI message" do
       it "properly reports various fields" do
         input = "$GPSFI,3,1,1,a,2,b,3,c*00"
