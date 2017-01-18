@@ -1065,6 +1065,14 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a SDB message" do
+      it "properly reports various fields" do
+        input = "$GPSDB,3.2*00"
+        parsed = @parser.parse(input)
+        expect(parsed.signal_strength_db).to eq(3.2)
+      end
+    end
+
     context "when reading a SFI message" do
       it "properly reports various fields" do
         input = "$GPSFI,3,1,1,a,2,b,3,c*00"
