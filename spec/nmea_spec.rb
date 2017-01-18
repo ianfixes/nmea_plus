@@ -1048,6 +1048,15 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a SCD message" do
+      it "properly reports various fields" do
+        input = "$GPSCD,0,123,1,234,2,345,3,456,4,567,5,678*00"
+        parsed = @parser.parse(input)
+        expect(parsed.master_signal_ecd).to eq(123)
+        expect(parsed.ecds).to eq([123, 234, 345, 456, 567, 678])
+      end
+    end
+
     context "when reading a SCY message" do
       it "properly reports various fields" do
         input = "$GPSCY,V*00"
