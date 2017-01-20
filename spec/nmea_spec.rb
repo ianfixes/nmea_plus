@@ -1100,6 +1100,21 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a SIU message" do
+      it "properly reports various fields" do
+        input = "$GPSIU,1,2,,4,5,,*00"
+        parsed = @parser.parse(input)
+        expect(parsed.stations_in_use[1]).to eq(true)
+        expect(parsed.stations_in_use[2]).to eq(true)
+        expect(parsed.stations_in_use[3]).to eq(false)
+        expect(parsed.stations_in_use[4]).to eq(true)
+        expect(parsed.stations_in_use[5]).to eq(true)
+        expect(parsed.stations_in_use[6]).to eq(false)
+        expect(parsed.stations_in_use[7]).to eq(false)
+        expect(parsed.stations_in_use[8]).to eq(false)
+      end
+    end
+
     context "when reading a STN message" do
       it "properly reports various fields" do
         input = "$GPSTN,1.2*00"
