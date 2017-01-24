@@ -31,7 +31,7 @@ module NMEAPlus
         # This function is meant to be passed as a formatter to {field_reader}.
         # @param field [String] the value in the field to be checked
         # @return [bool] The value in the field or nil
-        def _av_boolean(field)
+        def self._av_boolean(field)
           case field
           when 'A' then return true
           when 'V' then return false
@@ -43,7 +43,7 @@ module NMEAPlus
         # This function is meant to be passed as a formatter to {field_reader}.
         # @param field [String] the value in the field to be checked
         # @return [bool] The value in the field or nil
-        def _10_boolean(field)
+        def self._10_boolean(field)
           case field
           when '1' then return true
           when '0' then return false

@@ -9,7 +9,7 @@ module NMEAPlus
         # @!parse attr_reader :utc_time
         # @return [Time]
         def utc_time
-          _utc_date_time(@fields[9], @fields[1])
+          self.class._utc_date_time(@fields[9], @fields[1])
         end
 
         field_reader :active?, 2, :_av_boolean
