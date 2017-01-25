@@ -1103,6 +1103,48 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading an SLC message" do
+      it "properly reports various fields" do
+        input = "$GPSLC,A,V,V,111,V,V,A,A,222,A,V,A,V,333,A,V,V,A,444,V,V,A,V,555,V,V,V,A,666*00"
+        parsed = @parser.parse(input)
+        expect(parsed.master_station.used_in_calculation).to eq(true)
+        expect(parsed.master_station.blink_warning).to eq(true)
+        expect(parsed.master_station.cycle_lock_warning).to eq(false)
+        expect(parsed.master_station.snr_warning).to eq(false)
+        expect(parsed.master_station.snr).to eq(111)
+        expect(parsed.stations[0].used_in_calculation).to eq(true)
+        expect(parsed.stations[0].blink_warning).to eq(true)
+        expect(parsed.stations[0].cycle_lock_warning).to eq(false)
+        expect(parsed.stations[0].snr_warning).to eq(false)
+        expect(parsed.stations[0].snr).to eq(111)
+        expect(parsed.stations[1].used_in_calculation).to eq(false)
+        expect(parsed.stations[1].blink_warning).to eq(false)
+        expect(parsed.stations[1].cycle_lock_warning).to eq(true)
+        expect(parsed.stations[1].snr_warning).to eq(true)
+        expect(parsed.stations[1].snr).to eq(222)
+        expect(parsed.stations[2].used_in_calculation).to eq(true)
+        expect(parsed.stations[2].blink_warning).to eq(false)
+        expect(parsed.stations[2].cycle_lock_warning).to eq(true)
+        expect(parsed.stations[2].snr_warning).to eq(false)
+        expect(parsed.stations[2].snr).to eq(333)
+        expect(parsed.stations[3].used_in_calculation).to eq(true)
+        expect(parsed.stations[3].blink_warning).to eq(false)
+        expect(parsed.stations[3].cycle_lock_warning).to eq(false)
+        expect(parsed.stations[3].snr_warning).to eq(true)
+        expect(parsed.stations[3].snr).to eq(444)
+        expect(parsed.stations[4].used_in_calculation).to eq(false)
+        expect(parsed.stations[4].blink_warning).to eq(false)
+        expect(parsed.stations[4].cycle_lock_warning).to eq(true)
+        expect(parsed.stations[4].snr_warning).to eq(false)
+        expect(parsed.stations[4].snr).to eq(555)
+        expect(parsed.stations[5].used_in_calculation).to eq(false)
+        expect(parsed.stations[5].blink_warning).to eq(false)
+        expect(parsed.stations[5].cycle_lock_warning).to eq(false)
+        expect(parsed.stations[5].snr_warning).to eq(true)
+        expect(parsed.stations[5].snr).to eq(666)
+      end
+    end
+
     context "when reading a SIU message" do
       it "properly reports various fields" do
         input = "$GPSIU,1,2,,4,5,,*00"
