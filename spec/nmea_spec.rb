@@ -872,6 +872,9 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.omega_pair3.label).to eq('c')
         expect(parsed.omega_pair3.first).to eq(5)
         expect(parsed.omega_pair3.second).to eq(6)
+        expect(parsed.omega_pairs[2].label).to eq('c')
+        expect(parsed.omega_pairs[2].first).to eq(5)
+        expect(parsed.omega_pairs[2].second).to eq(6)
       end
     end
 

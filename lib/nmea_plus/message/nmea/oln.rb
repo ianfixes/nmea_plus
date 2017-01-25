@@ -26,16 +26,28 @@ module NMEAPlus
           end
         end
 
+        # @!parse attr_reader :omega_pair1
+        # @return [OmegaLanePair]
         def omega_pair1
           OmegaLanePair.new(@fields[1..3])
         end
 
+        # @!parse attr_reader :omega_pair2
+        # @return [OmegaLanePair]
         def omega_pair2
           OmegaLanePair.new(@fields[4..6])
         end
 
+        # @!parse attr_reader :omega_pair3
+        # @return [OmegaLanePair]
         def omega_pair3
           OmegaLanePair.new(@fields[7..9])
+        end
+
+        # @!parse attr_reader :omega_pairs
+        # @return [Array<OmegaLanePair>]
+        def omega_pairs
+          [omega_pair1, omega_pair2, omega_pair3]
         end
 
       end
