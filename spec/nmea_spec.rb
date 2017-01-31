@@ -1170,6 +1170,15 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a SSF message" do
+      it "properly reports various fields" do
+        input = "$GPSSF,1.2,N,3.4,W*00"
+        parsed = @parser.parse(input)
+        expect(parsed.latitude_offset_minutes).to eq(1.2)
+        expect(parsed.longitude_offset_minutes).to eq(-3.4)
+      end
+    end
+
     context "when reading a SIU message" do
       it "properly reports various fields" do
         input = "$GPSIU,1,2,,4,5,,*00"
