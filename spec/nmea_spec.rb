@@ -1103,6 +1103,21 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a SIU message" do
+      it "properly reports various fields" do
+        input = "$GPSIU,1,2,,4,5,,*00"
+        parsed = @parser.parse(input)
+        expect(parsed.stations_in_use[1]).to eq(true)
+        expect(parsed.stations_in_use[2]).to eq(true)
+        expect(parsed.stations_in_use[3]).to eq(false)
+        expect(parsed.stations_in_use[4]).to eq(true)
+        expect(parsed.stations_in_use[5]).to eq(true)
+        expect(parsed.stations_in_use[6]).to eq(false)
+        expect(parsed.stations_in_use[7]).to eq(false)
+        expect(parsed.stations_in_use[8]).to eq(false)
+      end
+    end
+
     context "when reading an SLC message" do
       it "properly reports various fields" do
         input = "$GPSLC,A,V,V,111,V,V,A,A,222,A,V,A,V,333,A,V,V,A,444,V,V,A,V,555,V,V,V,A,666*00"
@@ -1176,21 +1191,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         parsed = @parser.parse(input)
         expect(parsed.latitude_offset_minutes).to eq(1.2)
         expect(parsed.longitude_offset_minutes).to eq(-3.4)
-      end
-    end
-
-    context "when reading a SIU message" do
-      it "properly reports various fields" do
-        input = "$GPSIU,1,2,,4,5,,*00"
-        parsed = @parser.parse(input)
-        expect(parsed.stations_in_use[1]).to eq(true)
-        expect(parsed.stations_in_use[2]).to eq(true)
-        expect(parsed.stations_in_use[3]).to eq(false)
-        expect(parsed.stations_in_use[4]).to eq(true)
-        expect(parsed.stations_in_use[5]).to eq(true)
-        expect(parsed.stations_in_use[6]).to eq(false)
-        expect(parsed.stations_in_use[7]).to eq(false)
-        expect(parsed.stations_in_use[8]).to eq(false)
       end
     end
 
