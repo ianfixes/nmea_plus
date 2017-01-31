@@ -1210,6 +1210,15 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a STR message" do
+      it "properly reports various fields" do
+        input = "$GPSTR,A*00"
+        parsed = @parser.parse(input)
+        expect(parsed.tracking_reference).to eq(:ground)
+        expect(parsed.tracking_reference_description).to eq("Ground reference")
+      end
+    end
+
     context "when reading a TDS message" do
       it "properly reports various fields" do
         input = "$GPTDS,2.3,M*00"
