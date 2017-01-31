@@ -1333,6 +1333,14 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a TRP message" do
+      it "properly reports various fields" do
+        input = "$GPTRP,SW*00"
+        parsed = @parser.parse(input)
+        expect(parsed.predicted_rise_direction).to eq('SW')
+      end
+    end
+
     context "when reading a TTM message" do
       it "properly reports various fields" do
         input = "$GPTTM,1,2.3,4.5,u,5.6,6.7,u2,7.8,8.9,-,foo,bar,tgt*00"
