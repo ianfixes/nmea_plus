@@ -1232,6 +1232,16 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a TEC message" do
+      it "properly reports various fields" do
+        input = "$GPTEC,A,V,A*00"
+        parsed = @parser.parse(input)
+        expect(parsed.maximum_angle_flag).to eq(true)
+        expect(parsed.doppler_count_flag).to eq(false)
+        expect(parsed.iteration_number_flag).to eq(true)
+      end
+    end
+
     context "when reading a TDS message" do
       it "properly reports various fields" do
         input = "$GPTDS,2.3,M*00"
