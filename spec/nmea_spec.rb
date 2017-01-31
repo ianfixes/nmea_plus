@@ -1278,6 +1278,15 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a TIF message" do
+      it "properly reports various fields" do
+        input = "$GPTIF,J*00"
+        parsed = @parser.parse(input)
+        expect(parsed.initial_flag).to eq(:initialization_data_complete)
+        expect(parsed.initial_flag_description).to eq('Initialization data complete')
+      end
+    end
+
     context "when reading a TPC message" do
       it "properly reports various fields" do
         input = "$GPTPC,23.4,M,34.5,M,45.6,M*00"
