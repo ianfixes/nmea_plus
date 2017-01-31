@@ -1341,6 +1341,15 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a TRS message" do
+      it "properly reports various fields" do
+        input = "$GPTRS,U*00"
+        parsed = @parser.parse(input)
+        expect(parsed.status).to eq(:dead_reckoning)
+        expect(parsed.status_description).to eq("Dead reckoning")
+      end
+    end
+
     context "when reading a TTM message" do
       it "properly reports various fields" do
         input = "$GPTTM,1,2.3,4.5,u,5.6,6.7,u2,7.8,8.9,-,foo,bar,tgt*00"
