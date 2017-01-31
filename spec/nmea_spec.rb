@@ -1382,6 +1382,17 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a VCD message" do
+      it "properly reports various fields" do
+        input = "$GPVCD,1.2,f,2.3,M,3.4,N,4.5,M*00"
+        parsed = @parser.parse(input)
+        expect(parsed.depth_feet).to eq(1.2)
+        expect(parsed.depth_meters).to eq(2.3)
+        expect(parsed.water_current_speed_knots).to eq(3.4)
+        expect(parsed.water_current_speed_ms).to eq(4.5)
+      end
+    end
+
     context "when reading a VDR message" do
       it "properly reports various fields" do
         input = "$GPVDR,1.2,T,2.3,M,3.4,N*00"
