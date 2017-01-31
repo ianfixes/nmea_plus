@@ -28,7 +28,7 @@ module NMEAPlus
           # @return [Integer]
           attr_accessor :snr
 
-          # @param arr [Array] a string and 2 integers
+          # @param arr [Array<String, Integer>] a string and 2 integers
           def initialize(arr, is_master)
             @arr = arr
             @used_in_calculation  = is_master ? true : NMEA::NMEAMessage._av_boolean(arr[0])
