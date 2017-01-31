@@ -1268,6 +1268,16 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a TGA message" do
+      it "properly reports various fields" do
+        input = "$GPTGA,1.2,M,3.4,M,5.6,M*00"
+        parsed = @parser.parse(input)
+        expect(parsed.antenna_height_meters).to eq(1.2)
+        expect(parsed.geoidal_height_meters).to eq(3.4)
+        expect(parsed.antenna_geoidal_height_meters).to eq(5.6)
+      end
+    end
+
     context "when reading a TPC message" do
       it "properly reports various fields" do
         input = "$GPTPC,23.4,M,34.5,M,45.6,M*00"
