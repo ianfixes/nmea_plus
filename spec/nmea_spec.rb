@@ -1154,6 +1154,14 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a SNU message" do
+      it "properly reports various fields" do
+        input = "$GPSNU,A*00"
+        parsed = @parser.parse(input)
+        expect(parsed.warning_flag).to eq(true)
+      end
+    end
+
     context "when reading a SIU message" do
       it "properly reports various fields" do
         input = "$GPSIU,1,2,,4,5,,*00"
