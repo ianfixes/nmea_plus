@@ -1242,6 +1242,14 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a TEP message" do
+      it "properly reports various fields" do
+        input = "$GPTEP,1.2*00"
+        parsed = @parser.parse(input)
+        expect(parsed.elevation_degrees).to eq(1.2)
+      end
+    end
+
     context "when reading a TDS message" do
       it "properly reports various fields" do
         input = "$GPTDS,2.3,M*00"
