@@ -1194,6 +1194,14 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a STC message" do
+      it "properly reports various fields" do
+        input = "$GPSTC,123*00"
+        parsed = @parser.parse(input)
+        expect(parsed.time_constant).to eq(123)
+      end
+    end
+
     context "when reading a STN message" do
       it "properly reports various fields" do
         input = "$GPSTN,1.2*00"

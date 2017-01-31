@@ -104,7 +104,7 @@ Because the message types are standard, if no override is found for a particular
 > MDA, MHU, MMB, MSK, MSS, MTA, MTW, MWH, MWS, MWV,
 > OLN, OLW, OMP, ONZ, OSD,
 > R00, RMA, RMB, RMC, RNN, ROT, RPM, RSA, RSD, RTE,
-> SBK, SCD, SCY, SDB, SFI, SGD, SGR, SIU, SLC, SNC, SNU, SPS, SSF, STN,
+> SBK, SCD, SCY, SDB, SFI, SGD, SGR, SIU, SLC, SNC, SNU, SPS, SSF, STC, STN,
 > TDS, TFI, TPC, TPR, TPT, TRF, TTM,
 > VBW, VDR, VHW, VLW, VPW, VTG, VWR,
 > WCV, WNC, WPL,
