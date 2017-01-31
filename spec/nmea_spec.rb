@@ -1219,6 +1219,19 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a SYS message" do
+      it "properly reports various fields" do
+        input = "$GPSYS,L,,T,,D*00"
+        parsed = @parser.parse(input)
+        systems = parsed.systems
+        expect(systems.include? :loran_c).to eq(true)
+        expect(systems.include? :omega).to eq(false)
+        expect(systems.include? :transit).to eq(true)
+        expect(systems.include? :gps).to eq(false)
+        expect(systems.include? :decca).to eq(true)
+      end
+    end
+
     context "when reading a TDS message" do
       it "properly reports various fields" do
         input = "$GPTDS,2.3,M*00"
