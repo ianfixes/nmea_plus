@@ -1545,6 +1545,14 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a WFM message" do
+      it "properly reports various fields" do
+        input = "$GPWFM,V*00"
+        parsed = @parser.parse(input)
+        expect(parsed.automatic_route_following).to eq(false)
+      end
+    end
+
     context "when reading a WNC message" do
       it "properly reports various fields" do
         input = "$GPWNC,1.2,N,2.3,K,abc,def*00"

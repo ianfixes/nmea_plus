@@ -107,7 +107,7 @@ Because the message types are standard, if no override is found for a particular
 > SBK, SCD, SCY, SDB, SFI, SGD, SGR, SIU, SLC, SNC, SNU, SPS, SSF, STC, STN, STR, SYS
 > TDS, TEC, TEP, TFI, TGA, TIF, TPC, TPR, TPT, TRF, TRP, TRS, TTM,
 > VBW, VCD, VDR, VHW, VLW, VPE, VPW, VTA, VTG, VTI, VWE, VWR, VWT
-> WCV, WDC, WDR, WNC, WPL,
+> WCV, WDC, WDR, WFM, WNC, WPL,
 > XDR, XTE, XTR,
 > ZDA, ZFO, ZTG
 
