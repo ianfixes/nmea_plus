@@ -1423,6 +1423,15 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a VPE message" do
+      it "properly reports various fields" do
+        input = "$GPVPE,1.2,N,-2.3,M*00"
+        parsed = @parser.parse(input)
+        expect(parsed.speed_knots).to eq(1.2)
+        expect(parsed.speed_ms).to eq(-2.3)
+      end
+    end
+
     context "when reading a VPW message" do
       it "properly reports various fields" do
         input = "$GPVPW,1.2,N,3.4,M*00"
