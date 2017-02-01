@@ -106,7 +106,7 @@ Because the message types are standard, if no override is found for a particular
 > R00, RMA, RMB, RMC, RNN, ROT, RPM, RSA, RSD, RTE,
 > SBK, SCD, SCY, SDB, SFI, SGD, SGR, SIU, SLC, SNC, SNU, SPS, SSF, STC, STN, STR, SYS
 > TDS, TEC, TEP, TFI, TGA, TIF, TPC, TPR, TPT, TRF, TRP, TRS, TTM,
-> VBW, VCD, VDR, VHW, VLW, VPE, VPW, VTA, VTG, VWR,
+> VBW, VCD, VDR, VHW, VLW, VPE, VPW, VTA, VTG, VTI, VWR,
 > WCV, WNC, WPL,
 > XDR, XTE, XTR,
 > ZDA, ZFO, ZTG
