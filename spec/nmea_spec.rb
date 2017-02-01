@@ -1486,6 +1486,14 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a VWE message" do
+      it "properly reports various fields" do
+        input = "$GPVWE,1.2*00"
+        parsed = @parser.parse(input)
+        expect(parsed.efficiency_percent).to eq(1.2)
+      end
+    end
+
     context "when reading a VWR message" do
       it "properly reports various fields" do
         input = "$GPVWR,1.2,L,2.3,N,3.4,M,4.5,K*00"
