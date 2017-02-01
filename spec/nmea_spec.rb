@@ -1627,6 +1627,18 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a YWS message" do
+      it "properly reports various fields" do
+        input = "$GPYWS,1.2,2.3,3.4,C,4.5,f,5.6,M*00"
+        parsed = @parser.parse(input)
+        expect(parsed.salinity_ppt).to eq(1.2)
+        expect(parsed.chlorinity_ppt).to eq(2.3)
+        expect(parsed.temperature_celsius).to eq(3.4)
+        expect(parsed.depth_feet).to eq(4.5)
+        expect(parsed.depth_meters).to eq(5.6)
+      end
+    end
+
     context "when reading a ZDA message" do
       it "properly reports various fields" do
         input = "$GPZDA,160012.71,11,03,2004,-1,00*7D"
