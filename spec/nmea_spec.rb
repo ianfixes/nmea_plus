@@ -1536,6 +1536,15 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a WDR message" do
+      it "properly reports various fields" do
+        input = "$GPWDR,1.2,N,abc*00"
+        parsed = @parser.parse(input)
+        expect(parsed.distance_nautical_miles).to eq(1.2)
+        expect(parsed.waypoint_id).to eq('abc')
+      end
+    end
+
     context "when reading a WNC message" do
       it "properly reports various fields" do
         input = "$GPWNC,1.2,N,2.3,K,abc,def*00"
