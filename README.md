@@ -109,6 +109,7 @@ Because the message types are standard, if no override is found for a particular
 > VBW, VCD, VDR, VHW, VLW, VPE, VPW, VTA, VTG, VTI, VWE, VWR, VWT
 > WCV, WDC, WDR, WFM, WNC, WNR, WPL,
 > XDR, XTE, XTR,
+> YWP,
 > ZDA, ZFO, ZTG
 
 Support for proprietary NMEA messages is also possible.  PASHR is included as proof-of-concept.
