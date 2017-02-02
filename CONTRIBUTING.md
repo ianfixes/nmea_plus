@@ -135,6 +135,7 @@ The same metaprogramming feature (`payload_reader`) is available, and the bit of
 
 ## Packaging the Gem
 
+* Merge pull request with new features
 * `rake -f parser/Rakefile`
 * Bump the version in lib/nmea_plus/version.rb and change it in README.md (since rubydoc.info doesn't always redirect to the latest version)
 * `git add README.md lib/nmea_plus/version.rb`
