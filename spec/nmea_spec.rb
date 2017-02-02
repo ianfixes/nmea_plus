@@ -1653,7 +1653,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPZFO,160012.71,220516,abc*00"
         parsed = @parser.parse(input)
         expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71, '+00:00'))
-        #expect(parsed.elapsed_time).to eq(Time.new(1, 0, 0, 22, 5, 16))
+        expect(parsed.elapsed_time).to eq(Time.new(0, 1, 1, 22, 5, 16, '+00:00'))
         expect(parsed.origin_waypoint_id).to eq('abc')
       end
     end

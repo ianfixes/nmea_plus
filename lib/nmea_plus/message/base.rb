@@ -223,7 +223,7 @@ module NMEAPlus
         re_format = /(\d{2})(\d{2})(\d{2}(\.\d+)?)/
         begin
           hms = re_format.match(field)
-          Time.new(0, 0, 0, hms[1].to_i, hms[2].to_i, hms[3].to_f, '+00:00')
+          Time.new(0, 1, 1, hms[1].to_i, hms[2].to_i, hms[3].to_f, '+00:00')
         rescue
           nil
         end
