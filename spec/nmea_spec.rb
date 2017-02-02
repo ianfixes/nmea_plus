@@ -1485,8 +1485,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly reports various fields" do
         input = "$GPVTI,1.2,T,2.3,M,3.4,N,4.5,N*00"
         parsed = @parser.parse(input)
-        expect(parsed.track_degrees_true).to eq(1.2)
-        expect(parsed.track_degrees_magnetic).to eq(2.3)
+        expect(parsed.intended_track_degrees_true).to eq(1.2)
+        expect(parsed.intended_track_degrees_magnetic).to eq(2.3)
         expect(parsed.speed_made_good_knots).to eq(3.4)
         expect(parsed.distance_made_good_nautical_miles).to eq(4.5)
       end
