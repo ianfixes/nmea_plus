@@ -142,4 +142,5 @@ The same metaprogramming feature (`payload_reader`) is available, and the bit of
 * `git tag -a vVERSION -m "Released version VERSION"`
 * `gem build nmea_plus.gemspec`
 * `gem push nmea_plus-VERSION.gem`
+* `git push upstream`
 * `git push upstream --tags`
