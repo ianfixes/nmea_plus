@@ -4,6 +4,9 @@ module NMEAPlus
   module Message
     module NMEA
       # OLN - Omega Lane Numbers
+      # Omega Lines of Positions (LOPs).
+      #
+      # OMEGA system is not operational, no recommended replacement.
       class OLN < NMEAPlus::Message::NMEA::NMEAMessage
         # container for Omega lane indicators
         class OmegaLanePair
@@ -26,18 +29,21 @@ module NMEAPlus
           end
         end
 
+        # Pair 1
         # @!parse attr_reader :omega_pair1
         # @return [OmegaLanePair]
         def omega_pair1
           OmegaLanePair.new(@fields[1..3])
         end
 
+        # Pair 2
         # @!parse attr_reader :omega_pair2
         # @return [OmegaLanePair]
         def omega_pair2
           OmegaLanePair.new(@fields[4..6])
         end
 
+        # Pair 3, AB-GH
         # @!parse attr_reader :omega_pair3
         # @return [OmegaLanePair]
         def omega_pair3

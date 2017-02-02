@@ -4,8 +4,10 @@ module NMEAPlus
   module Message
     module NMEA
       # TIF - TRANSIT Satellite Initial Flag
+      # TRANSIT system is not operational, no recommended replacement
       class TIF < NMEAPlus::Message::NMEA::NMEAMessage
 
+        # Satellite Initial Flag
         # @!parse attr_reader :initial_flag
         # @return [Symbol]
         def initial_flag

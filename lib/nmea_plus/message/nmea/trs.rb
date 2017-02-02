@@ -4,8 +4,10 @@ module NMEAPlus
   module Message
     module NMEA
       # TRS - TRANSIT Satellite Operating Status
+      # TRANSIT system is not operational, no recommended replacement.
       class TRS < NMEAPlus::Message::NMEA::NMEAMessage
 
+        # TRANSIT system operating status
         # @!parse attr_reader :status
         # @return [Symbol]
         def status

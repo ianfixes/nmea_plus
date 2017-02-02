@@ -4,6 +4,9 @@ module NMEAPlus
   module Message
     module NMEA
       # SIU - Loran-C Stations in Use
+      #
+      # The use of $--GLC is recommended
+      # @see GLC
       class SIU < NMEAPlus::Message::NMEA::NMEAMessage
         # Array of flags for stations in use, indexed by station number
         # @!parse attr_reader :stations_in_use

@@ -4,6 +4,7 @@ module NMEAPlus
   module Message
     module NMEA
       # SYS - Hybrid System Configuration
+      # Limited utility, no recommended replacement
       class SYS < NMEAPlus::Message::NMEA::NMEAMessage
 
         # Systems in use

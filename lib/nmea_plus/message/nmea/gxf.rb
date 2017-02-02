@@ -4,6 +4,14 @@ module NMEAPlus
   module Message
     module NMEA
       # GXF - TRANSIT Determined Positions
+      #
+      # The use of waypoint location $--WPL (for past positions) or $--GLL (for present position) followed by time tag $--ZDA
+      # is recommended for reporting past or present waypoint times; $--WPL followed by $--ZTG is recommended for
+      # estimated time.
+      # @see WPL
+      # @see GLL
+      # @see ZDA
+      # @see ZTG
       class GXF < NMEAPlus::Message::NMEA::GXA
       end
     end

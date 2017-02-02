@@ -4,6 +4,9 @@ module NMEAPlus
   module Message
     module NMEA
       # SNC - Navigation Calculation Basis
+      # Basis for navigation calculations, Great Circle or Rhumb Line.
+      #
+      # Limited utility, no recommended replacement
       class SNC < NMEAPlus::Message::NMEA::NMEAMessage
 
         # Basis for navigation calculations, Great Circle or Rhumb Line
