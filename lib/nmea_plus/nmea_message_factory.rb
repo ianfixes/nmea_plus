@@ -141,6 +141,7 @@ require_relative 'message/nmea/zda'
 require_relative 'message/nmea/zfi'
 require_relative 'message/nmea/zfo'
 require_relative 'message/nmea/zpi'
+require_relative 'message/nmea/zta'
 require_relative 'message/nmea/ztg'
 
 # proprietary
