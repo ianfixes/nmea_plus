@@ -27,7 +27,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
-
     context "when reading an ALM message" do
       it "properly reports various fields" do
         input = "$GPALM,1,1,15,1159,00,441d,4e,16be,fd5e,a10c9f,4a2da4,686e81,58cbe1,0a4,001*5B"
@@ -842,8 +841,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly reports various fields" do
         input = "$GPMWS,11,22*00"
         parsed = @parser.parse(input)
-        expect(parsed.beaufort_sea_state).to eq(11)
-        expect(parsed.beaufort_wind_force).to eq(22)
+        expect(parsed.beaufort_wind_force).to eq(11)
+        expect(parsed.beaufort_sea_state).to eq(22)
       end
     end
 
