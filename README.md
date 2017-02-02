@@ -110,7 +110,7 @@ Because the message types are standard, if no override is found for a particular
 > WCV, WDC, WDR, WFM, WNC, WNR, WPL,
 > XDR, XTE, XTR,
 > YWP, YWS,
-> ZDA, ZFO, ZTG
+> ZDA, ZFI, ZFO, ZTG
 
 Support for proprietary NMEA messages is also possible.  PASHR is included as proof-of-concept.
 
