@@ -1701,6 +1701,17 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a ZTE message" do
+      it "properly reports various fields" do
+        now = Time.now
+        input = "$GPZTE,160012.71,220516,abc*7D"
+        parsed = @parser.parse(input)
+        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71, "+00:00"))
+        expect(parsed.estimated_remaining_time).to eq(Time.new(0, 1, 1, 22, 5, 16, '+00:00'))
+        expect(parsed.waypoint_id).to eq('abc')
+      end
+    end
+
     context "when reading a ZTG message" do
       it "properly reports various fields" do
         now = Time.now
@@ -1709,6 +1720,17 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71, '+00:00'))
         #expect(parsed.remaining_time).to eq(Time.new(1, 0, 0, 22, 5, 16))
         expect(parsed.destination_waypoint_id).to eq('abc')
+      end
+    end
+
+    context "when reading a ZTI message" do
+      it "properly reports various fields" do
+        now = Time.now
+        input = "$GPZTI,160012.71,220516,abc*7D"
+        parsed = @parser.parse(input)
+        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71, "+00:00"))
+        expect(parsed.estimated_remaining_time).to eq(Time.new(0, 1, 1, 22, 5, 16, '+00:00'))
+        expect(parsed.waypoint_id).to eq('abc')
       end
     end
 
