@@ -1755,6 +1755,15 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a ZZU message" do
+      it "properly reports various fields" do
+        now = Time.now
+        input = "$GPZZU,160012.71*7D"
+        parsed = @parser.parse(input)
+        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71, "+00:00"))
+      end
+    end
+
     context "when reading a PASHR message" do
       it "properly reports various fields" do
         now = Time.now
