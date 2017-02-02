@@ -1679,6 +1679,17 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a ZPI message" do
+      it "properly reports various fields" do
+        now = Time.now
+        input = "$GPZPI,160012.71,220516,abc*7D"
+        parsed = @parser.parse(input)
+        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71, "+00:00"))
+        expect(parsed.arrival_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, '+00:00'))
+        expect(parsed.waypoint_id).to eq('abc')
+      end
+    end
+
     context "when reading a ZTG message" do
       it "properly reports various fields" do
         now = Time.now
