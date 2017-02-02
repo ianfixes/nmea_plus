@@ -1628,7 +1628,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly reports various fields" do
         input = "$GPYWP,1.2,N,-2.3,M*00"
         parsed = @parser.parse(input)
-        expect(parsed.speed_knots).to eq(1.2)
+        expect(parsed.speed_feet_second).to eq(1.2)
         expect(parsed.speed_ms).to eq(-2.3)
       end
     end
