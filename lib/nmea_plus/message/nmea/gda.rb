@@ -20,7 +20,7 @@ module NMEAPlus
           self.class.degrees_minutes_to_decimal(@fields[4], @fields[5])
         end
 
-        field_reader :waypoint_id, 6, :_integer
+        field_reader :waypoint_id, 6, :_string
       end
     end
   end

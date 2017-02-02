@@ -308,7 +308,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq(1)
+        expect(parsed.waypoint_id).to eq('1')
       end
     end
 
@@ -320,7 +320,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq(1)
+        expect(parsed.waypoint_id).to eq('1')
       end
     end
 
@@ -332,7 +332,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq(1)
+        expect(parsed.waypoint_id).to eq('1')
       end
     end
 
@@ -365,7 +365,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq(1)
+        expect(parsed.waypoint_id).to eq('1')
       end
     end
 
@@ -397,7 +397,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq(1)
+        expect(parsed.waypoint_id).to eq('1')
       end
     end
 
@@ -422,7 +422,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq(1)
+        expect(parsed.waypoint_id).to eq('1')
       end
     end
 
@@ -452,7 +452,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq(1)
+        expect(parsed.waypoint_id).to eq('1')
       end
     end
 
@@ -464,7 +464,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq(1)
+        expect(parsed.waypoint_id).to eq('1')
       end
     end
 
@@ -476,7 +476,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq(1)
+        expect(parsed.waypoint_id).to eq('1')
       end
     end
 
@@ -588,7 +588,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq(1)
+        expect(parsed.waypoint_id).to eq('1')
         expect(parsed.satellite).to eq(8)
 
       end
@@ -602,7 +602,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq(1)
+        expect(parsed.waypoint_id).to eq('1')
         expect(parsed.satellite).to eq(8)
 
       end
@@ -616,7 +616,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq(1)
+        expect(parsed.waypoint_id).to eq('1')
         expect(parsed.satellite).to eq(8)
 
       end
