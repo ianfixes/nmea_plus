@@ -1649,6 +1649,16 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a ZCD message" do
+      it "properly reports various fields" do
+        now = Time.now
+        input = "$GPZCD,1234,+*00"
+        parsed = @parser.parse(input)
+        expect(parsed.initial_time_seconds).to eq(1234)
+        expect(parsed.control).to eq(:up)
+      end
+    end
+
     context "when reading a ZDA message" do
       it "properly reports various fields" do
         input = "$GPZDA,160012.71,11,03,2004,-1,00*7D"
