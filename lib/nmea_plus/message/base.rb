@@ -13,6 +13,14 @@ module NMEAPlus
       # Enable a shortcut syntax for message attribute accessors, in the style of `attr_accessor` metaprogramming.
       # This is used to create a named field pointing to a specific indexed field in the payload, optionally applying
       # a specific formatting function.
+      #
+      #  The formatting function MUST be a static method on this class.  This is a limitation caused by the desire
+      #  to both (1) expose the formatters outside this class, and (2) use them for metaprogramming without the
+      #  having to name the entire function.  field_reader is a static method, so if not for the fact that
+      #  `self.class.methods.include? formatter` fails to work for class methods in this context (unlike
+      #  `self.methods.include?`, which properly finds instance methods), I would allow either one and just
+      #  conditionally `self.class_eval` the proper definition
+      #
       # @param name [String] What the accessor will be called
       # @param field_num [Integer] The index of the field in the payload
       # @param formatter [Symbol] The symbol for the formatting function to apply to the field (optional)
@@ -24,7 +32,7 @@ module NMEAPlus
         if formatter.nil?
           self.class_eval("def #{name};@fields[#{field_num}];end")
         else
-          self.class_eval("def #{name};#{formatter}(@fields[#{field_num}]);end")
+          self.class_eval("def #{name};self.class.#{formatter}(@fields[#{field_num}]);end")
         end
       end
 
@@ -158,7 +166,7 @@ module NMEAPlus
       # This function is meant to be passed as a formatter to {field_reader}.
       # @param field [String] the value in the field to be checked
       # @return [Integer] The value in the field or nil
-      def _integer(field)
+      def self._integer(field)
         return nil if field.nil? || field.empty?
         field.to_i
       end
@@ -167,7 +175,7 @@ module NMEAPlus
       # This function is meant to be passed as a formatter to {field_reader}.
       # @param field [String] the value in the field to be checked
       # @return [Float] The value in the field or nil
-      def _float(field)
+      def self._float(field)
         return nil if field.nil? || field.empty?
         field.to_f
       end
@@ -176,7 +184,7 @@ module NMEAPlus
       # This function is meant to be passed as a formatter to {field_reader}.
       # @param field [String] the value in the field to be checked
       # @return [String] The value in the field or nil
-      def _string(field)
+      def self._string(field)
         return nil if field.nil? || field.empty?
         field
       end
@@ -185,7 +193,7 @@ module NMEAPlus
       # This function is meant to be passed as a formatter to {field_reader}.
       # @param field [String] the value in the field to be checked
       # @return [Integer] The value in the field or nil
-      def _hex_to_integer(field)
+      def self._hex_to_integer(field)
         return nil if field.nil? || field.empty?
         field.hex
       end
@@ -194,7 +202,7 @@ module NMEAPlus
       # This function is meant to be passed as a formatter to {field_reader}.
       # @param field [String] the value in the field to be checked
       # @return [Time] The value in the field or nil
-      def _utctime_hms(field)
+      def self._utctime_hms(field)
         return nil if field.nil? || field.empty?
         re_format = /(\d{2})(\d{2})(\d{2}(\.\d+)?)/
         now = Time.now
@@ -210,12 +218,12 @@ module NMEAPlus
       # This function is meant to be passed as a formatter to {field_reader}.
       # @param field [String] the value in the field to be checked
       # @return [Time] The value in the field or nil
-      def _interval_hms(field)
+      def self._interval_hms(field)
         return nil if field.nil? || field.empty?
         re_format = /(\d{2})(\d{2})(\d{2}(\.\d+)?)/
         begin
           hms = re_format.match(field)
-          Time.new(0, 0, 0, hms[1].to_i, hms[2].to_i, hms[3].to_f, '+00:00')
+          Time.new(0, 1, 1, hms[1].to_i, hms[2].to_i, hms[3].to_f, '+00:00')
         rescue
           nil
         end
@@ -225,7 +233,7 @@ module NMEAPlus
       # @param d_field [String] the date value in the field to be checked
       # @param t_field [String] the time value in the field to be checked
       # @return [Time] The value in the fields, or nil if either is not provided
-      def _utc_date_time(d_field, t_field)
+      def self._utc_date_time(d_field, t_field)
         return nil if t_field.nil? || t_field.empty?
         return nil if d_field.nil? || d_field.empty?
 

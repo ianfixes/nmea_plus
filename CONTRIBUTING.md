@@ -137,7 +137,10 @@ The same metaprogramming feature (`payload_reader`) is available, and the bit of
 
 * `rake -f parser/Rakefile`
 * Bump the version in lib/nmea_plus/version.rb and change it in README.md (since rubydoc.info doesn't always redirect to the latest version)
-* Commit and `git tag -a vVERSION -m "Released version VERSION"`
+* `git add README.md lib/nmea_plus/version.rb`
+* `git commit -m "vVERSION bump"`
+* `git tag -a vVERSION -m "Released version VERSION"`
 * `gem build nmea_plus.gemspec`
 * `gem push nmea_plus-VERSION.gem`
+* `git push upstream`
 * `git push upstream --tags`

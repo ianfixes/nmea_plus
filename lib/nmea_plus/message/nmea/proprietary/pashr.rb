@@ -1,4 +1,4 @@
-require_relative "base_nmea"
+require_relative "../base_nmea"
 
 module NMEAPlus
   module Message

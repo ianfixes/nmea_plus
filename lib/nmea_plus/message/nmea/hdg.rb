@@ -1,4 +1,3 @@
-require_relative "base_nmea"
 require_relative "hdm"
 
 module NMEAPlus

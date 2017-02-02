@@ -2,7 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/nmea_plus.svg)](https://rubygems.org/gems/nmea_plus)
 [![Build Status](https://travis-ci.org/ifreecarve/nmea_plus.svg)](https://travis-ci.org/ifreecarve/nmea_plus)
-[![Documentation](http://img.shields.io/badge/docs-rdoc.info-blue.svg)](http://www.rubydoc.info/gems/nmea_plus/1.0.19)
+[![Documentation](http://img.shields.io/badge/docs-rdoc.info-blue.svg)](http://www.rubydoc.info/gems/nmea_plus/1.0.20)
 
 [NMEA Plus](https://github.com/ifreecarve/nmea_plus) is a Ruby gem for parsing and decoding "GPS" messages: NMEA, AIS, and any other similar formats of short messaging typically used by marine equipment.  It provides convenient access (by name) to the fields of each message type, and a stream reader designed for use with Ruby Blocks.
 
@@ -86,12 +86,31 @@ end
 
 ## NMEA (GPS) Parsing
 
-This gem was coded to accept the standard NMEA messages defined in the unoffical spec found here:
-http://www.catb.org/gpsd/NMEA.txt
+This gem was coded to accept the standard NMEA messages defined in the official and unoffical specs found here:
+
+* http://www.catb.org/gpsd/NMEA.txt
+* http://www.nmea.org/Assets/100108_nmea_0183_sentences_not_recommended_for_new_designs.pdf
 
 Because the message types are standard, if no override is found for a particular talker ID then the message will parse according to the command (the last 3 characters) of the data type.  In other words, `$GPGLL` will use the general `GLL` message type.  Currently, the following standard message types are supported:
 
-> AAM, ALM, APA, APB, BOD, BWC, BWR, BWW, DBK, DBS, DBT, DCN, DPT, DTM, FSI, GBS, GGA, GLC, GLL, GNS, GRS, GSA, GST, GSV, GTD, GXA, HDG, HDM, HDT, HFB, HSC, ITS, LCD, MSK, MSS, MTW, MWV, OLN, OSD, R00, RMA, RMB, RMC, ROT, RPM, RSA, RSD, RTE, SFI, STN, TDS, TFI, TPC, TPR, TPT, TRF, TTM, VBW, VDR, VHW, VLW, VPW, VTG, VWR, WCV, WNC, WPL, XDR, XTE, XTR, ZDA, ZFO, ZTG
+> AAM, ALM, APA, APB,
+> BEC, BER, BOD, BPI, BWC, BWR, BWW,
+> DBK, DBS, DBT, DCN, DPT, DRU, DTM,
+> FSI,
+> GBS, GDA, GDF, GDP, GGA, GLA, GLC, GLF, GLL, GLP, GOA, GOF, GOP, GNS, GRS, GSA, GST, GSV, GTD, GXA, GXF, GXP,
+> HCC, HCD, HDG, HDM, HDT, HFB, HSC, HTC, HVD, HVM,
+> IMA, ITS,
+> LCD,
+> MDA, MHU, MMB, MSK, MSS, MTA, MTW, MWH, MWS, MWV,
+> OLN, OLW, OMP, ONZ, OSD,
+> Rnn (R00, R01, ...), RMA, RMB, RMC, RNN, ROT, RPM, RSA, RSD, RTE,
+> SBK, SCD, SCY, SDB, SFI, SGD, SGR, SIU, SLC, SNC, SNU, SPS, SSF, STC, STN, STR, SYS
+> TDS, TEC, TEP, TFI, TGA, TIF, TPC, TPR, TPT, TRF, TRP, TRS, TTM,
+> VBW, VCD, VDR, VHW, VLW, VPE, VPW, VTA, VTG, VTI, VWE, VWR, VWT
+> WCV, WDC, WDR, WFM, WNC, WNR, WPL,
+> XDR, XTE, XTR,
+> YWP, YWS,
+> ZCD, ZDA, ZEV, ZFI, ZFO, ZLZ, ZPI, ZTA, ZTE, ZTG, ZTI, ZWP, ZZU
 
 Support for proprietary NMEA messages is also possible.  PASHR is included as proof-of-concept.
 

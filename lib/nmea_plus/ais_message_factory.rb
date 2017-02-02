@@ -2,6 +2,7 @@
 require_relative 'message_factory'
 
 require_relative 'message/ais/vdm'
+require_relative 'message/ais/vdo'
 
 module NMEAPlus
 
@@ -19,9 +20,7 @@ module NMEAPlus
     # @return [Array] Array of data_type strings that we will attempt to use in decoding the message
     def self.alternate_data_type(data_type)
       # match last 3 digits (get rid of talker)
-      ret = [data_type[2..4]]
-      ret << "VDM" if data_type == "AIVDO"
-      ret
+      [data_type[2..4]]
     end
   end
 end
