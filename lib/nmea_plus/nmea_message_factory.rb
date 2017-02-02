@@ -145,6 +145,7 @@ require_relative 'message/nmea/zta'
 require_relative 'message/nmea/zte'
 require_relative 'message/nmea/ztg'
 require_relative 'message/nmea/zti'
+require_relative 'message/nmea/zwp'
 
 # proprietary
 require_relative 'message/nmea/proprietary/pashr'
