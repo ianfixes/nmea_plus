@@ -1700,6 +1700,17 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when reading a ZLZ message" do
+      it "properly reports various fields" do
+        now = Time.now
+        input = "$GPZLZ,160012.71,150011.71,3*7D"
+        parsed = @parser.parse(input)
+        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71, "+00:00"))
+        expect(parsed.local_time).to eq(Time.new(now.year, now.month, now.day, 15, 0, 11.71, "+00:00"))
+        expect(parsed.zone_description).to eq(3)
+      end
+    end
+
     context "when reading a ZPI message" do
       it "properly reports various fields" do
         now = Time.now
