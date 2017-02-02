@@ -924,7 +924,13 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly reports various fields" do
         input = "$GPR00,abc,foo*00"
         parsed = @parser.parse(input)
-        expect(parsed.waypoint_id).to eq('abc')
+        expect(parsed.waypoint_ids).to eq(['abc', 'foo'])
+      end
+
+      it "properly handles variadic sentence types" do
+        input = "$GPR34,abc,foo,3,4,5,6,7,8,9,10,11,12*00"
+        parsed = @parser.parse(input)
+        expect(parsed.waypoint_ids).to eq(['abc', 'foo'] + (3..12).to_a.map(&:to_s))
       end
     end
 

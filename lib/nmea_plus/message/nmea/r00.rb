@@ -5,7 +5,11 @@ module NMEAPlus
     module NMEA
       # R00 - Waypoints in active route
       class R00 < NMEAPlus::Message::NMEA::NMEAMessage
-        field_reader :waypoint_id, 1, :_string
+        # @!parse attr_reader :waypoint_ids
+        # @return [Array<String>]
+        def waypoint_ids
+          @fields[1..14]
+        end
       end
     end
   end

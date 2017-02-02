@@ -185,7 +185,12 @@ end
     # @return [Array] Array of data_type strings that we will attempt to use in decoding the message
     def self.alternate_data_type(data_type)
       # match last 3 digits (get rid of talker)
-      [data_type[2..4]]
+      sentence_type = data_type[2..4]
+      alternates = [sentence_type]
+
+      # Match special Route messages: R00 is the same as R01, R02...
+      alternates.push('R00') unless /R\d\d/.match(sentence_type).nil?
+      alternates
     end
   end
 

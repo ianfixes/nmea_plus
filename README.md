@@ -103,7 +103,7 @@ Because the message types are standard, if no override is found for a particular
 > LCD,
 > MDA, MHU, MMB, MSK, MSS, MTA, MTW, MWH, MWS, MWV,
 > OLN, OLW, OMP, ONZ, OSD,
-> R00, RMA, RMB, RMC, RNN, ROT, RPM, RSA, RSD, RTE,
+> Rnn (R00, R01, ...), RMA, RMB, RMC, RNN, ROT, RPM, RSA, RSD, RTE,
 > SBK, SCD, SCY, SDB, SFI, SGD, SGR, SIU, SLC, SNC, SNU, SPS, SSF, STC, STN, STR, SYS
 > TDS, TEC, TEP, TFI, TGA, TIF, TPC, TPR, TPT, TRF, TRP, TRS, TTM,
 > VBW, VCD, VDR, VHW, VLW, VPE, VPW, VTA, VTG, VTI, VWE, VWR, VWT
