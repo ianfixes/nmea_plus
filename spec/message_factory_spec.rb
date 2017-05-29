@@ -33,6 +33,13 @@ RSpec.describe NMEAPlus::AISMessageFactory, "#create" do
       it "has basic functions" do
         expect(NMEAPlus::AISMessageFactory.alternate_data_type("AIVDO")).to eq(["VDO"])
       end
+
+      # via http://catb.org/gpsd/AIVDM.html#_aivdm_aivdo_payload_armoring
+      %w(AB AD AI AN AR AS AT AX BS SA).each do |talker|
+        it "recognizes talker ID of #{talker} as VDO" do
+          expect(NMEAPlus::AISMessageFactory.alternate_data_type("#{talker}VDO")).to eq(["VDO"])
+        end
+      end
     end
 
   end
