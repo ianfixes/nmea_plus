@@ -6,6 +6,20 @@ AllCops:
 
 inherit_from: .rubocop_todo.yml
 
+# Extra lines for readability
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundMethodBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+# Configuration parameters: AllowForAlignment.
+Layout/ExtraSpacing:
+  Enabled: false
+
 Metrics/LineLength:
   Description: Limit lines to 80 characters.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#80-character-limits
@@ -35,17 +49,8 @@ Style/BlockComments:
 Style/ColonMethodCall:
   Enabled: false
 
-Style/EmptyLinesAroundClassBody:
-  Enabled: false
-
-Style/EmptyLinesAroundMethodBody:
-  Enabled: false
-
-Style/EmptyLinesAroundModuleBody:
-  Enabled: false
-
-# Configuration parameters: AllowForAlignment.
-Style/ExtraSpacing:
+# if you find "a == 3" readable and "3 == a" 'unreadable', do not contribute to this project.
+Style/YodaCondition:
   Enabled: false
 
 # Configuration parameters: EnforcedStyle, SupportedStyles.
