@@ -59,8 +59,8 @@ io_source = StringIO.new("#{input1}\n#{input2}")  # source decoder works on any 
 
 source_decoder = NMEAPlus::SourceDecoder.new(io_source)
 source_decoder.each_complete_message do |message|
-  puts message_all_checksums_ok?                  # prints true -- the full message set has good checksums
-  puts message_all_messages_received?             # prints true -- taken care of by each_complete_message
+  puts message.all_checksums_ok?                  # prints true -- the full message set has good checksums
+  puts message.all_messages_received?             # prints true -- taken care of by each_complete_message
   if "AIVDM" == message.data_type
     puts message.ais.message_type                   # prints 5
     puts message.ais.repeat_indicator               # prints 0
