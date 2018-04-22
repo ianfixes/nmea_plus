@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 ### Security
+* Bumped `yard` and `rubocop` versions as per GitHub recommendations
 
 
 ## [1.0.21]
