@@ -70,3 +70,7 @@ Metrics/PerceivedComplexity:
 # Cop supports --auto-correct.
 Style/RedundantSelf:
   Enabled: false
+
+# Pretty sure I know what I'm doing here
+Lint/RescueWithoutErrorClass:
+  Enabled: false
