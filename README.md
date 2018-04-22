@@ -1,10 +1,10 @@
 # NMEA (GPS) and AIS Parser / Decoder for Ruby (nmea_plus)
 
 [![Gem Version](https://badge.fury.io/rb/nmea_plus.svg)](https://rubygems.org/gems/nmea_plus)
-[![Build Status](https://travis-ci.org/ifreecarve/nmea_plus.svg)](https://travis-ci.org/ifreecarve/nmea_plus)
-[![Documentation](http://img.shields.io/badge/docs-rdoc.info-blue.svg)](http://www.rubydoc.info/gems/nmea_plus/1.0.20)
+[![Build Status](https://travis-ci.org/ianfixes/nmea_plus.svg)](https://travis-ci.org/ianfixes/nmea_plus)
+[![Documentation](http://img.shields.io/badge/docs-rdoc.info-blue.svg)](http://www.rubydoc.info/gems/nmea_plus/1.0.21)
 
-[NMEA Plus](https://github.com/ifreecarve/nmea_plus) is a Ruby gem for parsing and decoding "GPS" messages: NMEA, AIS, and any other similar formats of short messaging typically used by marine equipment.  It provides convenient access (by name) to the fields of each message type, and a stream reader designed for use with Ruby Blocks.
+[NMEA Plus](https://github.com/ianfixes/nmea_plus) is a Ruby gem for parsing and decoding "GPS" messages: NMEA, AIS, and any other similar formats of short messaging typically used by marine equipment.  It provides convenient access (by name) to the fields of each message type, and a stream reader designed for use with Ruby Blocks.
 
 
 ## Install
@@ -139,7 +139,7 @@ This module was written primarily from information scraped together on the web, 
 
 ## Author
 
-This gem was written by Ian Katz (ifreecarve@gmail.com) in 2015.  It's released under the Apache 2.0 license.
+This gem was written by Ian Katz (ianfixes@gmail.com) in 2015.  It's released under the Apache 2.0 license.
 
 
 ## See Also

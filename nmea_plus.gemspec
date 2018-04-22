@@ -10,12 +10,12 @@ Gem::Specification.new do |spec|
                           nearly all AIS messages, and some proprietary NMEA messages are supported.
                          }
   spec.version       = NMEAPlus::VERSION
-  spec.licenses      = ['Apache 2.0']
+  spec.licenses      = ['Apache-2.0']
   spec.authors       = ["Ian Katz"]
-  spec.email         = ["ifreecarve@gmail.com"]
+  spec.email         = ["ianfixes@gmail.com"]
 
   spec.summary       = %q{Parse and decode NMEA (GPS) and AIS messages}
-  spec.homepage      = "http://github.com/ifreecarve/nmea_plus"
+  spec.homepage      = "http://github.com/ianfixes/nmea_plus"
 
   spec.files         =  ['README.md', '.yardopts'] + Dir['lib/**/*.*'].reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"
