@@ -16,6 +16,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 ### Security
+
+## [1.0.22] - 2018-05-07
+
+### Added
+* Documentation and badge
+
+### Security
 * Bumped `yard` and `rubocop` versions as per GitHub recommendations
 
 
@@ -80,7 +87,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Fixed nil handling for various fields
 * Added AIS message types 4, 5, 9, 12, 14, 19, 29, 21
 
-[Unreleased]: https://github.com/ianfixes/nmea_plus/compare/v1.0.21...HEAD
+[Unreleased]: https://github.com/ianfixes/nmea_plus/compare/v1.0.22...HEAD
+[1.0.22]: https://github.com/ianfixes/nmea_plus/compare/v1.0.21...v1.0.22
 [1.0.21]: https://github.com/ianfixes/nmea_plus/compare/v1.0.20...v1.0.21
 [1.0.20]: https://github.com/ianfixes/nmea_plus/compare/v1.0.19...v1.0.20
 [1.0.19]: https://github.com/ianfixes/nmea_plus/compare/v1.0.18...v1.0.19
