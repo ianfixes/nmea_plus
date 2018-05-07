@@ -104,8 +104,25 @@ module NMEAPlus
 
           # Container for bearing / distance
           class ShapePoint
+            # @overload bearing
+            #   @return [Integer]
+            # @overload bearing=(Integer)
+            #   Sets bearing
+            #   @param [Integer] new value
             attr_accessor :bearing
+
+            # @overload distance
+            #   @return [Integer]
+            # @overload distance=(Integer)
+            #   Sets distance
+            #   @param [Integer] new value
             attr_accessor :distance
+
+            # @overload scale_factor
+            #   @return [Integer]
+            # @overload scale_factor=(Integer)
+            #   Sets scale factor
+            #   @param [Integer] new value
             attr_accessor :scale_factor
 
             # @!parse attr_reader :distance_meters

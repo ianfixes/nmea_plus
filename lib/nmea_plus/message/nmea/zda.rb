@@ -6,6 +6,7 @@ module NMEAPlus
       # ZDA - Time & Date - UTC, day, month, year and local time zone
       class ZDA < NMEAPlus::Message::NMEA::NMEAMessage
 
+        # UTC Time
         # @!parse attr_reader :utc_time
         # @return [Time]
         def utc_time

@@ -7,6 +7,7 @@ module NMEAPlus
       class RNN < NMEAPlus::Message::NMEA::NMEAMessage
         field_reader :route_number, 1, :_integer
 
+        # Waypoint numbers
         # @!parse attr_reader :waypoints
         # @return [Array<Integer>]
         def waypoints

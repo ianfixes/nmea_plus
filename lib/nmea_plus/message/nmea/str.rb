@@ -15,6 +15,7 @@ module NMEAPlus
       # @see VTG
       class STR < NMEAPlus::Message::NMEA::NMEAMessage
 
+        # Tracking reference
         # @!parse attr_reader :tracking_reference
         # @return [Symbol]
         def tracking_reference

@@ -10,25 +10,26 @@ module NMEAPlus
         class SLCStationReport
           # Used in lat/lon calculation
           # @return [Boolean]
-          attr_accessor :used_in_calculation
+          attr_reader :used_in_calculation
 
           # Status: Blink Warning Flag
           # @return [Boolean]
-          attr_accessor :blink_warning
+          attr_reader :blink_warning
 
           # Status: Cycle Lock Warning Flag
           # @return [Boolean]
-          attr_accessor :cycle_lock_warning
+          attr_reader :cycle_lock_warning
 
           # Status: SNR Warning Flag
           # @return [Boolean]
-          attr_accessor :snr_warning
+          attr_reader :snr_warning
 
           # SNR value, 000 to 999
           # @return [Integer]
-          attr_accessor :snr
+          attr_reader :snr
 
           # @param arr [Array<String, Integer>] a string and 2 integers
+          # @param is_master [Boolean] Whether this station is the master
           def initialize(arr, is_master)
             @arr = arr
             @used_in_calculation  = is_master ? true : NMEA::NMEAMessage._av_boolean(arr[0])

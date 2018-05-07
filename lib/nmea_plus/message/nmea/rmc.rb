@@ -6,6 +6,7 @@ module NMEAPlus
       # RMC - Recommended Minimum Navigation Information
       class RMC < NMEAPlus::Message::NMEA::NMEAMessage
 
+        # UTC time
         # @!parse attr_reader :utc_time
         # @return [Time]
         def utc_time
@@ -14,12 +15,14 @@ module NMEAPlus
 
         field_reader :active?, 2, :_av_boolean
 
+        # Latitude in degrees
         # @!parse attr_reader :latitude
         # @return [Float]
         def latitude
           self.class.degrees_minutes_to_decimal(@fields[3], @fields[4])
         end
 
+        # Longitude in degrees
         # @!parse attr_reader :longitude
         # @return [Float]
         def longitude
@@ -29,6 +32,7 @@ module NMEAPlus
         field_reader :speed_over_ground_knots, 7, :_float
         field_reader :track_made_good_degrees_true, 8, :_float
 
+        # Magnetic variation in degrees
         # @!parse attr_reader :magnetic_variation_degrees
         # @return [Float]
         def magnetic_variation_degrees
