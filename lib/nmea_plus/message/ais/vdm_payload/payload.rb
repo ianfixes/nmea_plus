@@ -42,6 +42,8 @@ module NMEAPlus
           end
 
           # Return an object by its class name, or nil if it isn't defined
+          # @param class_identifier [String] The ruby class identifier
+          # @return [Object] An object of the given class
           def _object_by_name(class_identifier)
             Object::const_get(class_identifier).new
           rescue ::NameError

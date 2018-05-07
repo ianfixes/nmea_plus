@@ -54,6 +54,7 @@ module NMEAPlus
           bit_reader :battery_flat?, 6
           bit_reader :battery_low?, 7
 
+          # Operation mode (integer code)
           # @!parse attr_reader :operation_mode
           # @return [Integer]
           def operation_mode

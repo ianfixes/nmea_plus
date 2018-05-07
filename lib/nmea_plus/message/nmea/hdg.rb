@@ -6,12 +6,14 @@ module NMEAPlus
       # HDG - Heading - Deviation & Variation
       class HDG < NMEAPlus::Message::NMEA::HDM
 
+        # Magnetic deviation in degrees
         # @!parse attr_reader :magnetic_deviation_degrees
         # @return [Float]
         def magnetic_deviation_degrees
           self.class.nsew_signed_float(@fields[2], @fields[3])
         end
 
+        # Magnetic variation in degrees
         # @!parse attr_reader :magnetic_variation_degrees
         # @return [Float]
         def magnetic_variation_degrees

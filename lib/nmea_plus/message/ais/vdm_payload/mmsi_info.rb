@@ -12,6 +12,7 @@ module NMEAPlus
           # @return [Integer]
           attr_reader :id
 
+          # Seed the object with the MMSI.  The ID contains all info.
           # @param mmsi [Integer] The MMSI
           def initialize(mmsi)
             @id = mmsi

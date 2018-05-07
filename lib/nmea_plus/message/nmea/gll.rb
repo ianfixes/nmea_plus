@@ -6,12 +6,14 @@ module NMEAPlus
       # GLL - Geographic Position - Latitude/Longitude
       class GLL < NMEAPlus::Message::NMEA::NMEAMessage
 
+        # Latitude in degrees
         # @!parse attr_reader :latitude
         # @return [Float]
         def latitude
           self.class.degrees_minutes_to_decimal(@fields[1], @fields[2])
         end
 
+        # Longitude in degrees
         # @!parse attr_reader :longitude
         # @return [Float]
         def longitude

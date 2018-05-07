@@ -12,12 +12,14 @@ module NMEAPlus
         field_reader :waypoint_to, 4, :_integer
         field_reader :waypoint_from, 5, :_integer
 
+        # Waypoint latitude in degrees
         # @!parse attr_reader :waypoint_latitude
         # @return [Float]
         def waypoint_latitude
           self.class.degrees_minutes_to_decimal(@fields[6], @fields[7])
         end
 
+        # Waypoint longitude in degrees
         # @!parse attr_reader :waypoint_longitude
         # @return [Float]
         def waypoint_longitude

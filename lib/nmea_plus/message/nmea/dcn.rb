@@ -57,6 +57,7 @@ module NMEAPlus
         # 3 = Lane identification transmissions
         field_reader :fix_data_basis, 16, :_integer
 
+        # Textual description of fix data basis
         # @!parse attr_reader :fix_data_basis_description
         # @return [String]
         def fix_data_basis_description

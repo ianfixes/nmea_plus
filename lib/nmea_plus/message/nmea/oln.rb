@@ -11,16 +11,17 @@ module NMEAPlus
         # container for Omega lane indicators
         class OmegaLanePair
           # @return [String]
-          attr_accessor :label
+          attr_reader :label
 
           # first item in the pair
           # @return [Float]
-          attr_accessor :first
+          attr_reader :first
 
           # second item in the pair
           # @return [Float]
-          attr_accessor :second
+          attr_reader :second
 
+          # Create an instance of this container class
           # @param arr [Array] a string and 2 integers
           def initialize(arr)
             @label  = arr[0]

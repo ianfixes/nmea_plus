@@ -8,12 +8,14 @@ module NMEAPlus
 
         field_reader :blink_warning, 1, :_av_boolean
 
+        # Latitude in degrees
         # @!parse attr_reader :latitude
         # @return [Float]
         def latitude
           self.class.degrees_minutes_to_decimal(@fields[2], @fields[3])
         end
 
+        # Longitude in degrees
         # @!parse attr_reader :longitude
         # @return [Float]
         def longitude
@@ -25,6 +27,7 @@ module NMEAPlus
         field_reader :speed_over_ground_knots, 8, :_float
         field_reader :track_made_good_degrees_true, 9, :_float
 
+        # Magnetic variation in degrees
         # @!parse attr_reader :magnetic_variation_degrees
         # @return [Float]
         def magnetic_variation_degrees

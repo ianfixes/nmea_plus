@@ -13,6 +13,7 @@ module NMEAPlus
 
         field_reader :track_degrees_true, 1, :_float
 
+        # Track in degrees, magnetic
         # @!parse attr_reader :track_degrees_magnetic
         # @return [Float]
         def track_degrees_magnetic
@@ -21,6 +22,7 @@ module NMEAPlus
           @fields[f].to_f
         end
 
+        # Speed in knots
         # @!parse attr_reader :speed_knots
         # @return [Float]
         def speed_knots
@@ -29,6 +31,7 @@ module NMEAPlus
           @fields[f].to_f
         end
 
+        # Speed in km/h
         # @!parse attr_reader :speed_kmh
         # @return [Float]
         def speed_kmh
@@ -37,6 +40,7 @@ module NMEAPlus
           @fields[f].to_f
         end
 
+        # FAA Mode
         # @!parse attr_reader :faa_mode
         # @return [String]
         def faa_mode
