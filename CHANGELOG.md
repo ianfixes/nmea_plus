@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 * Support for AIS message 17
+* More standards (AIS specs)
 
 ### Changed
 
