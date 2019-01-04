@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Issue-creation script for AIS 6 and 8 binary subtypes
 
 ### Changed
+* CI tests now run on Ruby 2.2 - 2.6, due to bundler being end-of-lifed
 
 ### Deprecated
 
