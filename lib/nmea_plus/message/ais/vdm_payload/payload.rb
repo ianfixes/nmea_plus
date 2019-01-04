@@ -66,7 +66,7 @@ module NMEAPlus
           def _access(start, length)
             part = @payload_bitstring[start, length]
             return nil if part.nil? || part.empty?
-            yield part
+            block_given? ? (yield part) : part
           end
 
           # pull out 6b chunks from the payload, then convert those to their more familar characters

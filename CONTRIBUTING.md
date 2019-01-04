@@ -135,12 +135,13 @@ The same metaprogramming feature (`payload_reader`) is available, and the bit of
 
 ## Packaging the Gem
 
-* Merge pull request with new features
+* Merge pull request with new features and changelog entries (in "Unreleased")
 * `git stash save` (at least before the gem build step, but easiest here).
 * `git pull --rebase`
 * `rake -f parser/Rakefile`
-* Bump the version in lib/nmea_plus/version.rb and change it in README.md (since rubydoc.info doesn't always redirect to the latest version)
-* `git add README.md lib/nmea_plus/version.rb`
+* Bump the version in `lib/nmea_plus/version.rb` and change it in `README.md` (since rubydoc.info doesn't always redirect to the latest version).
+* Create a new `CHANGELOG.md` section for the release and restore the "Unreleased" section at the top to be blank. Don't forget the version comparison links at the bottom.
+* `git add README.md CHANGELOG.md lib/nmea_plus/version.rb`
 * `git commit -m "vVERSION bump"`
 * `git tag -a vVERSION -m "Released version VERSION"`
 * `gem build nmea_plus.gemspec`

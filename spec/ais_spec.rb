@@ -1150,6 +1150,68 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
+    context "when dealing with VDM payload data message type 17" do
+      it "properly decodes the armored payload 1" do
+        input = "!AIVDM,1,1,,A,A02VdoPCa@lB@7iTD<tP102LwCl=wn@3?Jbb,0*37"
+        parsed = @parser.parse(input)
+        expect(parsed.calculated_checksum).to eq(4) unless parsed.checksum_ok?
+        expect(parsed.ais.message_type).to eq(17)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(2731230)
+        expect(parsed.ais.longitude).to be_within(epsilon).of(33.526666666666664)
+        expect(parsed.ais.latitude).to be_within(epsilon).of(44.61666666666667)
+        expect(parsed.ais.payload_8b.unpack("H*").first).to eq("7c6450cf2004009cfd3d0dff64033daaaa")
+      end
+
+      it "properly decodes the armored payload 2" do
+        input = "!AIVDM,1,1,,B,A02VdoPCa@lB@7iTD>@P102KwCl=wnD3?Jbb,0*01"
+        parsed = @parser.parse(input)
+        expect(parsed.calculated_checksum).to eq(4) unless parsed.checksum_ok?
+        expect(parsed.ais.message_type).to eq(17)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(2731230)
+        expect(parsed.ais.longitude).to be_within(epsilon).of(33.526666666666664)
+        expect(parsed.ais.latitude).to be_within(epsilon).of(44.61666666666667)
+        expect(parsed.ais.payload_8b.unpack("H*").first).to eq("7c6450e42004009bfd3d0dff65033daaaa")
+      end
+
+      it "properly decodes the armored payload 3" do
+        input = "!AIVDM,1,1,,A,A02VdoPCa@lB@7iTDApP102IwCl=wnL3?Jbb,0*47"
+        parsed = @parser.parse(input)
+        expect(parsed.calculated_checksum).to eq(4) unless parsed.checksum_ok?
+        expect(parsed.ais.message_type).to eq(17)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(2731230)
+        expect(parsed.ais.longitude).to be_within(epsilon).of(33.526666666666664)
+        expect(parsed.ais.latitude).to be_within(epsilon).of(44.61666666666667)
+        expect(parsed.ais.payload_8b.unpack("H*").first).to eq("7c64511e20040099fd3d0dff67033daaaa")
+      end
+
+      it "properly decodes the armored payload 4" do
+        input = "!AIVDM,1,1,,B,A02VdoPCa@lB@7iTDH0P102GwCl=wnT3?Jbb,0*1b"
+        parsed = @parser.parse(input)
+        expect(parsed.calculated_checksum).to eq(4) unless parsed.checksum_ok?
+        expect(parsed.ais.message_type).to eq(17)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(2731230)
+        expect(parsed.ais.longitude).to be_within(epsilon).of(33.526666666666664)
+        expect(parsed.ais.latitude).to be_within(epsilon).of(44.61666666666667)
+        expect(parsed.ais.payload_8b.unpack("H*").first).to eq("7c64518020040097fd3d0dff69033daaaa")
+      end
+
+      it "properly decodes the armored payload 5" do
+        input = "!AIVDM,1,1,,A,A02VdoPCa@lB@7iTDKPP102EwCl=wnd3?Jbb,0*49"
+        parsed = @parser.parse(input)
+        expect(parsed.calculated_checksum).to eq(4) unless parsed.checksum_ok?
+        expect(parsed.ais.message_type).to eq(17)
+        expect(parsed.ais.repeat_indicator).to eq(0)
+        expect(parsed.ais.source_mmsi).to eq(2731230)
+        expect(parsed.ais.longitude).to be_within(epsilon).of(33.526666666666664)
+        expect(parsed.ais.latitude).to be_within(epsilon).of(44.61666666666667)
+        expect(parsed.ais.payload_8b.unpack("H*").first).to eq("7c6451b820040095fd3d0dff6b033daaaa")
+      end
+    end
+
     context "when dealing with VDM payload data message type 18" do
       it "properly decodes the armored payload" do
         input = "!AIVDM,1,1,,B,B5NLCa000>fdwc63f?aBKwPUoP06,0*15"
