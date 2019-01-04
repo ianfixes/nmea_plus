@@ -6,12 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-* Support for AIS message 17
-* More standards (AIS specs)
-* Issue-creation script for AIS 6 and 8 binary subtypes
 
 ### Changed
-* CI tests now run on Ruby 2.2 - 2.6, due to bundler being end-of-lifed
 
 ### Deprecated
 
@@ -21,8 +17,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Security
 
-## [1.0.22] - 2018-05-07
 
+## [1.0.23] - 2019-01-04
+### Added
+* Support for AIS message 17
+* More standards (AIS specs)
+* Issue-creation script for AIS 6 and 8 binary subtypes
+
+### Changed
+* CI tests now run on Ruby 2.2 - 2.6, due to bundler being end-of-lifed
+
+### Deprecated
+* rbx, Ruby 2.0, and Ruby 2.1 support (it might still work, but Travis can't test it)
+
+
+## [1.0.22] - 2018-05-07
 ### Added
 * Documentation and badge
 
@@ -144,7 +153,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Fixed nil handling for various fields
 * Added AIS message types 4, 5, 9, 12, 14, 19, 29, 21
 
-[Unreleased]: https://github.com/ianfixes/nmea_plus/compare/v1.0.22...HEAD
+[Unreleased]: https://github.com/ianfixes/nmea_plus/compare/v1.0.23...HEAD
+[1.0.22]: https://github.com/ianfixes/nmea_plus/compare/v1.0.22...v1.0.23
 [1.0.22]: https://github.com/ianfixes/nmea_plus/compare/v1.0.21...v1.0.22
 [1.0.21]: https://github.com/ianfixes/nmea_plus/compare/v1.0.20...v1.0.21
 [1.0.20]: https://github.com/ianfixes/nmea_plus/compare/v1.0.19...v1.0.20
