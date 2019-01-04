@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 * Support for AIS message 17
 * More standards (AIS specs)
+* Issue-creation script for AIS 6 and 8 binary subtypes
 
 ### Changed
 
