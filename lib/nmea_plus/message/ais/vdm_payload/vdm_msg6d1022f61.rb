@@ -42,7 +42,7 @@ module NMEAPlus
           #   @!attribute [r] $1
           #   @return [bool] The value in bit $2 of the status field
           def self.bit_reader(name, position)
-            self.class_eval("def #{name};_field0_bit(#{position});end")
+            define_method(name) { self.send(:_field0_bit, position) }
           end
 
           bit_reader :supply_fail?, 0

@@ -38,7 +38,8 @@ module NMEAPlus
             args << fmt_arg unless fmt_arg.nil?
             args << fmt_arg2 unless fmt_arg2.nil?
             args << fmt_arg3 unless fmt_arg3.nil?
-            self.class_eval("def #{name};#{formatter}(#{args.join(', ')});end")
+
+            define_method(name) { self.send(formatter, *args) }
           end
 
           # Return an object by its class name, or nil if it isn't defined

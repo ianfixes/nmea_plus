@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 * All instances of `require_relative` replaced with `require`
 * All instances of `require` now use single quotes
+* All instances of `class_eval` replaced with `define_method`
 
 ### Deprecated
 

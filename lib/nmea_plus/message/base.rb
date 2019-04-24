@@ -19,7 +19,7 @@ module NMEAPlus
       #  having to name the entire function.  field_reader is a static method, so if not for the fact that
       #  `self.class.methods.include? formatter` fails to work for class methods in this context (unlike
       #  `self.methods.include?`, which properly finds instance methods), I would allow either one and just
-      #  conditionally `self.class_eval` the proper definition
+      #  conditionally `define_method` the proper definition
       #
       # @param name [String] What the accessor will be called
       # @param field_num [Integer] The index of the field in the payload
@@ -30,9 +30,9 @@ module NMEAPlus
       #   @return field $2 of the payload, formatted with the function {#$3}
       def self.field_reader(name, field_num, formatter = nil)
         if formatter.nil?
-          self.class_eval("def #{name};@fields[#{field_num}];end")
+          define_method(name) { @fields[field_num] }
         else
-          self.class_eval("def #{name};self.class.#{formatter}(@fields[#{field_num}]);end")
+          define_method(name) { self.class.send(formatter.to_sym, @fields[field_num]) }
         end
       end
 
