@@ -27,7 +27,7 @@ module NMEAPlus
       # @return [void]
       # @macro [attach] field_reader
       #   @!attribute [r] $1
-      #   @return field $2 of the payload, formatted with the function {#$3}
+      #   @return field $2 of the payload, formatted with the function {$3}
       def self.field_reader(name, field_num, formatter = nil)
         if formatter.nil?
           define_method(name) { @fields[field_num] }

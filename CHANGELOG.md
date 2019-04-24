@@ -8,9 +8,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 ### Changed
-* All instances of `require_relative` replaced with `require`
-* All instances of `require` now use single quotes
-* All instances of `class_eval` replaced with `define_method`
 
 ### Deprecated
 
@@ -19,6 +16,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 ### Security
+
+
+## [1.0.24] - 2019-04-24
+### Changed
+* All instances of `require_relative` replaced with `require`
+* All instances of `require` now use single quotes
+* All instances of `class_eval` replaced with `define_method`
 
 
 ## [1.0.23] - 2019-01-04
@@ -156,8 +160,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Fixed nil handling for various fields
 * Added AIS message types 4, 5, 9, 12, 14, 19, 29, 21
 
-[Unreleased]: https://github.com/ianfixes/nmea_plus/compare/v1.0.23...HEAD
-[1.0.22]: https://github.com/ianfixes/nmea_plus/compare/v1.0.22...v1.0.23
+[Unreleased]: https://github.com/ianfixes/nmea_plus/compare/v1.0.24...HEAD
+[1.0.24]: https://github.com/ianfixes/nmea_plus/compare/v1.0.23...v1.0.24
+[1.0.23]: https://github.com/ianfixes/nmea_plus/compare/v1.0.22...v1.0.23
 [1.0.22]: https://github.com/ianfixes/nmea_plus/compare/v1.0.21...v1.0.22
 [1.0.21]: https://github.com/ianfixes/nmea_plus/compare/v1.0.20...v1.0.21
 [1.0.20]: https://github.com/ianfixes/nmea_plus/compare/v1.0.19...v1.0.20
