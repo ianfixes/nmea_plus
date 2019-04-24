@@ -1,4 +1,4 @@
-require_relative "hvd"
+require 'nmea_plus/message/nmea/hvd'
 
 module NMEAPlus
   module Message

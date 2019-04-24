@@ -1,8 +1,7 @@
 
-require_relative 'message_factory'
-
-require_relative 'message/ais/vdm'
-require_relative 'message/ais/vdo'
+require 'nmea_plus/message_factory'
+require 'nmea_plus/message/ais/vdm'
+require 'nmea_plus/message/ais/vdo'
 
 module NMEAPlus
 

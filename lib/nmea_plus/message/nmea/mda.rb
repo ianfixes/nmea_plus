@@ -1,4 +1,4 @@
-require_relative "mmb"
+require 'nmea_plus/message/nmea/mmb'
 
 module NMEAPlus
   module Message

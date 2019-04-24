@@ -1,5 +1,5 @@
-require_relative "payload"
-require_relative "mmsi_info"
+require 'nmea_plus/message/ais/vdm_payload/payload'
+require 'nmea_plus/message/ais/vdm_payload/mmsi_info'
 
 module NMEAPlus
   module Message

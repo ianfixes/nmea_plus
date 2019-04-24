@@ -1,4 +1,4 @@
-require_relative "gxa"
+require 'nmea_plus/message/nmea/gxa'
 
 module NMEAPlus
   module Message

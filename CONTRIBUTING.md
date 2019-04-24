@@ -35,7 +35,7 @@ Let's say we've defined a new NMEA message called MYMSG and want our parser to p
 2. Stub it out as follows:
 
 ```ruby
-require_relative "base_nmea"
+require 'nmea_plus/message/nmea/base_nmea'
 
 module NMEAPlus
   module Message
@@ -47,7 +47,7 @@ module NMEAPlus
 end
 ```
 
-3. Add `require_relative "message/nmea/mymsg"` to `lib/nmea_plus/nmea_message_factory.rb`
+3. Add `require 'nmea_plus/message/nmea/mymsg'` to `lib/nmea_plus/nmea_message_factory.rb`
 4. Add tests in `spec/parser_spec.rb`
 5. Add accessor methods in NMEAPlus::Message::NMEA::MYMSG, and appropriate tests.
 
@@ -72,7 +72,7 @@ Let's say we've defined a new AIS VDM message type 28 and want our decoder to pr
 2. Stub it out as follows:
 
 ```ruby
-require_relative 'vdm_msg'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg'
 
 module NMEAPlus
   module Message
@@ -86,7 +86,7 @@ module NMEAPlus
 end
 ```
 
-3. Add `require_relative "vdm_payload/vdm_msg28.rb"` to `lib/nmea_plus/message/ais/vdm.rb`
+3. Add `require 'nmea_plus/message/ais/vdm_payload/vdm_msg28'` to `lib/nmea_plus/message/ais/vdm.rb`
 4. Add tests in `spec/ais_spec.rb`
 
 The following metaprogramming feature has been added to facilitate this:
@@ -113,7 +113,7 @@ This message type uses DAC 333 and FID 444
 2. Stub it out as follows:
 
 ```ruby
-require_relative 'vdm_msg6_dynamic_payload'  # or msg8 as appropriate
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg6_dynamic_payload'  # or msg8 as appropriate
 
 module NMEAPlus
   module Message
@@ -127,7 +127,7 @@ module NMEAPlus
 end
 ```
 
-3. Add `require_relative 'vdm_msg6d235f10'` to `lib/nmea_plus/message/ais/vdm_msg6.rb`
+3. Add `require 'nmea_plus/message/ais/vdm_payload/vdm_msg6d235f10'` to `lib/nmea_plus/message/ais/vdm_msg6.rb`
 4. Add tests in `spec/ais_spec.rb`
 
 The same metaprogramming feature (`payload_reader`) is available, and the bit offsets still work from the beginning of the message.

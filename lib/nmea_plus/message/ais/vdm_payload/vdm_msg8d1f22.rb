@@ -1,5 +1,5 @@
-require_relative 'vdm_msg8_dynamic_payload'
-require_relative 'sub_area'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg8_dynamic_payload'
+require 'nmea_plus/message/ais/vdm_payload/sub_area'
 
 module NMEAPlus
   module Message

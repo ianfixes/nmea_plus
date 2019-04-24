@@ -1,4 +1,4 @@
-require_relative "wnc"
+require 'nmea_plus/message/nmea/wnc'
 
 module NMEAPlus
   module Message

@@ -1,4 +1,4 @@
-require_relative 'vdm_msg_cnb'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg_cnb'
 
 module NMEAPlus
   module Message

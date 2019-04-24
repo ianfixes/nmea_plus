@@ -1,4 +1,4 @@
-require_relative "hdm"
+require 'nmea_plus/message/nmea/hdm'
 
 module NMEAPlus
   module Message

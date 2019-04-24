@@ -1,4 +1,4 @@
-require_relative 'vdm_msg_class_b_cs_position'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg_class_b_cs_position'
 
 module NMEAPlus
   module Message

@@ -12,8 +12,8 @@ rule
 
 ---- header
 
-require_relative "../nmea_message_factory"
-require_relative "../ais_message_factory"
+require 'nmea_plus/nmea_message_factory'
+require 'nmea_plus/ais_message_factory'
 
 ---- inner
 

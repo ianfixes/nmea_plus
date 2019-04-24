@@ -1,4 +1,4 @@
-require_relative 'vdm_msg_station_report'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg_station_report'
 
 module NMEAPlus
   module Message
