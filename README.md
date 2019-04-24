@@ -71,6 +71,7 @@ source_decoder.each_complete_message do |message|
     puts message.ais.callsign.strip                 # prints "ZA83R"
     puts message.ais.name.strip                     # prints "ARCO AVON"
     puts message.ais.ship_cargo_type                # prints 69
+    puts message.ais.ship_cargo_type_description    # prints "Passenger, No additional information"
     puts message.ais.ship_dimension_to_bow          # prints 113
     puts message.ais.ship_dimension_to_stern        # prints 31
     puts message.ais.ship_dimension_to_port         # prints 17

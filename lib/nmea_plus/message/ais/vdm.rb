@@ -1,7 +1,7 @@
-require_relative "base_ais"
+require 'nmea_plus/message/ais/base_ais'
 
 =begin boilerplate for vdm payload objects
-require_relative 'vdm_msg'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg'
 
 module NMEAPlus
   module Message
@@ -17,29 +17,29 @@ end
 
 =end
 
-require_relative "vdm_payload/vdm_msg1"
-require_relative "vdm_payload/vdm_msg2"
-require_relative "vdm_payload/vdm_msg3"
-require_relative "vdm_payload/vdm_msg4"
-require_relative "vdm_payload/vdm_msg5"
-require_relative "vdm_payload/vdm_msg6"
-require_relative "vdm_payload/vdm_msg7"
-require_relative "vdm_payload/vdm_msg8"
-require_relative "vdm_payload/vdm_msg9"
-require_relative "vdm_payload/vdm_msg10"
-require_relative "vdm_payload/vdm_msg11"
-require_relative "vdm_payload/vdm_msg12"
-require_relative "vdm_payload/vdm_msg13"
-require_relative "vdm_payload/vdm_msg14"
-require_relative "vdm_payload/vdm_msg15"
-require_relative "vdm_payload/vdm_msg16"
-require_relative "vdm_payload/vdm_msg17"
-require_relative "vdm_payload/vdm_msg18"
-require_relative "vdm_payload/vdm_msg19"
-require_relative "vdm_payload/vdm_msg20"
-require_relative "vdm_payload/vdm_msg21"
-require_relative "vdm_payload/vdm_msg24"
-require_relative "vdm_payload/vdm_msg27"
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg1'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg2'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg3'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg4'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg5'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg6'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg7'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg8'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg9'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg10'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg11'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg12'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg13'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg14'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg15'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg16'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg17'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg18'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg19'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg20'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg21'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg24'
+require 'nmea_plus/message/ais/vdm_payload/vdm_msg27'
 
 module NMEAPlus
   module Message

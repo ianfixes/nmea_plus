@@ -1,5 +1,5 @@
-require_relative "base_nmea"
-require_relative "bod"
+require 'nmea_plus/message/nmea/base_nmea'
+require 'nmea_plus/message/nmea/bod'
 
 module NMEAPlus
   module Message
