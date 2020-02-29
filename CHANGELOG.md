@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 ### Security
+* Address https://github.com/advisories/GHSA-jppv-gw3r-w3q8
 
 
 ## [1.0.24] - 2019-04-24
