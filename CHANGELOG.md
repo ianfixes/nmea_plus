@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 ### Security
+
+
+## [1.0.25] - 2020-03-02
+### Security
 * Address https://github.com/advisories/GHSA-jppv-gw3r-w3q8
 
 
@@ -161,7 +165,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Fixed nil handling for various fields
 * Added AIS message types 4, 5, 9, 12, 14, 19, 29, 21
 
-[Unreleased]: https://github.com/ianfixes/nmea_plus/compare/v1.0.24...HEAD
+[Unreleased]: https://github.com/ianfixes/nmea_plus/compare/v1.0.25...HEAD
+[1.0.24]: https://github.com/ianfixes/nmea_plus/compare/v1.0.24...v1.0.25
 [1.0.24]: https://github.com/ianfixes/nmea_plus/compare/v1.0.23...v1.0.24
 [1.0.23]: https://github.com/ianfixes/nmea_plus/compare/v1.0.22...v1.0.23
 [1.0.22]: https://github.com/ianfixes/nmea_plus/compare/v1.0.21...v1.0.22
