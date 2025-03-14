@@ -26,16 +26,16 @@ Gem::Specification.new do |spec|
     # spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com' to prevent pushes to rubygems.org, or delete to allow pushes to any server."
   end
 
-  spec.required_ruby_version = '~> 2.0'
+  spec.required_ruby_version = '>= 2.0'
 
-  spec.add_dependency 'racc', '~>1.4', '>= 1.0'
+  spec.add_dependency 'racc', '~> 1.8'
 
-  spec.add_development_dependency 'bundler', '>= 1.3.6'
-  spec.add_development_dependency 'rake', '~> 12.3', '>= 12.3.3'
-  spec.add_development_dependency 'rubocop', '~> 0.50.0', '>= 0.50.0'
-  spec.add_development_dependency 'rspec', '~> 3.0'
-  spec.add_development_dependency 'simplecov', '~> 0.10', '>= 0.10.0'
-  spec.add_development_dependency 'simplecov-json', '~> 0.2', '>= 0.2.0'
-  spec.add_development_dependency 'rexical', '~>1.0', '>= 1.0'
-  spec.add_development_dependency 'yard', '~>0.9.11', '>= 0.9.11'
+  spec.add_development_dependency 'bundler', '~> 2.5.21'
+  spec.add_development_dependency 'rake',    '~> 13.2.1'
+  spec.add_development_dependency 'rubocop', '~> 1.71.2'
+  spec.add_development_dependency 'rspec',   '~> 3.13'
+  spec.add_development_dependency 'simplecov', '~> 0.22'
+  spec.add_development_dependency 'simplecov-json', '~> 0.2.3'
+  spec.add_development_dependency 'rexical', '~> 1.0'
+  spec.add_development_dependency 'yard',    '~> 0.9.37'
 end
