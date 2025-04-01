@@ -11,15 +11,11 @@ group :development do
   gem "simplecov-json", "~> 0.2", ">= 0.2.0"
   gem "yard", "~> 0.9.37"
 
+  # rubocop:disable Style/IfUnlessModifier -- stay consistent, just in case we add more gems
   if RUBY_VERSION >= "2.7"
     gem "rubocop", "~> 1.72.1"
-    gem "rubocop-performance", "~> 1.20"
-    gem "rubocop-rake", "~> 0.7.1"
-    gem "rubocop-rspec", "~> 2.27"
-    gem "rubocop-thread_safety", "~> 0.7.2"
   end
 
-  # rubocop:disable Style/IfUnlessModifier -- stay consistent, just in case we add more gems
   if RUBY_VERSION >= "3.0"
     gem "rubocop-yard", "~> 0.1"
   end
