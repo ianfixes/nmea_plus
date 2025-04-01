@@ -1,4 +1,3 @@
-
 module NMEAPlus
   module Message
     module AIS

@@ -21,6 +21,7 @@ module NMEAPlus
           def rate_of_turn
             ret = _i(42, 8) # spec is wrong, we don't use I3
             return nil if ret == -128
+
             negative = ret < 0
             (ret / 4.733)**2 * (negative ? -1 : 1)
           end

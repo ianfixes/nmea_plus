@@ -14,6 +14,7 @@ module NMEAPlus
         # @return [Integer]
         def gri_microseconds
           return nil if chain_identifier.nil?
+
           chain_identifier * 10
         end
       end

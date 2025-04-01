@@ -1,4 +1,3 @@
-
 module NMEAPlus
 
   # This module contains all parsed NMEA message types, and their subtypes.
@@ -78,6 +77,7 @@ module NMEAPlus
       def all_checksums_ok?
         return false unless checksum_ok?
         return true if @next_part.nil?
+
         @next_part.all_checksums_ok?
       end
 
@@ -134,6 +134,7 @@ module NMEAPlus
         mn = message_number # just in case this is expensive to compute
         return last_index if mn - last_index != 1      # indicating a skip or restart
         return mn if @next_part.nil?                   # indicating we're the last message
+
         @next_part._highest_contiguous_index(mn)       # recurse down
       end
 
@@ -145,6 +146,7 @@ module NMEAPlus
       # @return [Float] A signed latitude or longitude
       def self.degrees_minutes_to_decimal(dm_string, sign_letter = "")
         return nil if dm_string.nil? || dm_string.empty?
+
         r = /(\d+)(\d{2}\.\d+)/  # (some number of digits) (2 digits for minutes).(decimal minutes)
         m = r.match(dm_string)
         raw = m.values_at(1)[0].to_f + (m.values_at(2)[0].to_f / 60)
@@ -168,6 +170,7 @@ module NMEAPlus
       # @return [Integer] The value in the field or nil
       def self._integer(field)
         return nil if field.nil? || field.empty?
+
         field.to_i
       end
 
@@ -177,6 +180,7 @@ module NMEAPlus
       # @return [Float] The value in the field or nil
       def self._float(field)
         return nil if field.nil? || field.empty?
+
         field.to_f
       end
 
@@ -186,6 +190,7 @@ module NMEAPlus
       # @return [String] The value in the field or nil
       def self._string(field)
         return nil if field.nil? || field.empty?
+
         field
       end
 
@@ -195,6 +200,7 @@ module NMEAPlus
       # @return [Integer] The value in the field or nil
       def self._hex_to_integer(field)
         return nil if field.nil? || field.empty?
+
         field.hex
       end
 
@@ -204,6 +210,7 @@ module NMEAPlus
       # @return [Time] The value in the field or nil
       def self._utctime_hms(field)
         return nil if field.nil? || field.empty?
+
         re_format = /(\d{2})(\d{2})(\d{2}(\.\d+)?)/
         now = Time.now
         begin
@@ -220,6 +227,7 @@ module NMEAPlus
       # @return [Time] The value in the field or nil
       def self._interval_hms(field)
         return nil if field.nil? || field.empty?
+
         re_format = /(\d{2})(\d{2})(\d{2}(\.\d+)?)/
         begin
           hms = re_format.match(field)

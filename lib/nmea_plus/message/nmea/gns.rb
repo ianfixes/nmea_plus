@@ -1,4 +1,3 @@
-
 require 'nmea_plus/message/nmea/base_nmea'
 
 module NMEAPlus

@@ -72,5 +72,5 @@ Style/RedundantSelf:
   Enabled: false
 
 # Pretty sure I know what I'm doing here
-Lint/RescueWithoutErrorClass:
+Style/RescueStandardError:
   Enabled: false

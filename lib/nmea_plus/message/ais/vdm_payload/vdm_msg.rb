@@ -98,6 +98,7 @@ module NMEAPlus
           # @return [String] Navigational status description
           def get_navigational_status_description(code)
             return nil if code.nil?
+
             case code
             when 0 then "Under way using engine"
             when 1 then "At anchor"

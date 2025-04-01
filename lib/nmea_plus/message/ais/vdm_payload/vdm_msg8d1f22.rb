@@ -196,6 +196,7 @@ module NMEAPlus
           def sub_area_text
             texts = sub_areas.select { |a| a.shape_id == 5 }
             return nil if texts.empty?
+
             texts.collect(&:text).join
           end
 

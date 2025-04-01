@@ -1,4 +1,3 @@
-
 require 'nmea_plus/message_factory'
 
 # standard NMEA

@@ -1,4 +1,3 @@
-
 module NMEAPlus
   module Message
     module AIS
@@ -86,6 +85,7 @@ module NMEAPlus
                     when :sar_transmitter, :man_overboard, :epirb then 3..5
                     end
             return nil if range.nil?
+
             id.to_s.rjust(9, '0')[range].to_i
           end
 

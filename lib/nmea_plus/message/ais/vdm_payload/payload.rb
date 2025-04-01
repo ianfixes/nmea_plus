@@ -1,4 +1,3 @@
-
 module NMEAPlus
   module Message
     module AIS
@@ -67,6 +66,7 @@ module NMEAPlus
           def _access(start, length)
             part = @payload_bitstring[start, length]
             return nil if part.nil? || part.empty?
+
             block_given? ? (yield part) : part
           end
 
@@ -115,6 +115,7 @@ module NMEAPlus
           def _6b_unsigned_integer(start, length, equiv_nil = nil)
             ret = _access(start, length) { |bits| bits.to_i(2) }
             return nil if ret == equiv_nil
+
             ret
           end
 
@@ -133,6 +134,7 @@ module NMEAPlus
               # two's complement: flip bits, then add 1
               ret = _access(start, length) { |bits| (bits.tr("01", "10").to_i(2) + 1) * -1 }
               return nil if ret == equiv_nil
+
               ret
             end
           end
@@ -147,6 +149,7 @@ module NMEAPlus
           def _6b_integer_scaled(start, length, denominator, equiv_nil = nil)
             ret = _6b_integer(start, length, equiv_nil)
             return nil if ret.nil?
+
             ret.to_f / denominator
           end
 
@@ -160,6 +163,7 @@ module NMEAPlus
           def _6b_unsigned_integer_scaled(start, length, denominator, equiv_nil = nil)
             ret = _6b_unsigned_integer(start, length, equiv_nil)
             return nil if ret.nil?
+
             ret.to_f / denominator
           end
 
@@ -174,6 +178,7 @@ module NMEAPlus
           def _6b_integer_scaled_shifted(start, length, denominator, shift, equiv_nil = nil)
             ret = _6b_integer_scaled(start, length, denominator, equiv_nil)
             return nil if ret.nil?
+
             ret + shift
           end
 
@@ -188,6 +193,7 @@ module NMEAPlus
           def _6b_unsigned_integer_scaled_shifted(start, length, denominator, shift, equiv_nil = nil)
             ret = _6b_unsigned_integer_scaled(start, length, denominator, equiv_nil)
             return nil if ret.nil?
+
             ret + shift
           end
 

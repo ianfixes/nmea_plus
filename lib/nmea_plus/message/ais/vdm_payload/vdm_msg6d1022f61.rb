@@ -29,6 +29,7 @@ module NMEAPlus
           # @return [bool]
           def _field0_bit(position)
             return nil if @fields[1].nil?
+
             mask = 1 << (7 - position)
             @fields[0].hex & mask == mask
           end
@@ -59,6 +60,7 @@ module NMEAPlus
           # @return [Integer]
           def operation_mode
             return nil if @fields[1].nil?
+
             @fields[1].hex >> 6
           end
 
@@ -81,6 +83,7 @@ module NMEAPlus
           # @return [Float]
           def intensity_percent
             return nil if @fields[1].nil?
+
             (1 + (@fields[1].hex & "3F".hex)) * (100.0 / 2**6)
           end
 
@@ -104,6 +107,7 @@ module NMEAPlus
           def latitude
             parts = @fields[4]
             return nil if parts.nil?
+
             NMEAPlus::Message::Base.degrees_minutes_to_decimal(parts[0..-1], parts[-1])
           end
 
@@ -113,6 +117,7 @@ module NMEAPlus
           def longitude
             parts = @fields[5]
             return nil if parts.nil?
+
             NMEAPlus::Message::Base.degrees_minutes_to_decimal(parts[0..-1], parts[-1])
           end
 

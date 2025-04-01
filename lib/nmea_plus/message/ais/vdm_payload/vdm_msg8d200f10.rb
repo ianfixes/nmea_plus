@@ -55,6 +55,7 @@ module NMEAPlus
           def get_eri_solas_description(code)
             return nil if code < 1
             return nil if 99 < code
+
             i = code.to_i
             major = case i / 10
                     when 3 then "Vessel"
