@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 * Salinity "no data" bug
+* Date generation when the timezone had a negative offset
 
 ### Security
 

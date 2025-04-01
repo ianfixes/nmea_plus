@@ -802,7 +802,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.dp.water_temperature).to eq(nil)
         expect(parsed.ais.dp.precipitation_type).to eq(nil)
         expect(parsed.ais.dp.precipitation_description).to eq(nil)
-        expect(parsed.ais.dp.salinity).to eq(nil)
+        expect(parsed.ais.dp.salinity).to eq(51.0)
         expect(parsed.ais.dp.salinity_sensor_unavailable?).to eq(false)
 
         expect(parsed.ais.dp.ice_code).to eq(nil)
