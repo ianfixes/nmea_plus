@@ -41,3 +41,8 @@ jobs:
 
     - name: Run RSpec tests
       run: bundle exec rspec
+
+    - name: Run Yard
+      if: matrix.ruby-version >= '2.7'
+      run: |
+        bundle exec yard
