@@ -4,6 +4,7 @@ AllCops:
   Exclude:
     # - 'spec/*.rb'
     - '**/generated_parser/*'
+    - 'vendor/**/*'
 
 # Extra lines for readability
 Layout/EmptyLinesAroundClassBody:

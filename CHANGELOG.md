@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 * Enable Ruby 3.x
+* Fix Rubocop TODO items, including rspec directory
 
 ### Deprecated
 
