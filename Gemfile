@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
-  gem 'bundler', '~> 2.4.22'
+  gem 'bundler', '~> 2.2'
   gem 'rake', '~> 13.2.1'
   gem 'rexical', '~> 1.0'
   gem 'rspec', '~> 3.13'
