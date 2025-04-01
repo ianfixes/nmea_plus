@@ -1,4 +1,9 @@
-require 'nmea_plus'
+require "nmea_plus"
+
+# allow us to just mangle the MMSI for testing
+class TestMessage < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
+  attr_accessor :source_mmsi
+end
 
 RSpec.describe NMEAPlus::Decoder, "#parse" do
   describe "testing the parser" do
@@ -59,7 +64,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
 
       # Unsigned integers: x == x ?
       [0, 1, 2, 127, 128, 129, 254, 255].each do |input|
-        it "properly decodes 8-bit #{input.to_s(2).rjust(8, "0")} as an unsigned integer" do
+        it "properly decodes 8-bit #{input.to_s(2).rjust(8, '0')} as an unsigned integer" do
           m = NMEAPlus::Message::AIS::VDMPayload::VDMMsg.new
           test_payload(m, 8, :_u, input, input)
         end
@@ -67,36 +72,32 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
 
       # signed integers: x == y ?
       [[0, 0], [1, 1], [2, 2], [127, 127], [128, -128], [129, -127], [254, -2], [255, -1]].each do |input, expected|
-        it "properly decodes 8-bit #{input.to_s(2).rjust(8, "0")} as a signed integer" do
+        it "properly decodes 8-bit #{input.to_s(2).rjust(8, '0')} as a signed integer" do
           m = NMEAPlus::Message::AIS::VDMPayload::VDMMsg.new
           test_payload(m, 8, :_i, input, expected)
         end
       end
 
-      # allow us to just mangle the MMSI for testing
-      class TestMessage < NMEAPlus::Message::AIS::VDMPayload::VDMMsg
-        attr_accessor :source_mmsi
-      end
-
       # MMSI, expected MID, and description
+      # rubocop:disable Layout/SpaceInsideArrayLiteralBrackets
       [
-       [367447520, 367, "Individual ship"],
-       [  5551123, 555, "Coast station"], # leading zeros don't work here
-       [  6662234, 666, "Harbor station"],
-       [  7773345, 777, "Pilot station"],
-       [  8884456, 888, "AIS repeater station"],
-       [111345000, 345, "SAR aircraft"],
-       [111456100, 456, "SAR fixed-wing aircraft"],
-       [111567500, 567, "SAR helicopter"],
-       [812111111, 121, "Handheld transceiver"],
-       [970131111, 131, "AIS-SART"],
-       [972141111, 141, "MOB (Man Overboard)"],
-       [974151111, 151, "EPIRB"],
-       [981611111, 161, "Auxiliary craft"],
-       [993231000, 323, "Physical AIS AtoN"],
-       [993436000, 343, "Virtual AIS AtoN"],
-       [993534000, 353, "AIS Aid to Navigation"],
-       [900000000, nil, "unknown_mmsi_category"],
+        [367447520, 367, "Individual ship"],
+        [  5551123, 555, "Coast station"], # leading zeros don't work here
+        [  6662234, 666, "Harbor station"],
+        [  7773345, 777, "Pilot station"],
+        [  8884456, 888, "AIS repeater station"],
+        [111345000, 345, "SAR aircraft"],
+        [111456100, 456, "SAR fixed-wing aircraft"],
+        [111567500, 567, "SAR helicopter"],
+        [812111111, 121, "Handheld transceiver"],
+        [970131111, 131, "AIS-SART"],
+        [972141111, 141, "MOB (Man Overboard)"],
+        [974151111, 151, "EPIRB"],
+        [981611111, 161, "Auxiliary craft"],
+        [993231000, 323, "Physical AIS AtoN"],
+        [993436000, 343, "Virtual AIS AtoN"],
+        [993534000, 353, "AIS Aid to Navigation"],
+        [900000000, nil, "unknown_mmsi_category"],
       ].each do |code, mid, description|
         it "properly determines the category of MMSI #{code}" do
           m = TestMessage.new
@@ -105,15 +106,17 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
           expect(m.source_mmsi_info.mid).to eq(mid)
         end
       end
+      # rubocop:enable Layout/SpaceInsideArrayLiteralBrackets
 
       # MMSI/MID region, ISO country code
-      [[201, 8],
-       [351, 591],
-       [354, 591],
-       [370, 591],
-       [373, 591],
-       [366, 840],
-       [369, 840],
+      [
+        [201, 8],
+        [351, 591],
+        [354, 591],
+        [370, 591],
+        [373, 591],
+        [366, 840],
+        [369, 840],
       ].each do |mid, country_id|
         it "properly determines the country code for MID #{mid}" do
           m = TestMessage.new
@@ -237,7 +240,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.special_manoeuvre).to eq(0)
         expect(parsed.ais.raim?).to eq(false)
       end
-
     end
 
     context "when dealing with VDM payload data message type 2" do
@@ -318,7 +320,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.special_manoeuvre).to eq(0)
         expect(parsed.ais.raim?).to eq(false)
       end
-
     end
 
     context "when reading a VDM message type 4" do
@@ -377,7 +378,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.epfd_type).to eq(7)
         expect(parsed.ais.raim?).to eq(false)
       end
-
     end
 
     context "when reading a multipart VDM message type 5" do
@@ -409,16 +409,16 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
 
       it "properly decodes a nil ETA" do
-        [["!AIVDM,2,1,6,A,539`vQ400000@SGKGP0P4q<D5@000000000000150@@23t0Ht0B0C@UDQh00,0*6B",
-          "!AIVDM,2,2,6,A,00000000000,2*22"],
-         # eta is 0, 0, 24, 60
-         ["!AIVDM,2,1,8,A,539I@g400000@;W3;B0@EA@lE:1@4pf3G5v0001I9P963t000011@TUL<><<,0*0B",
-          "!AIVDM,2,2,8,A,13hjn<<<==@,2*0E"],
-         # eta is 0, 0, 0, 0
+        [
+          ["!AIVDM,2,1,6,A,539`vQ400000@SGKGP0P4q<D5@000000000000150@@23t0Ht0B0C@UDQh00,0*6B",
+           "!AIVDM,2,2,6,A,00000000000,2*22",],
+          # eta is 0, 0, 24, 60
+          ["!AIVDM,2,1,8,A,539I@g400000@;W3;B0@EA@lE:1@4pf3G5v0001I9P963t000011@TUL<><<,0*0B",
+           "!AIVDM,2,2,8,A,13hjn<<<==@,2*0E",],
+          # eta is 0, 0, 0, 0
         ].each do |input1, input2|
           parsed = @parser.parse(input1)
           parsed.add_message_part(@parser.parse(input2))
-          now = Time.now
           expect(parsed.ais.eta).to eq(nil)
         end
       end
@@ -596,8 +596,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.dp.latitude).to be_within(epsilon).of(-38.22024833333333)
         expect(parsed.ais.dp.longitude).to be_within(epsilon).of(145.18068833333334)
       end
-
-
     end
 
     context "when dealing with VDM payload data message type 7" do
@@ -699,7 +697,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
     end
 
     context "when dealing with VDM payload data message type 8" do
-
       it "properly decodes the armored payload with subtype 1/22" do
         input1 = "!AIVDM,3,1,4,A,81mg=5@0EP:4R40807P>0<D1>MNt00000f>FNVfnw7>6>FNU=?B5PD5HDPD8,0*26"
         input2 = "!AIVDM,3,2,4,A,1Dd2J09jL08JArJH5P=E<D9@<5P<9>0`bMl42Q0d2Pc2T59CPCE@@?C54PD?,0*60"
@@ -855,7 +852,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.functional_id).to eq(57)
         expect(parsed.ais.dp.encrypted_data_6b).to eq("27^58)*V],4S Z$'XLFLU-0R\"I4$\"^>1G6#-:?AK.Z(#H\"Z\\^F2\\%?@W*.-=AG%68B@E\"WFA1J@N^+$BQ8'H3C")
       end
-
     end
 
     context "when dealing with VDM payload data message type 9" do
@@ -1015,7 +1011,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.source_mmsi).to eq(661327588)
         expect(parsed.ais.destination_mmsi).to eq(865683231)
         expect(parsed.ais.retransmit?).to eq(false)
-        expect(parsed.ais.data).to eq(":Z=]$Y/.;1K") # TODO ????
+        expect(parsed.ais.data).to eq(":Z=]$Y/.;1K") # TODO: is this valid ????
       end
 
       it "properly decodes the armored payload libais #118" do
@@ -1026,7 +1022,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.source_mmsi).to eq(791853644)
         expect(parsed.ais.destination_mmsi).to eq(1039151092) # ????? TODO THIS IS 10 DIGITS
         expect(parsed.ais.retransmit?).to eq(true)
-        expect(parsed.ais.data).to eq("^?D") # TODO ???
+        expect(parsed.ais.data).to eq("^?D") # TODO: ???
       end
 
       it "properly decodes the armored payload libais #119" do
@@ -1037,7 +1033,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.source_mmsi).to eq(1054892009) # TODO: ?????? 10 digits
         expect(parsed.ais.destination_mmsi).to eq(985511866)
         expect(parsed.ais.retransmit?).to eq(true)
-        expect(parsed.ais.data).to eq("F?ERS%L")  # TODO ???
+        expect(parsed.ais.data).to eq("F?ERS%L")  # TODO: ??? is this right?
       end
 
       it "properly decodes the armored payload libais #120" do
@@ -1059,7 +1055,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.source_mmsi).to eq(1036564667) # TODO: 10 digits???
         expect(parsed.ais.destination_mmsi).to eq(902344332)
         expect(parsed.ais.retransmit?).to eq(true)
-        expect(parsed.ais.data).to eq(">;M") # TODO: ??
+        expect(parsed.ais.data).to eq(">;M") # TODO: is this valid?
       end
 
       it "properly decodes the armored payload libais #122" do
@@ -1083,7 +1079,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.retransmit?).to eq(true)
         expect(parsed.ais.text).to eq("QK2BBHJ[?+/ ]D^I9VTX?8\\*K._D&2I?(&9PONK?RR;J") # TODO: ???
       end
-
     end
 
     context "when dealing with VDM payload data message type 13" do
@@ -1237,7 +1232,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       end
     end
 
-
     context "when dealing with VDM payload data message type 19" do
       it "properly decodes the armored payload" do
         input1 = "!AIVDM,2,1,0,B,C8u:8C@t7@TnGCKfm6Po`e6N`:Va0L2J;06HV50JV?SjBPL3,0*28"
@@ -1267,7 +1261,6 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.assigned?).to eq(false)
       end
     end
-
 
     context "when dealing with VDM payload data message type 20" do
       it "properly decodes the armored payload" do
@@ -1375,11 +1368,11 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.ship_dimension_to_stern).to eq(0)
         expect(parsed.ais.ship_dimension_to_port).to eq(0)
         expect(parsed.ais.ship_dimension_to_starboard).to eq(0)
-        #expect(parsed.ais.mothership_mmsi).to eq(3)
+        # expect(parsed.ais.mothership_mmsi).to eq(3)
       end
 
       it "properly decodes another armored payload for part B" do
-        input = "!AIVDM,1,1,,B,H1c2;qDTijklmno31<" + "<C970`43<1,0*28" # << is problematic for emacs formatting?
+        input = "!AIVDM,1,1,,B,H1c2;qDTijklmno31<<C970`43<1,0*28"
         parsed = @parser.parse(input)
         expect(parsed.ais.message_type).to eq(24)
         expect(parsed.ais.repeat_indicator).to eq(0)
@@ -1387,9 +1380,9 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.ais.part_number).to eq(1)
         expect(parsed.ais.ship_cargo_type).to eq(36)
         expect(parsed.ais.ship_cargo_type_description).to eq("Sailing")
-        #expect(parsed.ais.vendor_id).to eq("1234567") # as seen in online parser, but spec says only 3 chars
-        #expect(parsed.ais.model_code).to eq(1)
-        #expect(parsed.ais.serial_number).to eq(743700)
+        # expect(parsed.ais.vendor_id).to eq("1234567") # as seen in online parser, but spec says only 3 chars
+        # expect(parsed.ais.model_code).to eq(1)
+        # expect(parsed.ais.serial_number).to eq(743700)
         expect(parsed.ais.vendor_id).to eq("123")
         expect(parsed.ais.callsign).to eq("CALLSIG")
         expect(parsed.ais.auxiliary_craft?).to eq(false)
@@ -1424,18 +1417,16 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         samples = File.join(File.dirname(__FILE__), "samples", "aivdm_message_samples.txt")
         File.readlines(samples).each do |line|
           parsed = @parser.parse(line)
-          expect(parsed.is_a? NMEAPlus::Message::AIS::AISMessage).to eq(true)
-          expect(parsed.is_a? NMEAPlus::Message::Base).to eq(true)
-          if parsed.checksum_ok?
-            expect(parsed.ais.message_type.is_a? Integer).to eq(true)
-            if parsed.message_number == 1 && parsed.ais.is_a?(NMEAPlus::Message::AIS::VDMPayload::VDMMsgUndefined)
-              puts "AIS message type #{parsed.ais.message_type} isn't fleshed out: #{parsed.original}"
-            end
+          expect(parsed.is_a?(NMEAPlus::Message::AIS::AISMessage)).to eq(true)
+          expect(parsed.is_a?(NMEAPlus::Message::Base)).to eq(true)
+          next unless parsed.checksum_ok?
+
+          expect(parsed.ais.message_type.is_a?(Integer)).to eq(true)
+          if parsed.message_number == 1 && parsed.ais.is_a?(NMEAPlus::Message::AIS::VDMPayload::VDMMsgUndefined)
+            puts "AIS message type #{parsed.ais.message_type} isn't fleshed out: #{parsed.original}"
           end
         end
       end
     end
-
-
   end
 end

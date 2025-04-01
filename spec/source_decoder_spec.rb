@@ -1,11 +1,10 @@
-require 'nmea_plus'
+require "nmea_plus"
 
 RSpec.describe NMEAPlus::SourceDecoder, "#parse" do
   describe "testing the source decoder" do
     # before do
     #   @source_decoder = NMEAPlus::SourceDecoder.new
     # end
-
 
     context "when reading from a file source" do
       it "reads individual messages" do
@@ -16,10 +15,10 @@ RSpec.describe NMEAPlus::SourceDecoder, "#parse" do
 
         sd.each_message do |message|
           called_once = true
-          expect(message.is_a? NMEAPlus::Message::AIS::AISMessage).to eq(true)
-          expect(message.is_a? NMEAPlus::Message::Base).to eq(true)
+          expect(message.is_a?(NMEAPlus::Message::AIS::AISMessage)).to eq(true)
+          expect(message.is_a?(NMEAPlus::Message::Base)).to eq(true)
           expect(message.checksum_ok?).to eq(true)
-          expect(message.ais.message_type.is_a? Integer).to eq(true)
+          expect(message.ais.message_type.is_a?(Integer)).to eq(true)
         end
 
         expect(called_once).to eq(true)
@@ -37,11 +36,11 @@ RSpec.describe NMEAPlus::SourceDecoder, "#parse" do
         sd.each_complete_message do |message|
           called_once = true
           multipart_found = true if 1 < message.total_messages
-          expect(message.is_a? NMEAPlus::Message::AIS::AISMessage).to eq(true)
-          expect(message.is_a? NMEAPlus::Message::Base).to eq(true)
+          expect(message.is_a?(NMEAPlus::Message::AIS::AISMessage)).to eq(true)
+          expect(message.is_a?(NMEAPlus::Message::Base)).to eq(true)
           expect(message.all_messages_received?).to eq(true)
           expect(message.all_checksums_ok?).to eq(true)
-          expect(message.ais.message_type.is_a? Integer).to eq(true)
+          expect(message.ais.message_type.is_a?(Integer)).to eq(true)
         end
 
         expect(called_once).to eq(true)
@@ -49,10 +48,8 @@ RSpec.describe NMEAPlus::SourceDecoder, "#parse" do
       end
     end
 
-
     context "when reading from a StringIO source" do
       it "reads multipart AIS messages" do
-
         input1 = "!AIVDM,2,1,0,A,58wt8Ui`g??r21`7S=:22058<v05Htp000000015>8OA;0sk,0*7B"
         input2 = "!AIVDM,2,2,0,A,eQ8823mDm3kP00000000000,2*5D"
         io_source = StringIO.new("#{input1}\n#{input2}")
@@ -92,11 +89,8 @@ RSpec.describe NMEAPlus::SourceDecoder, "#parse" do
       end
     end
 
-
-
-     context "when reading from a StringIO source" do
-       it "can swallow parse errors" do
-
+    context "when reading from a StringIO source" do
+      it "can swallow parse errors" do
         input1 = "!AIVDM,2,1,0,A,58wt8Ui`g??r21`7S=:22058<v05Htp000000015>8OA;0sk,0*7B"
         input2 = "junk line"
         input3 = "!AIVDM,2,2,0,A,eQ8823mDm3kP00000000000,2*5D"
@@ -117,9 +111,8 @@ RSpec.describe NMEAPlus::SourceDecoder, "#parse" do
       end
     end
 
-     context "when reading from a StringIO source" do
-       it "can expose parse errors" do
-
+    context "when reading from a StringIO source" do
+      it "can expose parse errors" do
         input1 = "!AIVDM,2,1,0,A,58wt8Ui`g??r21`7S=:22058<v05Htp000000015>8OA;0sk,0*7B"
         input2 = "junk line"
         input3 = "!AIVDM,2,2,0,A,eQ8823mDm3kP00000000000,2*5D"
@@ -128,14 +121,9 @@ RSpec.describe NMEAPlus::SourceDecoder, "#parse" do
         sd = NMEAPlus::SourceDecoder.new(io_source)
         sd.throw_on_parse_fail = true
 
-        called_once = false
-        multipart_found = false
-
-        expect{sd.each_complete_message {}}.to raise_error(Racc::ParseError)
-
+        expect { sd.each_complete_message { |_| nil } }.to raise_error(Racc::ParseError)
       end
     end
-
 
     context "when reading from a file source" do
       it "reads NMEA messages" do
@@ -148,21 +136,16 @@ RSpec.describe NMEAPlus::SourceDecoder, "#parse" do
         sd.each_complete_message do |message|
           called_once = true
           multipart_found = true if 1 < message.total_messages
-          expect(message.is_a? NMEAPlus::Message::NMEA::NMEAMessage).to eq(true)
-          expect(message.is_a? NMEAPlus::Message::Base).to eq(true)
+          expect(message.is_a?(NMEAPlus::Message::NMEA::NMEAMessage)).to eq(true)
+          expect(message.is_a?(NMEAPlus::Message::Base)).to eq(true)
           expect(message.all_messages_received?).to eq(true)
           expect(message.all_checksums_ok?).to eq(true)
-          if message.interpreted_data_type == "VDM"
-            expect(message.ais.message_type.is_a? Integer).to eq(true)
-          end
+          expect(message.ais.message_type.is_a?(Integer)).to eq(true) if message.interpreted_data_type == "VDM"
         end
 
         expect(called_once).to eq(true)
         # expect(multipart_found).to eq(true)
       end
     end
-
-
-
   end
 end

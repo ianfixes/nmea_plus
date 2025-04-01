@@ -2,7 +2,7 @@ AllCops:
   NewCops: enable
   SuggestExtensions: false
   Exclude:
-    - 'spec/*.rb'
+    # - 'spec/*.rb'
     - '**/generated_parser/*'
 
 # Extra lines for readability
@@ -24,6 +24,8 @@ Layout/LineLength:
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#80-character-limits
   Enabled: true
   Max: 130
+  Exclude:
+    - 'spec/ais_spec.rb'
 
 # Configuration parameters: CountComments.
 Metrics/ClassLength:
@@ -33,6 +35,10 @@ Metrics/ClassLength:
 Metrics/AbcSize:
   Enabled: false
   Max: 50
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*.rb"
 
 Metrics/MethodLength:
   Enabled: false
@@ -54,9 +60,16 @@ Style/Documentation:
 Style/FormatString:
   Enabled: true
 
+Style/NumericLiterals:
+  Enabled: false
+
 Style/StringLiterals:
   Enabled: true
   EnforcedStyle: double_quotes
+
+Style/WordArray:
+  Exclude:
+    - "spec/**/*.rb"
 
 # if you find "a == 3" readable and "3 == a" 'unreadable', do not contribute to this project.
 Style/YodaCondition:
@@ -79,3 +92,6 @@ Style/RedundantSelf:
 # Pretty sure I know what I'm doing here
 Style/RescueStandardError:
   Enabled: false
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma

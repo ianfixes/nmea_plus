@@ -1,4 +1,4 @@
-require 'nmea_plus'
+require "nmea_plus"
 
 RSpec.describe NMEAPlus::Decoder, "#parse" do
   describe "testing the parser" do
@@ -8,9 +8,9 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
 
     context "when initialized" do
       it "can parse" do
-        #puts "got these tokens: #{@parser.tokenize("$1,2*33")}"
-        #@parser.parse("$1,2*33")
-        #puts "got these tokens: #{@parser.tokenize("$GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M,,*47")}"
+        # puts "got these tokens: #{@parser.tokenize("$1,2*33")}"
+        # @parser.parse("$1,2*33")
+        # puts "got these tokens: #{@parser.tokenize("$GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M,,*47")}"
         @parser.parse("$GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M,,*47")
       end
     end
@@ -66,6 +66,5 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed1.all_messages_received?).to eq(true)
       end
     end
-
   end
 end
