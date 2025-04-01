@@ -5,8 +5,6 @@ AllCops:
     - 'spec/*.rb'
     - '**/generated_parser/*'
 
-inherit_from: .rubocop_todo.yml
-
 # Extra lines for readability
 Layout/EmptyLinesAroundClassBody:
   Enabled: false
@@ -50,16 +48,18 @@ Style/BlockComments:
 Style/ColonMethodCall:
   Enabled: false
 
+Style/Documentation:
+  Enabled: true
+
+Style/FormatString:
+  Enabled: true
+
 Style/StringLiterals:
   Enabled: true
   EnforcedStyle: double_quotes
 
 # if you find "a == 3" readable and "3 == a" 'unreadable', do not contribute to this project.
 Style/YodaCondition:
-  Enabled: false
-
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/FormatString:
   Enabled: false
 
 # Offense count: 1

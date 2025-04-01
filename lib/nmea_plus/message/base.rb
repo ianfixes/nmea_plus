@@ -83,7 +83,7 @@ module NMEAPlus
 
       # return [String] The calculated checksum for this payload as a two-character string
       def calculated_checksum
-        "%02x" % @payload.each_byte.map(&:ord).reduce(:^)
+        format("%02x", @payload.each_byte.map(&:ord).reduce(:^))
       end
 
       # @!parse attr_reader :total_messages
