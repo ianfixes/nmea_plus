@@ -15,9 +15,5 @@ group :development do
   if RUBY_VERSION >= "2.7"
     gem "rubocop", "~> 1.72.1"
   end
-
-  if RUBY_VERSION >= "3.0"
-    gem "rubocop-yard", "~> 0.1"
-  end
   # rubocop:enable Style/IfUnlessModifier
 end
