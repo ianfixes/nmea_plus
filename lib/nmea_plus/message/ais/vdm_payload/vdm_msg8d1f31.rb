@@ -98,6 +98,8 @@ module NMEAPlus
           def salinity
             ret = _U(339, 9, 10)
             return nil if ret > 51.0 # 51.1 for sensor not available, otherwise n/a
+
+            ret
           end
 
           # @!parse attr_reader :salinity_sensor_unavailable?
