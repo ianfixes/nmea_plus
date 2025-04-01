@@ -84,7 +84,7 @@ module NMEAPlus
           def intensity_percent
             return nil if @fields[1].nil?
 
-            (1 + (@fields[1].hex & "3F".hex)) * (100.0 / 2**6)
+            (1 + (@fields[1].hex & "3F".hex)) * (100.0 / (2**6))
           end
 
           # A vendor-specific code

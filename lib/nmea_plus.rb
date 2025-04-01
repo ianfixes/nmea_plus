@@ -88,6 +88,7 @@ module NMEAPlus
 
         # put message into partials slot (merge if necessary) based on its data type
         slot = msg.data_type
+        # rubocop:disable Lint/DuplicateBranch for clarity in what each case means
         if partials[slot].nil?                                           # no message in there
           partials[slot] = msg
         elsif 1 != (msg.message_number - partials[slot].message_number)  # broken sequence
@@ -96,7 +97,7 @@ module NMEAPlus
         else                                                             # chain on to what's there
           partials[slot].add_message_part(msg)
         end
-
+        # rubocop:enable Lint/DuplicateBranch
         # take action if we've completed the chain
         maybe_full = partials[slot]
         if maybe_full.all_messages_received?

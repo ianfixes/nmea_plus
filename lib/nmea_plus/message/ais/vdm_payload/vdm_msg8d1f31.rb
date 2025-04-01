@@ -7,8 +7,8 @@ module NMEAPlus
         # Type 8: Binary Broadcast Message Subtype: Meteorological and Hydrological Data (IMO289)
         class VDMMsg8d1f31 < NMEAPlus::Message::AIS::VDMPayload::VDMMsg8DynamicPayload
 
-          payload_reader :longitude, 56, 25, :_I, 60 * 10**3, 181
-          payload_reader :latitude, 81, 24, :_I, 60 * 10**3, 91
+          payload_reader :longitude, 56, 25, :_I, 60 * (10**3), 181
+          payload_reader :latitude, 81, 24, :_I, 60 * (10**3), 91
           payload_reader :position_10m_accuracy?, 105, 1, :_b
 
           # @!parse attr_reader :current_time
@@ -80,6 +80,7 @@ module NMEAPlus
           # @param [Integer] code The code for precipitation
           # @return [String] the description
           def precipitation_description
+            # rubocop:disable Lint/DuplicateBranch
             case precipitation_type
             when 0 then return "Reserved"
             when 1 then return "Rain"
@@ -90,6 +91,7 @@ module NMEAPlus
             when 6 then return "Reserved"
               # 7 is nil
             end
+            # rubocop:enable Lint/DuplicateBranch
             nil
           end
 

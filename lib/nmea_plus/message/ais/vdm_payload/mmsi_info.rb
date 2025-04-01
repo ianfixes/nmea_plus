@@ -21,6 +21,7 @@ module NMEAPlus
           # @!parse attr_reader :category
           # @return [Symbol] The symbol for the MMSI category
           def category
+            # rubocop:disable Lint/DuplicateBranch
             case id.to_s.rjust(9, '0') # formatted as 9 digit string with leading 0s
             when /[2-7]......../ then :individual_ship
             when /00...1.../ then :coast_station
@@ -42,6 +43,7 @@ module NMEAPlus
             else
               :unknown_mmsi_category
             end
+            # rubocop:enable Lint/DuplicateBranch
           end
 
           # The MMSI category as defined by ITU-R M.585-7
@@ -75,6 +77,7 @@ module NMEAPlus
           # @!parse attr_reader :mid
           # @return [Integer] the MID
           def mid
+            # rubocop:disable Lint/DuplicateBranch
             range = case category
                     when :individual_ship then 0..2
                     when :coast_station, :harbor_station, :pilot_station, :ais_repeater_station then 2..4
@@ -84,6 +87,7 @@ module NMEAPlus
                     when :handheld then 1..3
                     when :sar_transmitter, :man_overboard, :epirb then 3..5
                     end
+            # rubocop:enable Lint/DuplicateBranch
             return nil if range.nil?
 
             id.to_s.rjust(9, '0')[range].to_i
@@ -96,6 +100,7 @@ module NMEAPlus
             # https://github.com/S73417H/MIDs
             # https://github.com/alexrabarts/iso_country_codes
             # JSON.parse(IO.read("mids.json")).each {|k, v| puts "when #{k} then #{IsoCountryCodes.find(v[1]).numeric.to_i}" }
+            # rubocop:disable Lint/DuplicateBranch
             case mid
             when 201 then 8
             when 202 then 20
@@ -384,6 +389,7 @@ module NMEAPlus
             when 770 then 858
             when 775 then 862
             end
+            # rubocop:enable Lint/DuplicateBranch
           end
 
         end

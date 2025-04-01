@@ -23,13 +23,13 @@ module NMEAPlus
             return nil if ret == -128
 
             negative = ret < 0
-            (ret / 4.733)**2 * (negative ? -1 : 1)
+            ((ret / 4.733)**2) * (negative ? -1 : 1)
           end
 
           payload_reader :speed_over_ground, 50, 10, :_U, 10
           payload_reader :position_10m_accuracy?, 60, 1, :_b
-          payload_reader :longitude, 61, 28, :_I, 60 * 10**4, 181
-          payload_reader :latitude, 89, 27, :_I, 60 * 10**4, 91
+          payload_reader :longitude, 61, 28, :_I, 60 * (10**4), 181
+          payload_reader :latitude, 89, 27, :_I, 60 * (10**4), 91
           payload_reader :course_over_ground, 116, 12, :_U, 10, 3600
           payload_reader :true_heading, 128, 9, :_u, 511
 

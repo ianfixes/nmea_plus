@@ -43,6 +43,7 @@ module NMEAPlus
           # @!parse attr_reader :notice_description
           # @return [String] Area notice description
           def notice_description
+            # rubocop:disable Lint/DuplicateBranch
             case notice_id
             when 0 then "Caution Area: Marine mammals habitat"
             when 1 then "Caution Area: Marine mammals in area - reduce speed"
@@ -173,6 +174,7 @@ module NMEAPlus
             when 126 then "Cancellation - cancel area as identified by Message Linkage ID"
             when 127 then "Undefined (default)"
             end
+            # rubocop:enable Lint/DuplicateBranch
           end
 
           # @!parse attr_reader :utc_time
