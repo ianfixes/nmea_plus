@@ -1,4 +1,4 @@
-require 'nmea_plus/message/nmea/base_nmea'
+require "nmea_plus/message/nmea/base_nmea"
 
 module NMEAPlus
   module Message
@@ -8,7 +8,7 @@ module NMEAPlus
         # whether this is the new format.  docs say check field #2 for value "2"
         # @return [bool]
         def new_format?
-          'T' == @fields[2]
+          "T" == @fields[2]
         end
 
         field_reader :track_degrees_true, 1, :_float

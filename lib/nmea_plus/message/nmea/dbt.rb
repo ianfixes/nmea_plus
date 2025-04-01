@@ -1,5 +1,5 @@
-require 'nmea_plus/message/nmea/base_nmea'
-require 'nmea_plus/message/nmea/dbk'
+require "nmea_plus/message/nmea/base_nmea"
+require "nmea_plus/message/nmea/dbk"
 
 module NMEAPlus
   module Message

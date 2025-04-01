@@ -1,4 +1,4 @@
-require 'nmea_plus/message/ais/vdm'
+require "nmea_plus/message/ais/vdm"
 
 module NMEAPlus
   module Message

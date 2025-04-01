@@ -50,6 +50,10 @@ Style/BlockComments:
 Style/ColonMethodCall:
   Enabled: false
 
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
 # if you find "a == 3" readable and "3 == a" 'unreadable', do not contribute to this project.
 Style/YodaCondition:
   Enabled: false

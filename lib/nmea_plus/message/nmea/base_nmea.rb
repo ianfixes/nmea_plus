@@ -1,4 +1,4 @@
-require 'nmea_plus/message/base'
+require "nmea_plus/message/base"
 
 module NMEAPlus
   module Message
@@ -32,8 +32,8 @@ module NMEAPlus
         # @return [bool] The value in the field or nil
         def self._av_boolean(field)
           case field
-          when 'A' then return true
-          when 'V' then return false
+          when "A" then return true
+          when "V" then return false
           end
           nil
         end
@@ -44,8 +44,8 @@ module NMEAPlus
         # @return [bool] The value in the field or nil
         def self._10_boolean(field)
           case field
-          when '1' then return true
-          when '0' then return false
+          when "1" then return true
+          when "0" then return false
           end
           nil
         end

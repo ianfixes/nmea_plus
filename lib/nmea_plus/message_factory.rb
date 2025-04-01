@@ -72,7 +72,7 @@ module NMEAPlus
     # @return [NMEAPlus::Message] A message object
     def self.create(message_prefix, fields, checksum)
       # get the data type and adjust it if necessary (e.g. support for NMEA standard sentences like __AAM)
-      data_type = fields.split(',', 2)[0].upcase  # assumed to be 'GPGGA', etc
+      data_type = fields.split(",", 2)[0].upcase  # assumed to be 'GPGGA', etc
       interpreted_type = self.best_match_for_data_type(data_type)
       class_name = self.message_class_name(interpreted_type)
 

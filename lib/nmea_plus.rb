@@ -1,7 +1,7 @@
-require 'nmea_plus/version'
+require "nmea_plus/version"
 
-require 'nmea_plus/generated_parser/parser'
-require 'nmea_plus/generated_parser/tokenizer'
+require "nmea_plus/generated_parser/parser"
+require "nmea_plus/generated_parser/tokenizer"
 
 # NMEAPlus contains classes for parsing and decoding NMEA and AIS messages, of which the {NMEAPlus::SourceDecoder}
 # is most relevant.  Parsed messages extend from the {Message::NMEA::NMEAMessage} object, and any binary
@@ -88,7 +88,7 @@ module NMEAPlus
 
         # put message into partials slot (merge if necessary) based on its data type
         slot = msg.data_type
-        # rubocop:disable Lint/DuplicateBranch for clarity in what each case means
+        # rubocop:disable Lint/DuplicateBranch -- for clarity in what each case means
         if partials[slot].nil?                                           # no message in there
           partials[slot] = msg
         elsif 1 != (msg.message_number - partials[slot].message_number)  # broken sequence

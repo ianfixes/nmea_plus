@@ -1,4 +1,4 @@
-require 'nmea_plus/message/nmea/base_nmea'
+require "nmea_plus/message/nmea/base_nmea"
 
 module NMEAPlus
   module Message
@@ -14,8 +14,8 @@ module NMEAPlus
         # @return [Symbol]
         def calculation_basis
           case @fields[1]
-          when 'G' then :great_circle
-          when 'R' then :rhumb_line
+          when "G" then :great_circle
+          when "R" then :rhumb_line
           end
         end
 

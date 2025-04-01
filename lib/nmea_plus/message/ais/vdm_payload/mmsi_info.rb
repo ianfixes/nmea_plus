@@ -22,7 +22,7 @@ module NMEAPlus
           # @return [Symbol] The symbol for the MMSI category
           def category
             # rubocop:disable Lint/DuplicateBranch
-            case id.to_s.rjust(9, '0') # formatted as 9 digit string with leading 0s
+            case id.to_s.rjust(9, "0") # formatted as 9 digit string with leading 0s
             when /[2-7]......../ then :individual_ship
             when /00...1.../ then :coast_station
             when /00...2.../ then :harbor_station
@@ -90,7 +90,7 @@ module NMEAPlus
             # rubocop:enable Lint/DuplicateBranch
             return nil if range.nil?
 
-            id.to_s.rjust(9, '0')[range].to_i
+            id.to_s.rjust(9, "0")[range].to_i
           end
 
           # The ISO 3166-1 country ID indicated by the MMSI Maritime Identification Digits (MID)

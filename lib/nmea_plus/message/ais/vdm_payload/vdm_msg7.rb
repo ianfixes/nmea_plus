@@ -1,4 +1,4 @@
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg_binary_acknowledgement'
+require "nmea_plus/message/ais/vdm_payload/vdm_msg_binary_acknowledgement"
 
 module NMEAPlus
   module Message

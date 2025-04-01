@@ -1,9 +1,9 @@
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg8d1f0'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg8d1f22'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg8d1f31'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg8d200f10'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg8d366f56'
+require "nmea_plus/message/ais/vdm_payload/vdm_msg"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg8d1f0"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg8d1f22"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg8d1f31"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg8d200f10"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg8d366f56"
 
 module NMEAPlus
   module Message

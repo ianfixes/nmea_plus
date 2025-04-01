@@ -1,4 +1,4 @@
-require 'nmea_plus/message/nmea/zzu'
+require "nmea_plus/message/nmea/zzu"
 
 module NMEAPlus
   module Message
@@ -7,9 +7,9 @@ module NMEAPlus
       # Limited utility, no recommended replacement.
       class ZEV < NMEAPlus::Message::NMEA::ZZU
         CONTROL_FLAGS = {
-          '+' => :up,
-          '-' => :down,
-          'V' => :stop
+          "+" => :up,
+          "-" => :down,
+          "V" => :stop
         }.freeze
 
         # Timer initial value

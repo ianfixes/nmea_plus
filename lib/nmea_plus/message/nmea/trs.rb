@@ -1,4 +1,4 @@
-require 'nmea_plus/message/nmea/base_nmea'
+require "nmea_plus/message/nmea/base_nmea"
 
 module NMEAPlus
   module Message
@@ -7,21 +7,21 @@ module NMEAPlus
       # TRANSIT system is not operational, no recommended replacement.
       class TRS < NMEAPlus::Message::NMEA::NMEAMessage
         STATUS_FLAGS = {
-          'A' => :acquiring,
-          'c' => :calculating,
-          'e' => :error,
-          'm' => :message,
-          'T' => :test,
-          'U' => :dead_reckoning
+          "A" => :acquiring,
+          "c" => :calculating,
+          "e" => :error,
+          "m" => :message,
+          "T" => :test,
+          "U" => :dead_reckoning
         }.freeze
 
         STATUS_DESCRIPTIONS = {
-          acquiring: 'Acquiring',
-          calculating: 'Calculating',
-          error: 'Error',
-          message: 'Message',
-          test: 'Test',
-          dead_reckoning: 'Dead reckoning'
+          acquiring: "Acquiring",
+          calculating: "Calculating",
+          error: "Error",
+          message: "Message",
+          test: "Test",
+          dead_reckoning: "Dead reckoning"
         }.freeze
 
         # TRANSIT system operating status

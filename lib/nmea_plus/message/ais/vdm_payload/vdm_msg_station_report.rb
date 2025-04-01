@@ -1,4 +1,4 @@
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg'
+require "nmea_plus/message/ais/vdm_payload/vdm_msg"
 
 module NMEAPlus
   module Message
@@ -19,7 +19,7 @@ module NMEAPlus
                      _u(61, 5),
                      _u(66, 6),
                      _u(72, 6),
-                     '+00:00')
+                     "+00:00")
           end
 
           payload_reader :position_10m_accuracy?, 78, 1, :_b

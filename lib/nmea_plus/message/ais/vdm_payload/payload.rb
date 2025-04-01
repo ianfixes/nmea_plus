@@ -259,7 +259,7 @@ module NMEAPlus
             rollover = 0
             rollover = 1 if now.month > month
             rollover = -1 if now.month == 1 && month == 12
-            Time.new(now.year + rollover, month, day, hour, minute, 0, '+00:00')
+            Time.new(now.year + rollover, month, day, hour, minute, 0, "+00:00")
           end
 
         end
