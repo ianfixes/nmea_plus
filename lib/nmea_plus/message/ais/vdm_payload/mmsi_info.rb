@@ -184,7 +184,7 @@ module NMEAPlus
             when 308 then 44
             when 309 then 44
             when 310 then 60
-            when 311 then 60
+            when 311 then 44
             when 312 then 84
             when 314 then 52
             when 316 then 124

@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 ### Fixed
+* [MID 311 Falsely decoding to Bermuda instead of Bahamas](https://github.com/ianfixes/nmea_plus/issues/120)
 
 ### Security
 
@@ -29,6 +30,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 * Ruby 2.2 support (EOL 7 years ago, sorry folks)
+
 
 ## [1.0.25] - 2020-03-02
 ### Security
