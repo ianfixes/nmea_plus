@@ -8,19 +8,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 ### Changed
-* Enable Ruby 3.x
-* Fix Rubocop TODO items, including rspec directory
 
 ### Deprecated
 
 ### Removed
 
 ### Fixed
-* Salinity "no data" bug
-* Date generation when the timezone had a negative offset
 
 ### Security
 
+
+## [1.1.0] - 2025-04-04
+### Changed
+* Enable Ruby 3.x
+* Fix Rubocop TODO items, including rspec directory
+
+### Fixed
+* Salinity "no data" bug
+* Date generation when the timezone had a negative offset
+
+### Removed
+* Ruby 2.2 support (EOL 7 years ago, sorry folks)
 
 ## [1.0.25] - 2020-03-02
 ### Security
@@ -169,7 +177,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Fixed nil handling for various fields
 * Added AIS message types 4, 5, 9, 12, 14, 19, 29, 21
 
-[Unreleased]: https://github.com/ianfixes/nmea_plus/compare/v1.0.25...HEAD
+[Unreleased]: https://github.com/ianfixes/nmea_plus/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/ianfixes/nmea_plus/compare/v1.0.25...v1.1.0
 [1.0.24]: https://github.com/ianfixes/nmea_plus/compare/v1.0.24...v1.0.25
 [1.0.24]: https://github.com/ianfixes/nmea_plus/compare/v1.0.23...v1.0.24
 [1.0.23]: https://github.com/ianfixes/nmea_plus/compare/v1.0.22...v1.0.23

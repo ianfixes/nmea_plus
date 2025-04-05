@@ -1,3 +1,3 @@
 module NMEAPlus
-  VERSION = "1.0.25".freeze
+  VERSION = "1.1.0".freeze
 end
