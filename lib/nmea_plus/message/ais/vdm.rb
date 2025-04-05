@@ -1,4 +1,4 @@
-require 'nmea_plus/message/ais/base_ais'
+require "nmea_plus/message/ais/base_ais"
 
 =begin boilerplate for vdm payload objects
 require 'nmea_plus/message/ais/vdm_payload/vdm_msg'
@@ -17,29 +17,29 @@ end
 
 =end
 
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg1'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg2'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg3'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg4'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg5'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg6'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg7'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg8'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg9'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg10'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg11'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg12'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg13'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg14'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg15'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg16'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg17'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg18'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg19'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg20'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg21'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg24'
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg27'
+require "nmea_plus/message/ais/vdm_payload/vdm_msg1"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg2"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg3"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg4"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg5"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg6"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg7"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg8"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg9"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg10"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg11"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg12"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg13"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg14"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg15"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg16"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg17"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg18"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg19"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg20"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg21"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg24"
+require "nmea_plus/message/ais/vdm_payload/vdm_msg27"
 
 module NMEAPlus
   module Message
@@ -76,8 +76,10 @@ module NMEAPlus
           ret = ""
           loop do
             break if ptr.raw_ais_payload.nil?  # guard against rare instances of message corruption
+
             ret << ptr.raw_ais_payload
             break if ptr.next_part.nil?        # stop when we run out of messages in the chain
+
             ptr = ptr.next_part
           end
           ret
@@ -104,17 +106,18 @@ module NMEAPlus
           loop do
             fill_bits = ptr.ais_payload_fill_bits
             break if ptr.next_part.nil?
+
             ptr = ptr.next_part
           end
           fill_bits.to_i
         end
 
         # perform the 6-bit to 8-bit conversion defined in the spec
-        # @param c [String] a character
+        # @param char [String] a character
         # @param len [Integer] The number of bits to consider
         # @return [String] a binary encoded string
-        def _dearmor6b(c, len = 6)
-          val = c.ord
+        def _dearmor6b(char, len = 6)
+          val = char.ord
           ret = val - (val >= 96 ? 56 : 48)  # Mapped to 2 separate contiguous blocks of ascii, so choose which
           ret.to_s(2).rjust(6, "0")[0..(len - 1)]
         end

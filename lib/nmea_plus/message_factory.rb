@@ -1,4 +1,3 @@
-
 module NMEAPlus
 
   # The base class for MessageFactory objects, which are instantiated in the Parser.  MessageFactory objects
@@ -31,9 +30,9 @@ module NMEAPlus
     # @return [bool]
     def self.message_class_exists?(class_identifier)
       Object::const_get(class_identifier)
-      return true
+      true
     rescue ::NameError
-      return false
+      false
     end
 
     # Shortcut for the full name to a message class built from this factory.
@@ -49,6 +48,7 @@ module NMEAPlus
     # @return [String] The fully qualified message class name
     def self.best_match_for_data_type(data_type)
       return data_type if self.message_class_exists?(self.message_class_name(data_type))
+
       self.alternate_data_type(data_type).each do |alternate_type|
         return alternate_type if self.message_class_exists?(self.message_class_name(alternate_type))
       end
@@ -72,7 +72,7 @@ module NMEAPlus
     # @return [NMEAPlus::Message] A message object
     def self.create(message_prefix, fields, checksum)
       # get the data type and adjust it if necessary (e.g. support for NMEA standard sentences like __AAM)
-      data_type = fields.split(',', 2)[0].upcase  # assumed to be 'GPGGA', etc
+      data_type = fields.split(",", 2)[0].upcase  # assumed to be 'GPGGA', etc
       interpreted_type = self.best_match_for_data_type(data_type)
       class_name = self.message_class_name(interpreted_type)
 

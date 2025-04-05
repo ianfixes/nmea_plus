@@ -8,12 +8,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 ### Changed
+* Enable Ruby 3.x
+* Fix Rubocop TODO items, including rspec directory
 
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+* Salinity "no data" bug
+* Date generation when the timezone had a negative offset
 
 ### Security
 

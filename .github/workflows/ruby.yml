@@ -1,0 +1,44 @@
+name: Ruby CI
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: ['2.3', '2.4', '2.5', '2.6', '2.7', '3.0', '3.1', '3.2', '3.3']
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Ruby ${{ matrix.ruby-version }}
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true
+
+    - name: Run Rubocop
+      if: matrix.ruby-version >= '2.7'
+      run: |
+        bundle exec rubocop --version
+        bundle exec rubocop -D .
+
+    - name: Generate parser
+      run: |
+        pushd parser
+        bundle exec rake
+        popd
+
+    - name: Run RSpec tests
+      run: bundle exec rspec
+
+    - name: Run Yard
+      run: |
+        bundle exec yard

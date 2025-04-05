@@ -1,4 +1,4 @@
-require 'nmea_plus'
+require "nmea_plus"
 
 RSpec.describe NMEAPlus::Decoder, "#parse" do
   describe "testing the parser" do
@@ -22,8 +22,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.arrival_circle_entered?).to eq(true)
         expect(parsed.waypoint_passed?).to eq(true)
         expect(parsed.arrival_circle_radius).to eq(0.10)
-        expect(parsed.arrival_circle_radius_units).to eq('N')
-        expect(parsed.waypoint_id).to eq('WPTNME')
+        expect(parsed.arrival_circle_radius_units).to eq("N")
+        expect(parsed.waypoint_id).to eq("WPTNME")
       end
     end
 
@@ -92,7 +92,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPBEC,220516,5130.02,N,00046.34,W,213.8,T,218.0,M,0004.6,N,EGLM*11"
         parsed = @parser.parse(input)
         now = Time.now
-        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, '+00:00'))
+        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, "+00:00"))
         expect(parsed.waypoint_latitude).to eq(51.50033333333333)
         expect(parsed.waypoint_longitude).to eq(-0.7723333333333334)
         expect(parsed.bearing_true).to eq(213.8)
@@ -107,7 +107,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPBER,220516,5130.02,N,00046.34,W,213.8,T,218.0,M,0004.6,N,EGLM*11"
         parsed = @parser.parse(input)
         now = Time.now
-        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, '+00:00'))
+        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, "+00:00"))
         expect(parsed.waypoint_latitude).to eq(51.50033333333333)
         expect(parsed.waypoint_longitude).to eq(-0.7723333333333334)
         expect(parsed.bearing_true).to eq(213.8)
@@ -133,7 +133,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPBPI,220516,5130.02,N,00046.34,W,213.8,T,218.0,M,0004.6,N,EGLM*11"
         parsed = @parser.parse(input)
         now = Time.now
-        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, '+00:00'))
+        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, "+00:00"))
         expect(parsed.waypoint_latitude).to eq(51.50033333333333)
         expect(parsed.waypoint_longitude).to eq(-0.7723333333333334)
         expect(parsed.bearing_true).to eq(213.8)
@@ -148,7 +148,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPBWC,220516,5130.02,N,00046.34,W,213.8,T,218.0,M,0004.6,N,EGLM*11"
         parsed = @parser.parse(input)
         now = Time.now
-        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, '+00:00'))
+        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, "+00:00"))
         expect(parsed.waypoint_latitude).to eq(51.50033333333333)
         expect(parsed.waypoint_longitude).to eq(-0.7723333333333334)
         expect(parsed.bearing_true).to eq(213.8)
@@ -164,7 +164,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPBWR,220516,5130.02,N,00046.34,W,213.8,T,218.0,M,0004.6,N,EGLM*11"
         parsed = @parser.parse(input)
         now = Time.now
-        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, '+00:00'))
+        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, "+00:00"))
         expect(parsed.waypoint_latitude).to eq(51.50033333333333)
         expect(parsed.waypoint_longitude).to eq(-0.7723333333333334)
         expect(parsed.bearing_true).to eq(213.8)
@@ -220,22 +220,22 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPDCN,1,ab,2.3,A,cd,4.5,V,ef,6.7,A,A,A,A,8.9,N,3*00"
         parsed = @parser.parse(input)
         expect(parsed.decca_chain_id).to eq(1)
-        expect(parsed.red_zone_id).to eq('ab')
+        expect(parsed.red_zone_id).to eq("ab")
         expect(parsed.red_position_line).to eq(2.3)
         expect(parsed.red_master_line_ok?).to eq(true)
-        expect(parsed.green_zone_id).to eq('cd')
+        expect(parsed.green_zone_id).to eq("cd")
         expect(parsed.green_position_line).to eq(4.5)
         expect(parsed.green_master_line_ok?).to eq(false)
-        expect(parsed.purple_zone_id).to eq('ef')
+        expect(parsed.purple_zone_id).to eq("ef")
         expect(parsed.purple_position_line).to eq(6.7)
         expect(parsed.purple_master_line_ok?).to eq(true)
         expect(parsed.use_red_line_navigation?).to eq(true)
         expect(parsed.use_green_line_navigation?).to eq(true)
         expect(parsed.use_purple_line_navigation?).to eq(true)
         expect(parsed.position_uncertainty).to eq(8.9)
-        expect(parsed.position_uncertainty_units).to eq('N')
+        expect(parsed.position_uncertainty_units).to eq("N")
         expect(parsed.fix_data_basis).to eq(3)
-        expect(parsed.fix_data_basis_description).to eq('Lane identification transmissions')
+        expect(parsed.fix_data_basis_description).to eq("Lane identification transmissions")
       end
     end
 
@@ -264,12 +264,12 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly reports various fields" do
         input = "$GPDTM,ab,1,1234,S,5678,W,2.3,dname*00"
         parsed = @parser.parse(input)
-        expect(parsed.code).to eq('ab')
-        expect(parsed.subcode).to eq('1')
+        expect(parsed.code).to eq("ab")
+        expect(parsed.subcode).to eq("1")
         expect(parsed.latitude_offset).to eq(-1234)
         expect(parsed.longitude_offset).to eq(-5678)
         expect(parsed.altitude_meters).to eq(2.3)
-        expect(parsed.datum_name).to eq('dname')
+        expect(parsed.datum_name).to eq("dname")
       end
     end
 
@@ -279,7 +279,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         parsed = @parser.parse(input)
         expect(parsed.transmit_frequency).to eq(1234.1)
         expect(parsed.receive_frequency).to eq(5678.1)
-        expect(parsed.communications_mode).to eq('c')
+        expect(parsed.communications_mode).to eq("c")
         expect(parsed.power_level).to eq(4.3)
       end
     end
@@ -289,7 +289,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPGBS,112233.44,1.2,3.4,5.6,78,9.1,1.3,1.4*00"
         parsed = @parser.parse(input)
         now = Time.now
-        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 11, 22, 33.44, '+00:00'))
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 11, 22, 33.44, "+00:00"))
         expect(parsed.expected_error_latitude_meters).to eq(1.2)
         expect(parsed.expected_error_longitude_meters).to eq(3.4)
         expect(parsed.expected_error_altitude_meters).to eq(5.6)
@@ -305,10 +305,10 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPGDA,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
         parsed = @parser.parse(input)
         now = Time.now
-        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, "+00:00"))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq('1')
+        expect(parsed.waypoint_id).to eq("1")
       end
     end
 
@@ -317,10 +317,10 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPGDF,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
         parsed = @parser.parse(input)
         now = Time.now
-        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, "+00:00"))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq('1')
+        expect(parsed.waypoint_id).to eq("1")
       end
     end
 
@@ -329,10 +329,10 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPGDP,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
         parsed = @parser.parse(input)
         now = Time.now
-        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, "+00:00"))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq('1')
+        expect(parsed.waypoint_id).to eq("1")
       end
     end
 
@@ -341,7 +341,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPGGA,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*4b"
         parsed = @parser.parse(input)
         now = Time.now
-        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, "+00:00"))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
         expect(parsed.fix_quality).to eq(1)
@@ -362,10 +362,10 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPGLA,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
         parsed = @parser.parse(input)
         now = Time.now
-        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, "+00:00"))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq('1')
+        expect(parsed.waypoint_id).to eq("1")
       end
     end
 
@@ -394,10 +394,10 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPGLF,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
         parsed = @parser.parse(input)
         now = Time.now
-        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, "+00:00"))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq('1')
+        expect(parsed.waypoint_id).to eq("1")
       end
     end
 
@@ -408,7 +408,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         parsed = @parser.parse(input)
         expect(parsed.latitude).to eq(49.27416666666666666666)
         expect(parsed.longitude).to eq(-123.18533333333333333)
-        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 22, 54, 44, '+00:00'))
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 22, 54, 44, "+00:00"))
         expect(parsed.valid?).to eq(true)
         expect(parsed.faa_mode).to eq(nil)
       end
@@ -419,10 +419,10 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPGLP,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
         parsed = @parser.parse(input)
         now = Time.now
-        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, "+00:00"))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq('1')
+        expect(parsed.waypoint_id).to eq("1")
       end
     end
 
@@ -431,12 +431,12 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPGNS,225444,4916.45,N,12311.12,W,m,33,hdrop,12.3,34.5,45.6,99*00"
         now = Time.now
         parsed = @parser.parse(input)
-        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 22, 54, 44, '+00:00'))
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 22, 54, 44, "+00:00"))
         expect(parsed.latitude).to eq(49.27416666666666666666)
         expect(parsed.longitude).to eq(-123.18533333333333333)
-        expect(parsed.mode).to eq('m')
+        expect(parsed.mode).to eq("m")
         expect(parsed.satellites).to eq(33)
-        expect(parsed.hdrop).to eq('hdrop')
+        expect(parsed.hdrop).to eq("hdrop")
         expect(parsed.altitude).to eq(12.3)
         expect(parsed.geoidal_separation).to eq(34.5)
         expect(parsed.data_age).to eq(45.6)
@@ -449,10 +449,10 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPGOA,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
         parsed = @parser.parse(input)
         now = Time.now
-        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, "+00:00"))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq('1')
+        expect(parsed.waypoint_id).to eq("1")
       end
     end
 
@@ -461,10 +461,10 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPGOF,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
         parsed = @parser.parse(input)
         now = Time.now
-        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, "+00:00"))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq('1')
+        expect(parsed.waypoint_id).to eq("1")
       end
     end
 
@@ -473,10 +473,10 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPGOP,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
         parsed = @parser.parse(input)
         now = Time.now
-        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, "+00:00"))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq('1')
+        expect(parsed.waypoint_id).to eq("1")
       end
     end
 
@@ -485,7 +485,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         now = Time.now
         input = "$GPGRS,024603.00,1,1.2,2.3,3.4,4.5,5.6,6.7,7.8,8.9,9.1,0.2,1.3,2.4*00"
         parsed = @parser.parse(input)
-        expect(parsed.gga_fix_time).to eq(Time.new(now.year, now.month, now.day, 2, 46, 03, '+00:00'))
+        expect(parsed.gga_fix_time).to eq(Time.new(now.year, now.month, now.day, 2, 46, 3, "+00:00"))
         expect(parsed.gga_includes_residuals?).to eq(true)
         expect(parsed.residual_satellite_1).to eq(1.2)
         expect(parsed.residual_satellite_2).to eq(2.3)
@@ -506,7 +506,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly reports various fields" do
         input = "$GPGSA,M,2,11,22,33,44,55,66,77,88,99,100,110,120,pdop,hdop,vdop*00"
         parsed = @parser.parse(input)
-        expect(parsed.selection_mode).to eq('M')
+        expect(parsed.selection_mode).to eq("M")
         expect(parsed.mode).to eq(2)
         expect(parsed.satellite1).to eq(11)
         expect(parsed.satellite2).to eq(22)
@@ -520,9 +520,9 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.satellite10).to eq(100)
         expect(parsed.satellite11).to eq(110)
         expect(parsed.satellite12).to eq(120)
-        expect(parsed.pdop).to eq('pdop')
-        expect(parsed.hdop).to eq('hdop')
-        expect(parsed.vdop).to eq('vdop')
+        expect(parsed.pdop).to eq("pdop")
+        expect(parsed.hdop).to eq("hdop")
+        expect(parsed.vdop).to eq("vdop")
       end
     end
 
@@ -531,7 +531,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         now = Time.now
         input = "$GPGST,024603.00,1.2,2.3,3.4,4.5,5.6,6.7,7.8*00"
         parsed = @parser.parse(input)
-        expect(parsed.gga_fix_time).to eq(Time.new(now.year, now.month, now.day, 2, 46, 03, '+00:00'))
+        expect(parsed.gga_fix_time).to eq(Time.new(now.year, now.month, now.day, 2, 46, 3, "+00:00"))
         expect(parsed.total_rms_standard_deviation).to eq(1.2)
         expect(parsed.standard_deviation_semimajor_meters).to eq(2.3)
         expect(parsed.standard_deviation_semiminor_meters).to eq(3.4)
@@ -585,12 +585,11 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPGXA,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
         parsed = @parser.parse(input)
         now = Time.now
-        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, "+00:00"))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq('1')
+        expect(parsed.waypoint_id).to eq("1")
         expect(parsed.satellite).to eq(8)
-
       end
     end
 
@@ -599,12 +598,11 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPGXF,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
         parsed = @parser.parse(input)
         now = Time.now
-        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, "+00:00"))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq('1')
+        expect(parsed.waypoint_id).to eq("1")
         expect(parsed.satellite).to eq(8)
-
       end
     end
 
@@ -613,12 +611,11 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPGXP,123519,4807.038,N,01131.000,W,1,08,0.9,545.4,M,46.9,M,2.2,123*00"
         parsed = @parser.parse(input)
         now = Time.now
-        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, '+00:00'))
+        expect(parsed.fix_time).to eq(Time.new(now.year, now.month, now.day, 12, 35, 19, "+00:00"))
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666666666)
-        expect(parsed.waypoint_id).to eq('1')
+        expect(parsed.waypoint_id).to eq("1")
         expect(parsed.satellite).to eq(8)
-
       end
     end
 
@@ -712,8 +709,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly reports various fields" do
         input = "$GPIMA,abcdefghijkl,mnopqrs,4807.038,N,01131.000,W,1.2,T,3.4,M,5.6,N*00"
         parsed = @parser.parse(input)
-        expect(parsed.vessel_name).to eq('abcdefghijkl')
-        expect(parsed.call_sign).to eq('mnopqrs')
+        expect(parsed.vessel_name).to eq("abcdefghijkl")
+        expect(parsed.call_sign).to eq("mnopqrs")
         expect(parsed.latitude).to eq(48.1173)
         expect(parsed.longitude).to eq(-11.516666666666667)
         expect(parsed.true_heading_degrees).to eq(1.2)
@@ -792,9 +789,9 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPMSK,123,A,234,M,333*00"
         parsed = @parser.parse(input)
         expect(parsed.frequency).to eq(123)
-        expect(parsed.frequency_mode).to eq('A')
+        expect(parsed.frequency_mode).to eq("A")
         expect(parsed.bitrate).to eq(234)
-        expect(parsed.bitrate_mode).to eq('M')
+        expect(parsed.bitrate_mode).to eq("M")
         expect(parsed.mss_frequency).to eq(333)
       end
     end
@@ -824,7 +821,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPMTW,2.3,C*00"
         parsed = @parser.parse(input)
         expect(parsed.degrees).to eq(2.3)
-        expect(parsed.units).to eq('C')
+        expect(parsed.units).to eq("C")
       end
     end
 
@@ -851,9 +848,9 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPMWV,45.4,R,3.4,M,A*00"
         parsed = @parser.parse(input)
         expect(parsed.wind_angle).to eq(45.4)
-        expect(parsed.wind_angle_reference).to eq('R')
+        expect(parsed.wind_angle_reference).to eq("R")
         expect(parsed.wind_speed).to eq(3.4)
-        expect(parsed.wind_speed_units).to eq('M')
+        expect(parsed.wind_speed_units).to eq("M")
         expect(parsed.valid?).to eq(true)
       end
     end
@@ -862,16 +859,16 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly reports various fields" do
         input = "$GPOLN,a,1,2,b,3,4,c,5,6*00"
         parsed = @parser.parse(input)
-        expect(parsed.omega_pair1.label).to eq('a')
+        expect(parsed.omega_pair1.label).to eq("a")
         expect(parsed.omega_pair1.first).to eq(1)
         expect(parsed.omega_pair1.second).to eq(2)
-        expect(parsed.omega_pair2.label).to eq('b')
+        expect(parsed.omega_pair2.label).to eq("b")
         expect(parsed.omega_pair2.first).to eq(3)
         expect(parsed.omega_pair2.second).to eq(4)
-        expect(parsed.omega_pair3.label).to eq('c')
+        expect(parsed.omega_pair3.label).to eq("c")
         expect(parsed.omega_pair3.first).to eq(5)
         expect(parsed.omega_pair3.second).to eq(6)
-        expect(parsed.omega_pairs[2].label).to eq('c')
+        expect(parsed.omega_pairs[2].label).to eq("c")
         expect(parsed.omega_pairs[2].first).to eq(5)
         expect(parsed.omega_pairs[2].second).to eq(6)
       end
@@ -890,9 +887,9 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly reports various fields" do
         input = "$GPOMP,1,aa,2,bb,3,cc*00"
         parsed = @parser.parse(input)
-        expect(parsed.pair1).to eq('aa')
-        expect(parsed.pair2).to eq('bb')
-        expect(parsed.pair3).to eq('cc')
+        expect(parsed.pair1).to eq("aa")
+        expect(parsed.pair2).to eq("bb")
+        expect(parsed.pair3).to eq("cc")
       end
     end
 
@@ -900,7 +897,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly reports various fields" do
         input = "$GPONZ,aa*00"
         parsed = @parser.parse(input)
-        expect(parsed.station_identifier).to eq('aa')
+        expect(parsed.station_identifier).to eq("aa")
       end
     end
 
@@ -911,12 +908,12 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.heading_degrees_true).to eq(1.2)
         expect(parsed.valid?).to eq(true)
         expect(parsed.course_degrees_true).to eq(2.3)
-        expect(parsed.course_reference).to eq('cref')
+        expect(parsed.course_reference).to eq("cref")
         expect(parsed.vessel_speed).to eq(4.5)
-        expect(parsed.speed_reference).to eq('sref')
+        expect(parsed.speed_reference).to eq("sref")
         expect(parsed.vessel_set_degrees_true).to eq(5.6)
         expect(parsed.vessel_drift_speed).to eq(6.7)
-        expect(parsed.vessel_drift_speed_units).to eq('unit')
+        expect(parsed.vessel_drift_speed_units).to eq("unit")
       end
     end
 
@@ -924,13 +921,13 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly reports various fields" do
         input = "$GPR00,abc,foo*00"
         parsed = @parser.parse(input)
-        expect(parsed.waypoint_ids).to eq(['abc', 'foo'])
+        expect(parsed.waypoint_ids).to eq(["abc", "foo"])
       end
 
       it "properly handles variadic sentence types" do
         input = "$GPR34,abc,foo,3,4,5,6,7,8,9,10,11,12*00"
         parsed = @parser.parse(input)
-        expect(parsed.waypoint_ids).to eq(['abc', 'foo'] + (3..12).to_a.map(&:to_s))
+        expect(parsed.waypoint_ids).to eq(["abc", "foo"] + (3..12).to_a.map(&:to_s))
       end
     end
 
@@ -955,7 +952,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         parsed = @parser.parse(input)
         expect(parsed.active?).to eq(true)
         expect(parsed.cross_track_error_nautical_miles).to eq(0.66)
-        expect(parsed.direction_to_steer).to eq('L')
+        expect(parsed.direction_to_steer).to eq("L")
         expect(parsed.waypoint_to).to eq(3)
         expect(parsed.waypoint_from).to eq(4)
         expect(parsed.waypoint_latitude).to eq(49.2873333333333333336)
@@ -972,14 +969,14 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly reports various fields" do
         input = "$GPRMC,220516,A,4917.24,N,12309.57,W,4.5,5.6,260715,6.7,W,MOO*00"
         parsed = @parser.parse(input)
-        expect(parsed.utc_time).to eq(Time.new(2015, 7, 26, 22, 5, 16, '+00:00'))
+        expect(parsed.utc_time).to eq(Time.new(2015, 7, 26, 22, 5, 16, "+00:00"))
         expect(parsed.active?).to eq(true)
         expect(parsed.latitude).to eq(49.2873333333333333336)
         expect(parsed.longitude).to eq(-123.1595)
         expect(parsed.speed_over_ground_knots).to eq(4.5)
         expect(parsed.track_made_good_degrees_true).to eq(5.6)
         expect(parsed.magnetic_variation_degrees).to eq(-6.7)
-        expect(parsed.faa_mode).to eq('MOO')
+        expect(parsed.faa_mode).to eq("MOO")
       end
     end
 
@@ -1005,7 +1002,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly reports various fields" do
         input = "$GPRPM,S,2,234.4,39.2,V*00"
         parsed = @parser.parse(input)
-        expect(parsed.source_type).to eq('S')
+        expect(parsed.source_type).to eq("S")
         expect(parsed.source_id).to eq(2)
         expect(parsed.rpm).to eq(234.4)
         expect(parsed.forward_pitch_percentage).to eq(39.2)
@@ -1032,8 +1029,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         parsed = @parser.parse(input)
         expect(parsed.cursor_range_from_ownship).to eq(1.2)
         expect(parsed.cursor_bearing_degrees_clockwise).to eq(2.3)
-        expect(parsed.range_scale).to eq('S')
-        expect(parsed.range_units).to eq('U')
+        expect(parsed.range_scale).to eq("S")
+        expect(parsed.range_units).to eq("U")
       end
     end
 
@@ -1043,8 +1040,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         parsed = @parser.parse(input)
         expect(parsed.total_messages).to eq(3)
         expect(parsed.message_number).to eq(1)
-        expect(parsed.mode).to eq('c')
-        expect(parsed.waypoints).to eq([1,2,3,4])
+        expect(parsed.mode).to eq("c")
+        expect(parsed.waypoints).to eq([1, 2, 3, 4])
       end
     end
 
@@ -1087,7 +1084,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         parsed = @parser.parse(input)
         expect(parsed.total_messages).to eq(3)
         expect(parsed.message_number).to eq(1)
-        expect(parsed.frequencies).to eq([[1, 'a'], [2, 'b'], [3, 'c']])
+        expect(parsed.frequencies).to eq([[1, "a"], [2, "b"], [3, "c"]])
       end
     end
 
@@ -1171,7 +1168,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPSNC,G*00"
         parsed = @parser.parse(input)
         expect(parsed.calculation_basis).to eq(:great_circle)
-        expect(parsed.calculation_basis_description).to eq('Great Circle')
+        expect(parsed.calculation_basis_description).to eq("Great Circle")
       end
     end
 
@@ -1230,11 +1227,11 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPSYS,L,,T,,D*00"
         parsed = @parser.parse(input)
         systems = parsed.systems
-        expect(systems.include? :loran_c).to eq(true)
-        expect(systems.include? :omega).to eq(false)
-        expect(systems.include? :transit).to eq(true)
-        expect(systems.include? :gps).to eq(false)
-        expect(systems.include? :decca).to eq(true)
+        expect(systems.include?(:loran_c)).to eq(true)
+        expect(systems.include?(:omega)).to eq(false)
+        expect(systems.include?(:transit)).to eq(true)
+        expect(systems.include?(:gps)).to eq(false)
+        expect(systems.include?(:decca)).to eq(true)
       end
     end
 
@@ -1289,7 +1286,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPTIF,J*00"
         parsed = @parser.parse(input)
         expect(parsed.initial_flag).to eq(:initialization_data_complete)
-        expect(parsed.initial_flag_description).to eq('Initialization data complete')
+        expect(parsed.initial_flag_description).to eq("Initialization data complete")
       end
     end
 
@@ -1327,7 +1324,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly reports various fields" do
         input = "$GPTRF,220516,260715,4917.24,N,12309.57,W,1.2,3,4,5.6,7,A*00"
         parsed = @parser.parse(input)
-        expect(parsed.utc_time).to eq(Time.new(2015, 7, 26, 22, 5, 16, '+00:00'))
+        expect(parsed.utc_time).to eq(Time.new(2015, 7, 26, 22, 5, 16, "+00:00"))
         expect(parsed.latitude).to eq(49.2873333333333333333333336)
         expect(parsed.longitude).to eq(-123.1595)
         expect(parsed.elevation_angle).to eq(1.2)
@@ -1343,7 +1340,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly reports various fields" do
         input = "$GPTRP,SW*00"
         parsed = @parser.parse(input)
-        expect(parsed.predicted_rise_direction).to eq('SW')
+        expect(parsed.predicted_rise_direction).to eq("SW")
       end
     end
 
@@ -1363,15 +1360,15 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.target_number).to eq(1)
         expect(parsed.target_distance).to eq(2.3)
         expect(parsed.target_bearing_from_ownship).to eq(4.5)
-        expect(parsed.target_bearing_units).to eq('u')
+        expect(parsed.target_bearing_units).to eq("u")
         expect(parsed.target_speed).to eq(5.6)
         expect(parsed.target_course).to eq(6.7)
-        expect(parsed.target_course_units).to eq('u2')
+        expect(parsed.target_course_units).to eq("u2")
         expect(parsed.closest_approach_point_distance).to eq(7.8)
         expect(parsed.closest_approach_point_time).to eq(8.9)
-        expect(parsed.target_name).to eq('foo')
-        expect(parsed.target_status).to eq('bar')
-        expect(parsed.reference_target).to eq('tgt')
+        expect(parsed.target_name).to eq("foo")
+        expect(parsed.target_status).to eq("bar")
+        expect(parsed.reference_target).to eq("tgt")
       end
     end
 
@@ -1477,7 +1474,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.track_degrees_magnetic).to eq(2.3)
         expect(parsed.speed_knots).to eq(3.4)
         expect(parsed.speed_kmh).to eq(4.5)
-        expect(parsed.faa_mode).to eq('m')
+        expect(parsed.faa_mode).to eq("m")
       end
     end
 
@@ -1505,7 +1502,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPVWR,1.2,L,2.3,N,3.4,M,4.5,K*00"
         parsed = @parser.parse(input)
         expect(parsed.measured_wind_direction_degrees).to eq(1.2)
-        expect(parsed.measured_wind_direction_bow).to eq('L')
+        expect(parsed.measured_wind_direction_bow).to eq("L")
         expect(parsed.speed_knots).to eq(2.3)
         expect(parsed.speed_ms).to eq(3.4)
         expect(parsed.speed_kmh).to eq(4.5)
@@ -1517,7 +1514,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPVWT,1.2,L,2.3,N,3.4,M,4.5,K*00"
         parsed = @parser.parse(input)
         expect(parsed.calculated_wind_direction_degrees).to eq(1.2)
-        expect(parsed.calculated_wind_direction_bow).to eq('L')
+        expect(parsed.calculated_wind_direction_bow).to eq("L")
         expect(parsed.speed_knots).to eq(2.3)
         expect(parsed.speed_ms).to eq(3.4)
         expect(parsed.speed_kmh).to eq(4.5)
@@ -1529,7 +1526,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPWCV,1.2,N,abc*00"
         parsed = @parser.parse(input)
         expect(parsed.velocity_knots).to eq(1.2)
-        expect(parsed.waypoint_id).to eq('abc')
+        expect(parsed.waypoint_id).to eq("abc")
       end
     end
 
@@ -1538,7 +1535,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPWDC,1.2,N,abc*00"
         parsed = @parser.parse(input)
         expect(parsed.distance_nautical_miles).to eq(1.2)
-        expect(parsed.waypoint_id).to eq('abc')
+        expect(parsed.waypoint_id).to eq("abc")
       end
     end
 
@@ -1547,7 +1544,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPWDR,1.2,N,abc*00"
         parsed = @parser.parse(input)
         expect(parsed.distance_nautical_miles).to eq(1.2)
-        expect(parsed.waypoint_id).to eq('abc')
+        expect(parsed.waypoint_id).to eq("abc")
       end
     end
 
@@ -1565,8 +1562,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         parsed = @parser.parse(input)
         expect(parsed.distance_nautical_miles).to eq(1.2)
         expect(parsed.distance_kilometers).to eq(2.3)
-        expect(parsed.waypoint_to).to eq('abc')
-        expect(parsed.waypoint_from).to eq('def')
+        expect(parsed.waypoint_to).to eq("abc")
+        expect(parsed.waypoint_from).to eq("def")
       end
     end
 
@@ -1576,8 +1573,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         parsed = @parser.parse(input)
         expect(parsed.distance_nautical_miles).to eq(1.22)
         expect(parsed.distance_kilometers).to eq(2.33)
-        expect(parsed.waypoint_to).to eq('abcc')
-        expect(parsed.waypoint_from).to eq('deff')
+        expect(parsed.waypoint_to).to eq("abcc")
+        expect(parsed.waypoint_from).to eq("deff")
       end
     end
 
@@ -1587,7 +1584,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         parsed = @parser.parse(input)
         expect(parsed.latitude).to eq(49.2873333333333333333333336)
         expect(parsed.longitude).to eq(-123.1595)
-        expect(parsed.name).to eq('foo')
+        expect(parsed.name).to eq("foo")
       end
     end
 
@@ -1595,10 +1592,10 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly reports various fields" do
         input = "$GPXDR,a,2.3,b,foo*00"
         parsed = @parser.parse(input)
-        expect(parsed.type).to eq('a')
+        expect(parsed.type).to eq("a")
         expect(parsed.measurement).to eq(2.3)
-        expect(parsed.measurement_unit).to eq('b')
-        expect(parsed.name).to eq('foo')
+        expect(parsed.measurement_unit).to eq("b")
+        expect(parsed.name).to eq("foo")
       end
     end
 
@@ -1611,7 +1608,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.cross_track_error).to eq(0.10)
         expect(parsed.direction_to_steer).to eq("R")
         expect(parsed.cross_track_units).to eq("N")
-        expect(parsed.faa_mode).to eq('foo')
+        expect(parsed.faa_mode).to eq("foo")
       end
     end
 
@@ -1651,13 +1648,12 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPZAA,160012.71,220516,abc*7D"
         parsed = @parser.parse(input)
         expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71, "+00:00"))
-        expect(parsed.waypoint_id).to eq('abc')
+        expect(parsed.waypoint_id).to eq("abc")
       end
     end
 
     context "when reading a ZCD message" do
       it "properly reports various fields" do
-        now = Time.now
         input = "$GPZCD,1234,+*00"
         parsed = @parser.parse(input)
         expect(parsed.initial_time_seconds).to eq(1234)
@@ -1669,7 +1665,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
       it "properly reports various fields" do
         input = "$GPZDA,160012.71,11,03,2004,-1,00*7D"
         parsed = @parser.parse(input)
-        expect(parsed.utc_time).to eq(Time.new(2004, 03, 11, 16, 0, 12.71, "-01:00"))
+        expect(parsed.utc_time).to eq(Time.new(2004, 3, 11, 16, 0, 12.71, "-01:00"))
       end
     end
 
@@ -1679,7 +1675,7 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPZEV,160012.71,220516,-*7D"
         parsed = @parser.parse(input)
         expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71, "+00:00"))
-        expect(parsed.initial_time).to eq(Time.new(0, 1, 1, 22, 5, 16, '+00:00'))
+        expect(parsed.initial_time).to eq(Time.new(0, 1, 1, 22, 5, 16, "+00:00"))
         expect(parsed.control).to eq(:down)
       end
     end
@@ -1690,8 +1686,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPZFI,160012.71,220516,abc*7D"
         parsed = @parser.parse(input)
         expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71, "+00:00"))
-        expect(parsed.elapsed_time).to eq(Time.new(0, 1, 1, 22, 5, 16, '+00:00'))
-        expect(parsed.waypoint_id).to eq('abc')
+        expect(parsed.elapsed_time).to eq(Time.new(0, 1, 1, 22, 5, 16, "+00:00"))
+        expect(parsed.waypoint_id).to eq("abc")
       end
     end
 
@@ -1700,9 +1696,9 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         now = Time.now
         input = "$GPZFO,160012.71,220516,abc*00"
         parsed = @parser.parse(input)
-        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71, '+00:00'))
-        expect(parsed.elapsed_time).to eq(Time.new(0, 1, 1, 22, 5, 16, '+00:00'))
-        expect(parsed.origin_waypoint_id).to eq('abc')
+        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71, "+00:00"))
+        expect(parsed.elapsed_time).to eq(Time.new(0, 1, 1, 22, 5, 16, "+00:00"))
+        expect(parsed.origin_waypoint_id).to eq("abc")
       end
     end
 
@@ -1723,8 +1719,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPZPI,160012.71,220516,abc*7D"
         parsed = @parser.parse(input)
         expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71, "+00:00"))
-        expect(parsed.arrival_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, '+00:00'))
-        expect(parsed.waypoint_id).to eq('abc')
+        expect(parsed.arrival_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, "+00:00"))
+        expect(parsed.waypoint_id).to eq("abc")
       end
     end
 
@@ -1734,8 +1730,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPZTA,160012.71,220516,abc*7D"
         parsed = @parser.parse(input)
         expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71, "+00:00"))
-        expect(parsed.estimated_arrival_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, '+00:00'))
-        expect(parsed.waypoint_id).to eq('abc')
+        expect(parsed.estimated_arrival_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, "+00:00"))
+        expect(parsed.waypoint_id).to eq("abc")
       end
     end
 
@@ -1745,8 +1741,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPZTE,160012.71,220516,abc*7D"
         parsed = @parser.parse(input)
         expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71, "+00:00"))
-        expect(parsed.estimated_remaining_time).to eq(Time.new(0, 1, 1, 22, 5, 16, '+00:00'))
-        expect(parsed.waypoint_id).to eq('abc')
+        expect(parsed.estimated_remaining_time).to eq(Time.new(0, 1, 1, 22, 5, 16, "+00:00"))
+        expect(parsed.waypoint_id).to eq("abc")
       end
     end
 
@@ -1755,9 +1751,9 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         now = Time.now
         input = "$GPZTG,160012.71,220516,abc*00"
         parsed = @parser.parse(input)
-        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71, '+00:00'))
-        #expect(parsed.remaining_time).to eq(Time.new(1, 0, 0, 22, 5, 16))
-        expect(parsed.destination_waypoint_id).to eq('abc')
+        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71, "+00:00"))
+        # expect(parsed.remaining_time).to eq(Time.new(1, 0, 0, 22, 5, 16))
+        expect(parsed.destination_waypoint_id).to eq("abc")
       end
     end
 
@@ -1767,8 +1763,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPZTI,160012.71,220516,abc*7D"
         parsed = @parser.parse(input)
         expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71, "+00:00"))
-        expect(parsed.estimated_remaining_time).to eq(Time.new(0, 1, 1, 22, 5, 16, '+00:00'))
-        expect(parsed.waypoint_id).to eq('abc')
+        expect(parsed.estimated_remaining_time).to eq(Time.new(0, 1, 1, 22, 5, 16, "+00:00"))
+        expect(parsed.waypoint_id).to eq("abc")
       end
     end
 
@@ -1778,8 +1774,8 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         input = "$GPZWP,160012.71,220516,abc*7D"
         parsed = @parser.parse(input)
         expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 16, 0, 12.71, "+00:00"))
-        expect(parsed.arrival_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, '+00:00'))
-        expect(parsed.waypoint_id).to eq('abc')
+        expect(parsed.arrival_time).to eq(Time.new(now.year, now.month, now.day, 22, 5, 16, "+00:00"))
+        expect(parsed.waypoint_id).to eq("abc")
       end
     end
 
@@ -1797,9 +1793,9 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         now = Time.now
         input = "$PASHR,085335.000,224.19,T,-01.26,+00.83,+00.00,0.101,0.113,0.267,1,0*06"
         parsed = @parser.parse(input)
-        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 8, 53, 35, '+00:00'))
+        expect(parsed.utc_time).to eq(Time.new(now.year, now.month, now.day, 8, 53, 35, "+00:00"))
         expect(parsed.heading_degrees).to eq(224.19)
-        expect(parsed.heading_type).to eq('T')
+        expect(parsed.heading_type).to eq("T")
         expect(parsed.roll_degrees).to eq(-1.26)
         expect(parsed.pitch_degrees).to eq(0.83)
         expect(parsed.heave).to eq(0)
@@ -1810,6 +1806,5 @@ RSpec.describe NMEAPlus::Decoder, "#parse" do
         expect(parsed.imu_status).to eq(0)
       end
     end
-
   end
 end

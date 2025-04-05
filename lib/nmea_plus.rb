@@ -1,7 +1,7 @@
-require 'nmea_plus/version'
+require "nmea_plus/version"
 
-require 'nmea_plus/generated_parser/parser'
-require 'nmea_plus/generated_parser/tokenizer'
+require "nmea_plus/generated_parser/parser"
+require "nmea_plus/generated_parser/tokenizer"
 
 # NMEAPlus contains classes for parsing and decoding NMEA and AIS messages, of which the {NMEAPlus::SourceDecoder}
 # is most relevant.  Parsed messages extend from the {Message::NMEA::NMEAMessage} object, and any binary
@@ -23,6 +23,7 @@ module NMEAPlus
       unless line_reader.respond_to? :each_line
         raise ArgumentError, "line_reader must inherit from type IO (or implement each_line)"
       end
+
       @throw_on_parse_fail = false
       @source = line_reader
       @decoder = NMEAPlus::Decoder.new
@@ -87,6 +88,7 @@ module NMEAPlus
 
         # put message into partials slot (merge if necessary) based on its data type
         slot = msg.data_type
+        # rubocop:disable Lint/DuplicateBranch -- for clarity in what each case means
         if partials[slot].nil?                                           # no message in there
           partials[slot] = msg
         elsif 1 != (msg.message_number - partials[slot].message_number)  # broken sequence
@@ -95,7 +97,7 @@ module NMEAPlus
         else                                                             # chain on to what's there
           partials[slot].add_message_part(msg)
         end
-
+        # rubocop:enable Lint/DuplicateBranch
         # take action if we've completed the chain
         maybe_full = partials[slot]
         if maybe_full.all_messages_received?

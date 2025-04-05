@@ -1,4 +1,4 @@
-require 'nmea_plus'
+require "nmea_plus"
 
 RSpec.describe NMEAPlus::Message::AIS::VDMPayload::VDMMsg, "#stuff" do
   describe "testing the parser" do
@@ -8,11 +8,11 @@ RSpec.describe NMEAPlus::Message::AIS::VDMPayload::VDMMsg, "#stuff" do
 
     context "when using the base VDM payload container type" do
       it "provides correct low-level string functions" do
-        expect(@msg._6b_ascii(0)).to eq('@')
-        expect(@msg._6b_ascii(15)).to eq('O')
-        expect(@msg._6b_ascii(31)).to eq('_')
-        expect(@msg._6b_ascii(47)).to eq('/')
-        expect(@msg._6b_ascii(63)).to eq('?')
+        expect(@msg._6b_ascii(0)).to eq("@")
+        expect(@msg._6b_ascii(15)).to eq("O")
+        expect(@msg._6b_ascii(31)).to eq("_")
+        expect(@msg._6b_ascii(47)).to eq("/")
+        expect(@msg._6b_ascii(63)).to eq("?")
 
         @msg.payload_bitstring = "HELLO@@@TEST@".chars.map { |c| (c.ord - 64).to_s(2).rjust(6, "0") }.join
         expect(@msg._6b_string(0, @msg.payload_bitstring.length)).to eq("HELLO@@@TEST@")

@@ -1,4 +1,4 @@
-require 'nmea_plus/message/nmea/base_nmea'
+require "nmea_plus/message/nmea/base_nmea"
 
 module NMEAPlus
   module Message
@@ -12,11 +12,11 @@ module NMEAPlus
         # @return [Array<Symbol>]
         def systems
           abbr = {
-            'L' => :loran_c,
-            'O' => :omega,
-            'T' => :transit,
-            'G' => :gps,
-            'D' => :decca
+            "L" => :loran_c,
+            "O" => :omega,
+            "T" => :transit,
+            "G" => :gps,
+            "D" => :decca
           }
 
           # drop blank fields and convert to symbol

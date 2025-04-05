@@ -1,5 +1,5 @@
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg8_dynamic_payload'
-require 'nmea_plus/message/ais/vdm_payload/sub_area'
+require "nmea_plus/message/ais/vdm_payload/vdm_msg8_dynamic_payload"
+require "nmea_plus/message/ais/vdm_payload/sub_area"
 
 module NMEAPlus
   module Message
@@ -43,6 +43,7 @@ module NMEAPlus
           # @!parse attr_reader :notice_description
           # @return [String] Area notice description
           def notice_description
+            # rubocop:disable Lint/DuplicateBranch
             case notice_id
             when 0 then "Caution Area: Marine mammals habitat"
             when 1 then "Caution Area: Marine mammals in area - reduce speed"
@@ -173,6 +174,7 @@ module NMEAPlus
             when 126 then "Cancellation - cancel area as identified by Message Linkage ID"
             when 127 then "Undefined (default)"
             end
+            # rubocop:enable Lint/DuplicateBranch
           end
 
           # @!parse attr_reader :utc_time
@@ -196,6 +198,7 @@ module NMEAPlus
           def sub_area_text
             texts = sub_areas.select { |a| a.shape_id == 5 }
             return nil if texts.empty?
+
             texts.collect(&:text).join
           end
 

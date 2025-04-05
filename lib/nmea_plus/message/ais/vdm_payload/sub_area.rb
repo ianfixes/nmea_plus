@@ -1,4 +1,3 @@
-
 module NMEAPlus
   module Message
     module AIS
@@ -40,8 +39,8 @@ module NMEAPlus
 
         # SubArea structure base type for a region anchored to a point
         class SubAreaAnchored < SubAreaScaled
-          payload_reader :longitude, 5, 25, :_I, 60 * 10**3, 181
-          payload_reader :latitude, 30, 24, :_I, 60 * 10**3, 91
+          payload_reader :longitude, 5, 25, :_I, 60 * (10**3), 181
+          payload_reader :latitude, 30, 24, :_I, 60 * (10**3), 91
           payload_reader :precision, 54, 3, :_u
         end
 

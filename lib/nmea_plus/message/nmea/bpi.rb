@@ -1,4 +1,4 @@
-require 'nmea_plus/message/nmea/bwr'
+require "nmea_plus/message/nmea/bwr"
 
 module NMEAPlus
   module Message

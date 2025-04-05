@@ -1,4 +1,4 @@
-require 'nmea_plus/message/nmea/base_nmea'
+require "nmea_plus/message/nmea/base_nmea"
 
 module NMEAPlus
   module Message
@@ -14,7 +14,7 @@ module NMEAPlus
         # @!parse attr_reader :ecds
         # @return [Array<Integer>]
         def ecds
-          (0..5).to_a.map { |x| 2 * x + 2 } .map { |i| @fields[i].to_i }
+          (0..5).to_a.map { |x| (2 * x) + 2 }.map { |i| @fields[i].to_i }
         end
       end
     end

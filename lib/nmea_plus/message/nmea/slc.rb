@@ -1,4 +1,4 @@
-require 'nmea_plus/message/nmea/base_nmea'
+require "nmea_plus/message/nmea/base_nmea"
 
 module NMEAPlus
   module Message
@@ -57,7 +57,7 @@ module NMEAPlus
             SLCStationReport.new(@fields[10..14], false),
             SLCStationReport.new(@fields[15..19], false),
             SLCStationReport.new(@fields[20..24], false),
-            SLCStationReport.new(@fields[25..29], false)
+            SLCStationReport.new(@fields[25..29], false),
           ]
         end
 

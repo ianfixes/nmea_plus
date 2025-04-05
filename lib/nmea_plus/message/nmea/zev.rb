@@ -1,4 +1,4 @@
-require 'nmea_plus/message/nmea/zzu'
+require "nmea_plus/message/nmea/zzu"
 
 module NMEAPlus
   module Message
@@ -6,6 +6,12 @@ module NMEAPlus
       # ZEV - Event Timer
       # Limited utility, no recommended replacement.
       class ZEV < NMEAPlus::Message::NMEA::ZZU
+        CONTROL_FLAGS = {
+          "+" => :up,
+          "-" => :down,
+          "V" => :stop
+        }.freeze
+
         # Timer initial value
         field_reader :initial_time, 2, :_interval_hms
 
@@ -13,11 +19,7 @@ module NMEAPlus
         # @!parse attr_reader :control
         # @return [Symbol]
         def control
-          case @fields[3]
-          when '+' then :up
-          when '-' then :down
-          when 'V' then :stop
-          end
+          CONTROL_FLAGS[@fields[3]]
         end
       end
     end

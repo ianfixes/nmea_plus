@@ -1,7 +1,6 @@
-
-require 'nmea_plus/message_factory'
-require 'nmea_plus/message/ais/vdm'
-require 'nmea_plus/message/ais/vdo'
+require "nmea_plus/message_factory"
+require "nmea_plus/message/ais/vdm"
+require "nmea_plus/message/ais/vdo"
 
 module NMEAPlus
 

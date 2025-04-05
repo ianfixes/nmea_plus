@@ -1,4 +1,4 @@
-require 'nmea_plus/message/nmea/base_nmea'
+require "nmea_plus/message/nmea/base_nmea"
 
 module NMEAPlus
   module Message
@@ -14,6 +14,7 @@ module NMEAPlus
         # @return [Integer]
         def gri_microseconds
           return nil if chain_identifier.nil?
+
           chain_identifier * 10
         end
       end

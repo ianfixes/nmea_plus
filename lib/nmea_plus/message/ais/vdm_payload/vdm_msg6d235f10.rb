@@ -1,4 +1,4 @@
-require 'nmea_plus/message/ais/vdm_payload/vdm_msg6_dynamic_payload'
+require "nmea_plus/message/ais/vdm_payload/vdm_msg6_dynamic_payload"
 
 module NMEAPlus
   module Message
