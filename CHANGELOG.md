@@ -14,9 +14,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 ### Fixed
-* [MID 311 Falsely decoding to Bermuda instead of Bahamas](https://github.com/ianfixes/nmea_plus/issues/120)
 
 ### Security
+
+
+## [1.1.1] - 2025-04-04
+### Fixed
+* [MID 311 Falsely decoding to Bermuda instead of Bahamas](https://github.com/ianfixes/nmea_plus/issues/120)
 
 
 ## [1.1.0] - 2025-04-04
@@ -179,7 +183,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * Fixed nil handling for various fields
 * Added AIS message types 4, 5, 9, 12, 14, 19, 29, 21
 
-[Unreleased]: https://github.com/ianfixes/nmea_plus/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/ianfixes/nmea_plus/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/ianfixes/nmea_plus/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/ianfixes/nmea_plus/compare/v1.0.25...v1.1.0
 [1.0.24]: https://github.com/ianfixes/nmea_plus/compare/v1.0.24...v1.0.25
 [1.0.24]: https://github.com/ianfixes/nmea_plus/compare/v1.0.23...v1.0.24
